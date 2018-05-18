@@ -4,6 +4,6 @@ from . import views
 
 
 urlpatterns = [
-url('capitalize/',views.capitalize,name='capitalize'),
-url('',views.home,name='home'),
+url(r'^t/(?P<tool_name>[^/]+)/$',views.tool,name='tool'),
+url(r'^$',views.home,name='home'),
 ]
