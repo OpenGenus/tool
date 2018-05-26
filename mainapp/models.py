@@ -4,11 +4,17 @@ from django.db import models
 class Tag(models.Model):
     tag = models.CharField(max_length=30)
 
+    def __str__(self):
+        return self.tag
+
 class Author(models.Model):
     name = models.CharField(max_length=30)
     website =  models.URLField(max_length=100)
     discourse = models.URLField(max_length=100)
     details = models.TextField()
+
+    def __str__(self):
+        return self.name
 
 class Tool(models.Model):
     tool_name = models.CharField(max_length=30)

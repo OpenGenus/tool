@@ -4,7 +4,6 @@ venv/
 *.db
 *.pid
 media/
-static/
 __ pycache __
 .DS_Store
 **/migrations/**

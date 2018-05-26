@@ -1,25 +1,59 @@
 {% extends "base.html" %}
+{% load staticfiles %}
+
+{% block head %}
+
+<link rel="stylesheet" type="text/css"  href="{% static 'css/style.css' %}">
+
+{% endblock %}
+
 
 {% block content %}
-<h1>
-Capitalize
-</h1>
 
-
+<div class="container">
 <div class="row">
-  <div class="col-md-3 col-md-offset-5">
-    <button type="button" class="btn btn-flat btn-lg" onclick="capitalize()">Capitalize</button>
-  </div>
+<div class="col-sm-5">
+
+    <h1 class="text-left">{{tool.tool_name}}</h1>
+
+    <p class="left">
+    {{tool.short_description}}
+    </p>
+</div>
 </div>
 
 <div class="row">
-  <div class="col-sm-5  col-sm-offset-1">
+  <div class="col-sm-5">
+    <p>
+    Author: {{tool.author}}
+  </p>
+  Tags:  {% for tag in tool.tags.all %}
+        {% if forloop.last %}
+          {{tag}}
+        {% else %}
+          {{tag}},
+        {% endif %}
+    {% endfor %}
+  </p>
+  </div>
+</div>
+
+
+<div class="row">
+  <div class="col-sm-5 col-sm-offset-5">
+    <button type="button" class="btn btn-flat btn-lg " onclick="capitalize()">Capitalize</button>
+  </div>
+</div>
+<br>
+
+<div class="row">
+  <div class="col-sm-6">
       <div class="form-group">
           <label for="inputtextarea">Input</label>
           <textarea class="form-control rounded-0" id="inputtextarea" rows="10" placeholder="Start Typing..."></textarea>
       </div>
   </div>
-  <div class="col-sm-5">
+  <div class="col-sm-6">
     <div class="form-group">
         <label for="outputtextarea">Output</label>
         <textarea class="form-control rounded-0" id="outputtextarea" rows="10" placeholder="Output..." disabled></textarea>
@@ -27,6 +61,29 @@ Capitalize
   </div>
 
 </div>
+
+<br>
+<div class="row">
+  <p>Editors:
+      {% for editor in tool.editors.all %}
+      {% if forloop.last %}
+        {{editor}}
+      {% else %}
+        {{editor}},
+      {% endif %}
+      {% endfor %}
+  </p>
+<p>Related tools:
+</p>
+</div>
+
+
+
+<div class="row">
+
+</div>
+</div>
+
 
 
 
