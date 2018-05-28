@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+
+{% block content %}
+
+
+<div class="container">
+
+
+           <div class="modal-body text-center">
+
+               <img src="{{user_profile.profilepic.url}}" name="aboutme" width="140" height="140" border="0" class="img-circle"></a>
+               <h3 class="media-heading">{{user_profile.user.username}}<small>{{user_profile.name}}</small></h3>
+               <span><strong>Links: </strong></span>
+                <a href="{{user_profile.github}}" target="_blank"><span class="label label-info">Github</span></a>
+                <a href="{{user_profile.discourse}}" target="_blank"><span class="label label-info">Discourse</span></a>
+                <a href="{{user_profile.website}}" target="_blank"><span class="label label-info">Website</span></a>
+
+               <hr>
+
+               <p class="text-left">
+                 <strong>About: </strong><br>
+                  {{user_profile.about}} <br>
+              </p>
+              <hr>
+              <p class="text-left">
+                <strong>Tools: </strong><br>
+              {% for tool in tools%}
+              <a href='{% url 'tool' tool_name=tool.url_endpoint %}'>
+               {{tool.tool_name}}</a>
+              {% endfor %}
+                 <br>
+             </p>
+           </div>
+
+
+       </div>
+
+
+
+{% endblock %}
