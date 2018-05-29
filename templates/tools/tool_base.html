@@ -1,0 +1,68 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+
+{% block head %}
+<link rel="stylesheet" type="text/css"  href="{% static 'css/style.css' %}">
+{% endblock %}
+
+
+
+{% block content %}
+
+<div class="container">
+
+  <div class="row">
+    <div class="col-sm-5">
+        <h1 class="text-left">{{tool.name}}</h1>
+        <p class="left">{{tool.short_description}}</p>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-sm-5">
+      <p>Author: <a href="{% url 'user_profile' user_name=tool.author.user.username  %} ">{{tool.author.name}}</a>
+      </p>
+      <p>
+    Tags: {% for tag in tool.tags.all %}
+
+        <a href="{% url 'tag' tag_name=tag.tag %}"> {{tag}}</a> 
+            {% if not forloop.last %}
+            ,
+            {% endif %}
+          {% endfor %}
+    </p>
+    </div>
+  </div>
+
+  {% block tool %}
+
+  {% endblock %}
+<br>
+
+  <div class="row">
+    <p>Editors:
+        {% for editor in tool.editors.all %}
+        {% if forloop.last %}
+          {{editor}}
+        {% else %}
+          {{editor}},
+        {% endif %}
+        {% endfor %}
+    </p>
+  <p>Related tools:
+    {% for related_tool in tool.related_tools.all %}
+    {% if forloop.last %}
+    <a href='  {%url 'tool' tool_name=related_tool.url_endpoint %} '>{{related_tool.name}}</a>
+    {% else %}
+      {{related_tool}},
+    {% endif %}
+    {% endfor %}
+
+  </p>
+  </div>
+
+
+</div>
+
+
+{% endblock %}

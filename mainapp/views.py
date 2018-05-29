@@ -6,11 +6,13 @@ from . import models
 
 
 def home(request):
-    return render(request,'general/home.html')
+    tools = models.Tool.objects.all()
+    return render(request,'general/home.html',{'tools':tools})
 
 def tool(request,tool_name):
     tool = get_object_or_404(models.Tool,url_endpoint__iexact=tool_name)
     context={'tool':tool}
+    print(tool.tags.all())
     return render(request,'tools/{0}'.format(tool.template_name),context)
 
 def user_profile(request,user_name):
@@ -19,3 +21,9 @@ def user_profile(request,user_name):
     tools = user_profile.author_tool_set.all()
     return render(request,'user/profile.html',
                                         {'user_profile':user_profile,'tools':tools})
+
+def tags(request,tag_name):
+    tag = get_object_or_404(models.Tag,tag=tag_name)
+    tools = tag.tool_set.all()
+    print(tools)
+    return render(request,'general/tags.html',{'tools':tools})

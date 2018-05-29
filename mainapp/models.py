@@ -16,11 +16,12 @@ class UserProfile(models.Model):
     def __str__(self):
         return self.name
 
-@receiver(post_save, sender=User)
-def create_or_update_user_profile(sender, instance, created, **kwargs):
-    if created:
-        UserProfile.objects.create(user=instance)
-    instance.profile.save()
+def create_profile(sender=User, **kwargs):
+    if kwargs['created']:
+        user_profile = UserProfile.objects.create(user = kwargs['instance'])
+
+post_save.connect(create_profile, sender=User)
+
 
 
 class Tag(models.Model):
@@ -32,7 +33,7 @@ class Tag(models.Model):
 
 
 class Tool(models.Model):
-    tool_name = models.CharField(max_length=30)
+    name = models.CharField(max_length=30)
     url_endpoint = models.CharField(max_length=30,blank=True)
     meta_description = models.TextField(blank=True)
     meta_title = models.CharField(max_length=30,blank=True  )
@@ -42,8 +43,9 @@ class Tool(models.Model):
     editors = models.ManyToManyField(UserProfile, related_name='editors_tool_set',blank=True)
     tags = models.ManyToManyField(Tag,blank=True)
     template_name = models.CharField(max_length=30,blank=False)
+    related_tools = models.ManyToManyField("self", blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
     def __str__(self):
-        return self.tool_name
+        return self.name

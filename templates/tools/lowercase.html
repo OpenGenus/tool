@@ -4,7 +4,7 @@
 {% block tool %}
   <div class="row">
     <div class="col-sm-5 col-sm-offset-5">
-      <button type="button" class="btn btn-flat btn-lg " onclick="capitalize()">Capitalize</button>
+      <button type="button" class="btn btn-flat btn-lg " onclick="lowercase()">Lowercase</button>
     </div>
   </div>
   <br>
@@ -30,8 +30,8 @@
 
 
 <script type="text/javascript">
-function capitalize() {
-  var text = $('#inputtextarea').val().toUpperCase();
+function lowercase() {
+  var text = $('#inputtextarea').val().toLowerCase();
   $('#outputtextarea').val(text);
 }
 
