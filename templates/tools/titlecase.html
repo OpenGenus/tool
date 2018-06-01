@@ -1,0 +1,47 @@
+{% extends "tools/tool_base.html" %}
+{% load staticfiles %}
+
+{% block tool %}
+  <div class="row">
+    <div class="col-sm-5 col-sm-offset-5">
+      <button type="button" class="btn btn-flat btn-lg " onclick="toTitleCase()">Title Case</button>
+    </div>
+  </div>
+  <br>
+
+  <div class="row">
+    <div class="col-sm-6">
+        <div class="form-group">
+            <label for="inputtextarea">Input</label>
+            <textarea class="form-control rounded-0" id="inputtextarea" rows="10" placeholder="Start Typing..."></textarea>
+        </div>
+    </div>
+    <div class="col-sm-6">
+      <div class="form-group">
+          <label for="outputtextarea">Output</label>
+          <textarea class="form-control rounded-0" id="outputtextarea" rows="10" placeholder="Output..." disabled></textarea>
+      </div>
+    </div>
+
+  </div>
+
+
+
+
+
+<script type="text/javascript">
+
+function toTitleCase()
+{
+  var str = $('#inputtextarea').val();
+  text = str.replace(/\w\S*/g, function(txt){
+            return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();
+            });
+
+  $('#outputtextarea').val(text);
+   }
+
+</script>
+
+
+{% endblock %}

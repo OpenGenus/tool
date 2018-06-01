@@ -12,7 +12,7 @@
 <div class="container">
 
   <div class="row">
-    <div class="col-sm-5">
+    <div class="col-sm-12">
         <h1 class="text-left">{{tool.name}}</h1>
         <p class="left">{{tool.short_description}}</p>
     </div>
@@ -25,7 +25,7 @@
       <p>
     Tags: {% for tag in tool.tags.all %}
 
-        <a href="{% url 'tag' tag_name=tag.tag %}"> {{tag}}</a> 
+        <a href="{% url 'tag' tag_name=tag.tag %}"> {{tag}}</a>
             {% if not forloop.last %}
             ,
             {% endif %}
@@ -51,10 +51,10 @@
     </p>
   <p>Related tools:
     {% for related_tool in tool.related_tools.all %}
-    {% if forloop.last %}
     <a href='  {%url 'tool' tool_name=related_tool.url_endpoint %} '>{{related_tool.name}}</a>
-    {% else %}
-      {{related_tool}},
+
+    {% if not forloop.last %}
+      ,
     {% endif %}
     {% endfor %}
 

@@ -1,0 +1,43 @@
+{% extends "tools/tool_base.html" %}
+{% load staticfiles %}
+
+{% block tool %}
+  <div class="row">
+    <div class="col-sm-5 col-sm-offset-5">
+      <button type="button" class="btn btn-flat btn-lg " onclick="convertToSentenceCase()"> Sentence Case</button>
+    </div>
+  </div>
+  <br>
+
+  <div class="row">
+    <div class="col-sm-6">
+        <div class="form-group">
+            <label for="inputtextarea">Input</label>
+            <textarea class="form-control rounded-0" id="inputtextarea" rows="10" placeholder="Start Typing..."></textarea>
+        </div>
+    </div>
+    <div class="col-sm-6">
+      <div class="form-group">
+          <label for="outputtextarea">Output</label>
+          <textarea class="form-control rounded-0" id="outputtextarea" rows="10" placeholder="Output..." disabled></textarea>
+      </div>
+    </div>
+
+  </div>
+
+
+
+
+
+<script type="text/javascript">
+
+   function convertToSentenceCase() {
+     var str = $('#inputtextarea').val();
+     var text = str.toLowerCase().replace(/(^\s*\w|[\.\!\?]\s*\w)/g,function(c){return c.toUpperCase()});
+    $('#outputtextarea').val(text);
+   }
+
+</script>
+
+
+{% endblock %}
