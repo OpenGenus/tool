@@ -1,0 +1,18 @@
+{% extends "tools/tool_base.html" %}
+{% load staticfiles %}
+
+
+
+{% block tool %}
+
+<form  action="/convert_file/" method="post" enctype="multipart/form-data">
+  {%csrf_token%}
+  <input type="file" name="file">
+  <input type="hidden" name="convert_to" value="pdf"/>
+  <button type="submit">Convert</button>
+</form>
+
+
+
+
+{% endblock %}
