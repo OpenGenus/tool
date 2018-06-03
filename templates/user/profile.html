@@ -27,7 +27,7 @@
                 <strong>Tools: </strong><br>
               {% for tool in tools%}
               <a href='{% url 'tool' tool_name=tool.url_endpoint %}'>
-               {{tool.tool_name}}</a>
+               {{tool.name}}</a>
               {% endfor %}
                  <br>
              </p>

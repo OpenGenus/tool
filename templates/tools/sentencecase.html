@@ -4,7 +4,7 @@
 {% block tool %}
   <div class="row">
     <div class="col-sm-5 col-sm-offset-5">
-      <button type="button" class="btn btn-flat btn-lg " onclick="capitalize()">Capitalize</button>
+      <button type="button" class="btn btn-flat btn-lg " onclick="convertToSentenceCase()"> Sentence Case</button>
     </div>
   </div>
   <br>
@@ -30,10 +30,12 @@
 
 
 <script type="text/javascript">
-function capitalize() {
-  var text = $('#inputtextarea').val().toUpperCase();
-  $('#outputtextarea').val(text);
-}
+
+   function convertToSentenceCase() {
+     var str = $('#inputtextarea').val();
+     var text = str.toLowerCase().replace(/(^\s*\w|[\.\!\?]\s*\w)/g,function(c){return c.toUpperCase()});
+    $('#outputtextarea').val(text);
+   }
 
 </script>
 
