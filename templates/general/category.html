@@ -1,46 +1,34 @@
 {% extends 'base.html' %}
-{% load staticfiles %}
-{% load tool_category %}
-{% block head %}
 
-<link rel="stylesheet" href="{% static 'css/home.css' %}">
-
-{% endblock %}
 
 {% block content %}
+<h1>{{category}}</h1>
 
 <div class="container">
 
-{% for category in categories  %}
-<h2>{{category}}</h2>
 
   <div class="row">
-  {% for tool in tools|tool_category:category|slice:":3"%}
+  {% for tool in tools %}
 <div class="col-md-3 offset-md-1">
     <a href="{% url 'tool' tool_name=tool.url_endpoint %}" style=" text-decoration : none; color : #000;">
-        <div class="card bg-light mb-4" style="max-width: 60rem;">
+        <div class="card bg-light mb-4" style="max-width: 50rem;">
               <div class="card-header">{{tool.name}}</div>
               <div class="card-body">
+              {# <h5 class="card-title">Light card title</h5> #}
               <p class="card-text">{{tool.short_description|truncatewords:30 }}</p>
               </div>
         </div>
     </a>
 </div>
-{%endfor%}
+      {% if forloop.counter|divisibleby:4 %}
   </div>
-  <a href="{% url 'category' category_name=category%}">more...</a>
-<br>
-<br>
+  <div class="row">
+      {% endif %}
   {% endfor %}
+  </div>
+
 <br>
-
-
 
 </div>
-
-
-{% endblock%}
-
-{% block scripts %}
 
 {% endblock %}
