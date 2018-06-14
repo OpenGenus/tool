@@ -7,7 +7,9 @@ from . import models
 
 def home(request):
     tools = models.Tool.objects.all()
-    return render(request,'general/home.html',{'tools':tools})
+    categories = models.Tool.objects.order_by().values_list('category',flat=True).distinct()
+    context={'tools':tools,'categories':categories}
+    return render(request,'general/home.html',context)
 
 def tool(request,tool_name):
     tool = get_object_or_404(models.Tool,url_endpoint__iexact=tool_name)
@@ -27,6 +29,13 @@ def tags(request,tag_name):
     tools = tag.tool_set.all()
     print(tools)
     return render(request,'general/tags.html',{'tools':tools})
+
+
+def category(request,category_name):
+    tools = models.Tool.objects.filter(category__iexact=category_name)
+    context= {'category':category,'tools':tools}
+    return render(request,'general/category.html',context)
+
 import os
 import pypandoc
 from django.core.files.storage import default_storage
