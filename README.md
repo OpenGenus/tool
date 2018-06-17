@@ -2,7 +2,7 @@
 # tool
 
 ## Introduction
- This project is aimed to build a network of tools. The tools vary from simple document conversion tools to real time advice tool. Users will be able to add new tools and interact socially with each other.
+ This project is aimed to build a network of tools. The tools vary from simple document conversion tools to real time advice tools. Users will be able to add new tools and interact socially with each other.
 
 ## Requirements
 
@@ -38,12 +38,12 @@ pip install -r requirements.txt
 ## Running on localhost
 
 In `settings.py` change DEBUG to True.
-Before running the app make sure to migrate and run collecstatic
+Before running the app make sure to migrate and run collectstatic
 ```
 python manage.py makemigrations
 python manage.py migrate
 
-python manage.py collecstatic
+python manage.py collectstatic
 
 ```
 now run using *python manage.py runserver*
