@@ -28,13 +28,19 @@
 
 <script type="text/javascript">
 function UpSideDown() {
-  var strin = $('#inputtextarea').val();
+  var strin = $('#inputtextarea').val().split("\n");
   var n = strin.length;
   let new_str='';
   for(var i=0;i<n;i++)
   {
-    if(flipTable[strin[i]])
-    new_str += flipTable[strin[i]];
+    for(var j=0;j<strin[i].length;j++)
+    {
+    if(flipTable[strin[i][j]])
+    new_str += flipTable[strin[i][j]];
+    else
+    new_str += strin[i][j];
+    }
+    new_str += "\n";
   }
   $('#outputtextarea').val(new_str);
 }
