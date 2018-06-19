@@ -1,0 +1,47 @@
+{% extends "tools/tool_base.html" %}
+{% load staticfiles %}
+
+{% block tool %}
+  <div class="row">
+    <div class="col-sm-5 col-sm-offset-5">
+      <button type="button" class="btn btn-flat btn-lg " onclick="UpSideDown()">UpSide Down</button>
+    </div>
+  </div>
+  <br>
+
+  <div class="row">
+    <div class="col-sm-6">
+        <div class="form-group">
+            <label for="inputtextarea">Input</label>
+            <textarea class="form-control rounded-0" id="inputtextarea" rows="10" placeholder="Start Typing..."></textarea>
+        </div>
+    </div>
+    <div class="col-sm-6">
+      <div class="form-group">
+          <label for="outputtextarea">Output</label>
+          <textarea class="form-control rounded-0" id="outputtextarea" rows="10" placeholder="Output..." disabled></textarea>
+      </div>
+    </div>
+
+  </div>
+
+
+<script type="text/javascript">
+function UpSideDown() {
+  var strin = $('#inputtextarea').val();
+  var n = strin.length;
+  let new_str='';
+  for(var i=0;i<n;i++)
+  {
+    if(flipTable[strin[i]])
+    new_str += flipTable[strin[i]];
+  }
+  $('#outputtextarea').val(new_str);
+}
+
+var flipTable = {"a":"\u0250","b":"\u0071","c":"\u0254","d":"\u0070","e":"\u01DD","f":"\u025F","g":"\u0253","h":"\u0265","i":"\u1D09","j":"\u027E","k":"\u029E","l":"\u006C","m":"\u026F","n":"\u0075","o":"\u006F","p":"\u0064","q":"\u0062","r":"\u0279","s":"\u0073","t":"\u0287","u":"\u006E","v":"\u028C","w":"\u028D","x":"\u0078","y":"\u028E","z":"\u007A","A":"\u2200","B":"\u10412","C":"\u0186","D":"\u15E1","E":"\u018E","F":"\u2132","G":"\u2141","H":"\u0048","I":"\u0049","J":"\u017F","K":"\uA4D8","L":"\u2142","M":"\u0057","N":"\u004E","O":"\u004F","P":"\u0500","Q":"\u10E2","R":"\u1D1A","S":"\u0053","T":"\u22A5","U":"\u2229","V":"\u039B","W":"\u004D","X":"\u0058","Y":"\u2144","Z":"\u005A"," ":" ","1":"\u21C2","2":"\u218A","3":"\u218B","4":"\u07C8","5":"\u03DA","6":"\u0039","7":"\u3125","8":"\u0038","9":"\u0036","0":"\u0030","&":"\u214B","_":"\u203E","?":"\u00BF","!":"\u00A1",'"':"\u201E","'":"\u002C",".":"\u02D9",",":"\u0027",";":"\u061B"};
+
+</script>
+
+
+{% endblock %}
