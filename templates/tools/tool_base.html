@@ -49,6 +49,8 @@
         {% endif %}
         {% endfor %}
     </p>
+  </div>
+    <div class="row">
   <p>Related tools:
     {% for related_tool in tool.related_tools.all %}
     <a href='  {%url 'tool' tool_name=related_tool.url_endpoint %} '>{{related_tool.name}}</a>

@@ -1,0 +1,36 @@
+{% extends "tools/tool_base.html" %}
+{% load staticfiles %}
+
+{% block head %}
+<link rel='stylesheet prefetch' href='https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.38.0/codemirror.css'>
+<link rel='stylesheet prefetch' href='https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.38.0/theme/twilight.css'>
+{% endblock %}
+
+{% block tool %}
+  <br>
+  <div class="row">
+    <div class="col-sm-12">
+        <div class="form-group">
+            <label for="inputtextarea"><b>Code Editor</b></label>
+            <textarea class="form-control rounded-0 CodeMirror" id="inputtextarea" rows="10"></textarea>
+        </div>
+    </div>
+  </div>
+{% endblock %}
+
+{% block scripts %}
+<script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.38.0/codemirror.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.38.0/mode/javascript/javascript.js"></script>
+<script type="text/javascript">
+var config = {
+    lineNumbers     : true,
+    lineWrapping    : true,
+    mode            : "javascript",
+    theme           : "twilight",
+    tabSize         : 4,
+    indentUnit      : 4
+  };
+var myCodeMirror = CodeMirror.fromTextArea(document.getElementById("inputtextarea"), config);
+</script>
+{% endblock %}
+{# https://cdnjs.com/libraries/codemirror/5.38.0 #}

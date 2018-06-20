@@ -24,18 +24,13 @@
     </div>
 
   </div>
+{% endblock %}
 
-
-
-
-
-<script type="text/javascript">
-function capitalize() {
-  var text = $('#inputtextarea').val().toUpperCase();
-  $('#outputtextarea').val(text);
-}
-
-</script>
-
-
+{% block scripts %}
+  <script type="text/javascript">
+  function capitalize() {
+    var text = $('#inputtextarea').val().toUpperCase();
+    $('#outputtextarea').val(text);
+  }
+  </script>
 {% endblock %}

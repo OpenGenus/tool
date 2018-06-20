@@ -25,17 +25,15 @@
 
   </div>
 
+{% endblock %}
 
+{% block scripts %}
 
+  <script type="text/javascript">
+  function lowercase() {
+    var text = $('#inputtextarea').val().toLowerCase();
+    $('#outputtextarea').val(text);
+  }
 
-
-<script type="text/javascript">
-function lowercase() {
-  var text = $('#inputtextarea').val().toLowerCase();
-  $('#outputtextarea').val(text);
-}
-
-</script>
-
-
+  </script>
 {% endblock %}
