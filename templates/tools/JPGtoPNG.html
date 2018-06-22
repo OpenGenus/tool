@@ -1,0 +1,32 @@
+{% extends "tools/tool_base.html" %}
+{% load staticfiles %}
+
+
+
+{% block tool %}
+
+<form  action="/JPG_To_PNG/" method="post" id="form" enctype="multipart/form-data">
+  {%csrf_token%}
+  <input type="file" name="file" id="file" accept=".jpg" title="Select JPG file">
+  <input type="hidden" name="convert_to" value="png"/>
+  <button type="submit">Convert</button>
+</form>
+{% endblock %}
+
+{% block scripts %}
+<script type="text/javascript">
+  $("#form").submit(function(e){
+    var nameImage = $("#file").val().toLowerCase();
+    //cek format name with jpg or jpeg
+    if(!(nameImage.match(/jpg.*/)||nameImage.match(/jpeg.*/)))
+        {
+        //if with e.preventDefault not run form
+        e.preventDefault();
+        //give alert format file is wrong
+        alert("file format is not appropriate");
+    }
+});
+</script>
+
+
+{% endblock %}
