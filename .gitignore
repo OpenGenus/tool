@@ -1,5 +1,6 @@
 .venv/
 venv/
+static_root/
 *.pyc
 *.db
 *.pid
