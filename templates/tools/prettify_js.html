@@ -8,11 +8,29 @@
 
 {% block tool %}
   <br>
+
+    <div class="row">
+      <button type="button" class="btn btn-flat btn-lg " onclick="prettify()">Prettify</button>
+    </div>
+    <br>
   <div class="row">
     <div class="col-sm-12">
         <div class="form-group">
-            <label for="inputtextarea"><b>Code Editor</b></label>
-            <textarea class="form-control rounded-0 CodeMirror" id="inputtextarea" rows="10"></textarea>
+            <label for="inputtextarea"><b>Input</b></label>
+            <label class="file btn btn-primary">
+                Browse <input type="file" id="inputfile"hidden>
+            </label>
+
+            <textarea class="form-control rounded-0 " id="inputtextarea" rows="10"></textarea>
+        </div>
+    </div>
+  </div>
+
+  <div class="row"  id="output">
+    <div class="col-sm-12">
+        <div class="form-group">
+            <label for="outputtextarea"><b>Output</b></label>
+            <textarea class="form-control rounded-0 CodeMirror" id="outputtextarea" rows="10"></textarea>
         </div>
     </div>
   </div>
@@ -22,6 +40,7 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.38.0/codemirror.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.38.0/mode/javascript/javascript.js"></script>
 <script type="text/javascript">
+
 var config = {
     lineNumbers     : true,
     lineWrapping    : true,
@@ -30,7 +49,29 @@ var config = {
     tabSize         : 4,
     indentUnit      : 4
   };
-var myCodeMirror = CodeMirror.fromTextArea(document.getElementById("inputtextarea"), config);
+var editor = CodeMirror.fromTextArea(document.getElementById("outputtextarea"), config);
+
+function prettify() {
+  editor.setValue($('#inputtextarea').val())
+
+  $('html, body').animate({
+    scrollTop: $("div#output").offset().top
+  }, 500)
+}
+
+$("#inputfile").on('change', function() {
+  var fileToLoad = document.getElementById("inputfile").files[0];
+  var file = document.getElementById("inputfile").files[0];
+  var reader = new FileReader();
+  reader.onload = function (e) {
+      var textArea = document.getElementById("inputtextarea");
+      textArea.value = e.target.result;
+  };
+  reader.readAsText(file,"UTF-8");
+
+});
+
+
 </script>
 {% endblock %}
 {# https://cdnjs.com/libraries/codemirror/5.38.0 #}
