@@ -5,20 +5,20 @@
 
 {% block tool %}
 
-<form  action="/convert_file/" id="form" method="post" enctype="multipart/form-data">
+<form  action="/JPG_To_PNG/" method="post" id="form" enctype="multipart/form-data">
   {%csrf_token%}
-  <input type="file" id="file" accept=".doc" name="file">
-  <input type="hidden" name="convert_to" value="pdf"/>
+  <input type="file" name="file" id="file" accept=".jpg" title="Select JPG file">
+  <input type="hidden" name="convert_to" value="png"/>
   <button type="submit">Convert</button>
 </form>
-
+{% endblock %}
 
 {% block scripts %}
 <script type="text/javascript">
   $("#form").submit(function(e){
     var nameImage = $("#file").val().toLowerCase();
     //cek format name with jpg or jpeg
-    if(!(nameImage.match(/doc.*/)))
+    if(!(nameImage.match(/jpg.*/)||nameImage.match(/jpeg.*/)))
         {
         //if with e.preventDefault not run form
         e.preventDefault();
@@ -27,9 +27,6 @@
     }
 });
 </script>
-
-
-{% endblock %}
 
 
 {% endblock %}
