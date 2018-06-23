@@ -1,0 +1,175 @@
+{% extends "tools/tool_base.html" %}
+{% load staticfiles %}
+
+
+
+{% block tool %}
+<style type="text/css" media="screen">
+body{
+    background-color: #f3f3f3;
+}
+
+.container{
+    margin-top: 30px;
+    margin-bottom: 30px;
+}
+
+#editor, #DivOutput {
+    min-height: 500px;
+}
+
+
+.code-toolbar{
+    padding:10px;
+}
+
+</style>
+    <div class="container">
+        <div class="row">
+            <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+                <div class="row cs-color" >
+                    <div class="code-toolbar">
+                        <select class="custom-select float-right" id="selectTheme">
+                            <option value="default" selected>Default Theme</option>
+                            <option value="twilight">Twilight</option>
+                        </select>
+                    </div>
+                    <div class="code-toolbar"> 
+                    <form id="myform" method="POST" action="/minify_file/" enctype="multipart/form-data">
+            {% csrf_token %}
+              <input type="file" accept=".js" name="file" id="file" required>
+                      <button type="submit" class="btn btn-secondary float-right" id="UploadCodeBtn" >Download Minified File</button>
+                    </form>                       
+                    </div>
+                    <div class="code-toolbar">                       
+                        <button type="button" class="btn btn-secondary float-right" id="runCodeBtn">Minify Editor JS</button>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
+                        <div id="editor"></div>
+                    </div> 
+                    <div class="col-12 col-sm-12 col-md-6 col-lg-8 col-xl-6 code-toolbar bg-white" id="DivOutput" style="width: 100%;">
+                        <div class="row">
+                        <strong style="padding: 10px;">OUTPUT</strong>
+                        <form action="/download/" id="download_form" method="POST">
+                            {% csrf_token %}
+                            <input type="hidden" name="code" id="code">
+                            <button type="button" class="btn btn-secondary float-right" id="download">Download File</button>
+                        </form>
+                        </div>
+                        <hr>
+                        <div id="stdout"></div>
+                        <br/>
+                    </div>
+                </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
+
+
+{% block scripts %}
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.3.3/ace.js" type="text/javascript" charset="utf-8"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.3.3/ext-language_tools.js"></script>
+<script src="https://cdn.jsdelivr.net/clipboard.js/1.5.12/clipboard.min.js"></script>
+        <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+<script type="text/javascript">
+
+$(document).ready(function () {
+$("#UploadCodeBtn").attr("disabled","disabled");
+$("#runCodeBtn").attr("disabled","disabled");
+//ACE Editor Settings
+var editor = ace.edit("editor", {
+    mode: "ace/mode/html",
+    selectionStyle: "text"
+})
+
+editor.setOptions({
+    autoScrollEditorIntoView: true,
+    copyWithEmptySelection: true,
+    enableBasicAutocompletion: true,
+    enableSnippets: true,
+    enableLiveAutocompletion: true,
+    showPrintMargin:false
+});
+
+//Predefined Code Templates
+var templateHTML = '{{default}}';
+editor.session.setValue( templateHTML.replace(/&lt;/g, '<').replace(/&gt;/g, '>').replace(/<br *\/?>/gi, '\n') );
+
+
+$('#selectTheme').change(function(){
+    var themeChosenByUser=$(this).val();
+    console.log('User Switched To '+themeChosenByUser);
+    if(themeChosenByUser=="default"){
+        editor.setTheme("ace/theme/textmate");
+    }else if(themeChosenByUser=="twilight"){
+        editor.setTheme("ace/theme/twilight");
+    }
+});
+
+$('#runCodeBtn').click(function(e){
+    e.preventDefault();
+    content = editor.session.getValue();
+    $.ajax({
+        "type": "POST",
+        "url":"/minify/",
+        "data": {
+      code:content,
+      csrfmiddlewaretoken : '{{csrf_token}}',
+    },
+    success: function(data){
+        console.log(data);
+        $("#download").show();
+        $("#stdout").text(data["code"]);
+    },
+    error: function(xhr, status, error){
+        console.log(error);
+        //alert("Keyword already exists. Try with another keyword!");
+    }
+});
+});
+});
+
+$("#download").click(function(){
+    $("#code").val($("#stdout").text());
+    console.log($("#code").val());
+    $("#download_form").submit();
+});
+$("#download").hide();
+$("#editor").click(function(){
+    $("#UploadCodeBtn").attr("disabled","disabled");
+    $("#runCodeBtn").removeAttr("disabled");
+});
+
+$("#file").click(function(){
+    $("#runCodeBtn").attr("disabled","disabled");
+    $("#UploadCodeBtn").removeAttr("disabled");
+});
+
+$("#UploadCodeBtn").click(function(e){
+  var nameImage = $("#file").val().toLowerCase();
+    if(!(nameImage.match(/js.*/)))
+        {
+        e.preventDefault();
+        alert("file format is not appropriate");
+      }
+    else if($("#file").val()){
+    $("#myform")[0].submit();
+    $("#myform")[0].reset();
+}
+else{
+    alert("select a file");
+}
+});
+
+</script>
+
+{% endblock %}
+

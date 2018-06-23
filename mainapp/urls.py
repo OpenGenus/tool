@@ -8,6 +8,9 @@ from django.conf import settings
 urlpatterns = [
 url(r'^t/(?P<tool_name>[^/]+)/$',views.tool,name='tool'),
 url(r'^convert_file/$',views.convert_file,name='convert_file'),
+url(r'^minify/$', views.show_minified_js),
+url(r'^minify_file/$', views.download_minified_file),
+url(r'^download/$', views.download_file),
 url(r'^JPG_To_PNG/$',views.JpgToPng,name='JPG_To_PNG'),
 url(r'^$',views.home,name='home'),
 url(r'^u/(?P<user_name>[^/]+)/$',views.user_profile,name='user_profile'),
