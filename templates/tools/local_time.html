@@ -1,11 +1,13 @@
 {% extends "tools/tool_base.html" %}
 {% load staticfiles %}
 {% block tool %}
+<br><br><br><br><br><br>
+<div id="MyClockDisplay" class="clock"></div>
+<br><br><br><br><br><br><br>
 <style>
 .clock {
-    position: absolute;
-    top: 50%;
-    left: 50%;
+    position: relative;
+    left: 83%;
     transform: translateX(-50%) translateY(-50%);
     //color: #0000CD;
     color: black;
@@ -15,8 +17,6 @@
     letter-spacing: 7px;
 }
 </style>
-
-<div id="MyClockDisplay" class="clock"></div>
 
 <script type="text/javascript">
 function showTime(){
