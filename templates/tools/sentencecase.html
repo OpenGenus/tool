@@ -28,16 +28,13 @@
 
 
 
-
-<script type="text/javascript">
-
-   function convertToSentenceCase() {
-     var str = $('#inputtextarea').val();
-     var text = str.toLowerCase().replace(/(^\s*\w|[\.\!\?]\s*\w)/g,function(c){return c.toUpperCase()});
-    $('#outputtextarea').val(text);
-   }
-
-</script>
-
-
+{% endblock %}
+{% block scripts %}
+  <script type="text/javascript">
+     function convertToSentenceCase() {
+       var str = $('#inputtextarea').val();
+       var text = str.toLowerCase().replace(/(^\s*\w|[\.\!\?]\s*\w)/g,function(c){return c.toUpperCase()});
+      $('#outputtextarea').val(text);
+     }
+  </script>
 {% endblock %}
