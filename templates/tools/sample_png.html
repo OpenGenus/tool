@@ -1,0 +1,25 @@
+{% extends "tools/tool_base.html" %}
+{% load staticfiles %}
+
+
+
+{% block tool %}
+
+<a href="/download_sample_file/png"><button class="btn btn-primary" type="submit">Download File</button></a><br>  
+File Name: <div id="file_name"></div><br>
+File Size: <div id="file_size"></div>
+{% endblock %}
+
+
+{% block scripts %}
+<script type="text/javascript">
+  
+    $.get("/about_sample_file/png/", function(data, status){
+        $("#file_name").text(data.name);
+        $("#file_size").text(data.size);
+    });
+</script>
+
+
+{% endblock %}
+
