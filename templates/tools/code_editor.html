@@ -1,0 +1,131 @@
+{% extends "tools/tool_base.html" %}
+{% load staticfiles %}
+
+{% block head %}
+<link rel='stylesheet prefetch' href='https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.38.0/codemirror.css'>
+{#  themes #}
+<link rel='stylesheet prefetch' href='https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.38.0/theme/twilight.css'>
+<link rel='stylesheet prefetch' href='https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.38.0/theme/solarized.css'>
+<link rel='stylesheet prefetch' href='https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.38.0/theme/monokai.css'>
+<link rel='stylesheet prefetch' href='https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.38.0/theme/eclipse.css'>
+<link rel='stylesheet prefetch' href='https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.38.0/theme/midnight.css'>
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.38.0/addon/hint/show-hint.css">
+{% endblock %}
+
+{% block tool %}
+
+<br>
+  <div class="border rounded rounded-dark" style="border-width: 1px">
+
+<div class="panel panel-default" style="margin: 5px;">
+  <div class="panel-heading">
+    <div class="row">
+      <div class="col-md-2 col-offsest-md-2">
+        <select class="form-control" id="language">
+               <option val="html">html</option>
+               <option val="css">css</option>
+               <option value="javascript">javascript</option>
+               <option value="clike">clike</option>
+               <option value="python">python</option>
+               <option value="yaml">yaml</option>
+               <option value="xml">xml</option>
+       </select>
+      </div>
+      <div class="col-md-2 col-offsest-md-2">
+           <select class="form-control" id="theme">
+                  <option value="twilight">twilight</option>
+                   <option value="solarized">solarized</option>
+                   <option value="monokai">monokai</option>
+                   <option value="eclipse">eclipse</option>
+                   <option value="midnight">midnight</option>
+          </select>
+      </div>
+      <div class="col-md-2">
+            <label class="file btn btn-primary">
+                Upload File <input type="file" id="inputfile"hidden>
+            </label>
+      </div>
+
+    </div>
+
+
+
+  <div class="panel-body">
+
+            <textarea class="form-control rounded-0 CodeMirror" id="editor" rows="10"></textarea>
+  </div>
+</div>
+
+    </div>
+</div>
+
+{% endblock %}
+
+{% block scripts %}
+<script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.38.0/codemirror.js"></script>
+{# languages #}
+<script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.38.0/mode/css/css.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.38.0/mode/clike/clike.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.38.0/mode/javascript/javascript.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.38.0/mode/python/python.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.38.0/mode/xml/xml.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.38.0/mode/yaml/yaml.js"></script>
+
+{# Hints #}
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.38.0/addon/hint/show-hint.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.38.0/addon/hint/css-hint.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.38.0/addon/hint/html-hint.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.38.0/addon/hint/javascript-hint.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.38.0/addon/hint/xml-hint.js"></script>
+
+
+
+
+<script type="text/javascript">
+var config = {
+    lineNumbers     : true,
+    lineWrapping    : true,
+    theme           : "twilight",
+    extraKeys : {'Ctrl-Space': 'autocomplete'},
+    tabSize         : 4,
+    indentUnit      : 4
+  };
+var editor = CodeMirror.fromTextArea(document.getElementById("editor"), config);
+
+
+$('#theme').on('change', function() {
+  theme =  $("#theme").val();
+  editor.setOption("theme",theme)
+})
+
+$('#language').on('change', function() {
+  lang = $("#language").val()
+
+    if (!lang.localeCompare("html") ){
+      editor.setOption("mode",'xml');
+      editor.setOption("htmlMode",true);
+    }
+    else{
+        editor.setOption("mode",lang);
+    }
+
+})
+
+$("#inputfile").on('change', function() {
+  var fileToLoad = document.getElementById("inputfile").files[0];
+  var file = document.getElementById("inputfile").files[0];
+  var reader = new FileReader();
+  reader.onload = function (e) {
+      editor.setValue(e.target.result);
+  };
+  reader.readAsText(file,"UTF-8");
+
+});
+
+</script>
+
+{% endblock %}
+{# https://cdnjs.com/libraries/codemirror/5.38.0 #}
