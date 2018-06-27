@@ -15,9 +15,31 @@ Including another URLconf
 """
 from django.conf.urls import url, include
 from django.contrib import admin
+from .sitemaps import *
+from django.contrib.sitemaps.views import sitemap
+from mainapp import views
+from django.conf.urls.static import static
+from django.conf import settings
 
+
+sitemaps = {
+   'Tools': ToolSitemap(),
+   'Users': UserSitemap(),
+   'Tags' : TagSitemap(),
+   'static': StaticSitemap(),
+}
 
 urlpatterns = [
-    url(r'^admin/', admin.site.urls),
-    url(r'^',include('mainapp.urls')),
+    url(r'^admin/', admin.site.urls, name = 'admin_URLs'),
+    url(r'^sitemap\.xml$', sitemap, {'sitemaps': sitemaps}, name='django.contrib.sitemaps.views.sitemap'),
+    url(r'^about_sample_file/(?P<format>[\w]+)/$', views.about_sample_file,name='about_sample_file'),
+    url(r'^download_sample_file/(?P<format>[^/]+)/$', views.download_sample_file, name = 'download_sample_file'),
+    url(r'^t/(?P<tool_name>[^/]+)/$',views.tool,name='tool'),
+    url(r'^u/(?P<user_name>[^/]+)/$',views.user_profile,name='user_profile'),
+    url(r'^tags/(?P<tag_name>[^/]+)/$',views.tags,name='tag'),
+    url(r'^category/(?P<category_name>[^/]+)/$',views.category,name='category'),
+    url(r'^',include(('mainapp.urls','mainapp'),namespace = 'mainapp_URLs')),
 ]
+
+if settings.DEBUG is True:
+    urlpatterns +=static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT, name='staticfiles')

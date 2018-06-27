@@ -1,18 +1,16 @@
 from django.shortcuts import render, reverse, get_object_or_404
-
+from django.conf import settings
 from django.http import HttpResponse, HttpResponseRedirect, Http404, JsonResponse
 from . import models
 from PIL import Image
 import base64
-import os
 from css_html_js_minify import js_minify,process_single_js_file
 # Create your views here.
-
-
 def home(request):
     tools = models.Tool.objects.all()
     categories = models.Tool.objects.order_by().values_list('category',flat=True).distinct()
     context={'tools':tools,'categories':categories}
+    print(settings.MEDIA_URL)
     return render(request,'general/home.html',context)
 
 def tool(request,tool_name):
