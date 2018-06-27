@@ -1,7 +1,9 @@
 
+
 # Adding Tools
 
 - Create a template for tool under `templates/tools/` with following format
+
 ```
 {% extends "tools/tool_base.html" %}
 {% load staticfiles %}
@@ -43,15 +45,22 @@
     ```
 
 
-# Conventions to be follow
-- Templates: A template for tool should be added to `tools/<category>/` under  `templates` folder. The template name should be in lowercase , use '_' instead of space.
+# Conventions to be followed
+Follow the  conventions as stated in [PEP8](https://www.python.org/dev/peps/pep-0008/ ), apart the following conventions should be followed.
+- **Templates**: A template for tool should be added to `tools/<category>/` under  `templates` folder. The template name should be  meaningful, in lowercase and use '_' instead of space. Examples: `prettify_css.html`, `lowercase.html`.  
 For a tool name `Code Editor` the template name should be `code_editor.html`
-- views.py:
-  ## function based view
-  def jpg_to_png_converter():
-    //code
-  ## class based view
-  class UserProfileView():
-      //code
-- urls.py:
-   # Its not required to append any url to the `urls.py`.The generic url for a tool is `/t/<url_endpoint>`, where `url_endpoint` value is defined by user while adding tool to database.
+- **Views**:
+	 - ***function based view***
+		```
+		 def jpg_to_png_converter():
+	    //code
+		```
+
+	 - ***class based view***
+        ```
+          class UserProfileView():
+              //code
+        ```
+
+-  **URLs**:
+The generic url for tools is `/t/<url_endpoint>`, where `url_endpoint` is defined by user while adding tool to database.

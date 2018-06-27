@@ -6,6 +6,14 @@ from PIL import Image
 import base64
 import os
 from css_html_js_minify import js_minify,process_single_js_file
+
+import os
+import pypandoc
+from django.core.files.storage import default_storage
+from django.conf import settings
+from django.core.files.base import ContentFile
+
+
 # Create your views here.
 
 
@@ -18,8 +26,8 @@ def home(request):
 def tool(request,tool_name):
     tool = get_object_or_404(models.Tool,url_endpoint__iexact=tool_name)
     context={'tool':tool}
-    print(tool.tags.all())
-    return render(request,'tools/{0}'.format(tool.template_name),context)
+    category = tool.category.replace(" ", "_").lower()
+    return render(request,'tools/{0}/{1}'.format(category,tool.template_name),context)
 
 def user_profile(request,user_name):
 
@@ -39,13 +47,6 @@ def category(request,category_name):
     tools = models.Tool.objects.filter(category__iexact=category_name)
     context= {'category':category,'tools':tools}
     return render(request,'general/category.html',context)
-
-import os
-import pypandoc
-from django.core.files.storage import default_storage
-from django.conf import settings
-from django.core.files.base import ContentFile
-
 
 def convert_file(request):
     if request.method=="POST":
@@ -69,8 +70,8 @@ def convert_file(request):
 
         return HttpResponse('Error while converting', status=404)
 
-#JPG to PNG starts
-def JpgToPng(request):
+
+def jpg_to_png(request):
     if request.method=="POST":
         file_to_convert = request.FILES.get('file')
         convert_to = request.POST.get('convert_to')
@@ -83,7 +84,7 @@ def JpgToPng(request):
         im = Image.open(input_file_path)
         im.save(output_file_path)
         png_img = Image.open(output_file_path)
-        print("saved file: ", png_img) 
+        print("saved file: ", png_img)
 
         if os.path.exists(output_file_path):
             print('exists')
@@ -93,10 +94,10 @@ def JpgToPng(request):
                 return response
 
         return HttpResponse('Error while converting', status=404)
-#JPG to PNG ends
 
 
-#minified JS tool starts
+
+
 def show_minified_js(request):
     if request.method == "POST":
         z = js_minify(request.POST.get('code'))
@@ -123,9 +124,7 @@ def download_minified_file(request):
             return res
     return HttpResponse('<script>alert("error")</script>')
 
-#minified JS tool ends
 
-#sample download tool starts
 def about_sample_file(request,format):
     name = "sample."+format
     print("i am working for ",name)
