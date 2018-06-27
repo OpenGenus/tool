@@ -1,0 +1,48 @@
+{% extends "tools/tool_base.html" %}
+{% load staticfiles %}
+{% block tool %}
+<style>
+      #mybutton:active{
+        color:white;
+      }
+      #mybutton{
+    background-color: #e1e1d0;
+    font-family: calibri;
+  }
+  #mybutton:hover
+  {
+    background-color: #ffd700;
+  }
+    </style>
+  <div class="row">
+    <div class="col-sm-5 col-sm-offset-5">
+      <button id="mybutton" type="button" class="btn btn-flat btn-lg " onclick="countchar()"><b>Count Characters</b> </button>
+    </div>
+  </div>
+  <br>
+
+  <div class="row">
+    <div class="col-sm-6">
+        <div class="form-group">
+            <label for="inputtextarea">Input</label>
+            <textarea class="form-control rounded-0" id="inputtextarea" rows="10" placeholder="Start Typing..."></textarea>
+        </div>
+    </div>
+    <div class="col-sm-6">
+      <div class="form-group">
+          <label for="outputtextarea">Output</label>
+          <textarea class="form-control rounded-0" id="outputtextarea" rows="10" placeholder="Total Characters =..." disabled></textarea>
+      </div>
+    </div>
+
+  </div>
+{% endblock %}
+
+{% block scripts %}
+  <script type="text/javascript">
+  function countchar() {
+    var text = $('#inputtextarea').val();
+    $('#outputtextarea').val("Total Characters found in your input = "+text.length);
+  }
+  </script>
+{% endblock %}

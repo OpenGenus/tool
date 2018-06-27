@@ -1,0 +1,50 @@
+{% extends "tools/tool_base.html" %}
+{% load staticfiles %}
+{% block tool %}
+
+<br><br><br><br><br>
+<h1 align=center> Percentage Of Day Passed</h1>
+<div id="myProgress">
+<div id="myBar"></div>
+</div>
+<br><br><br><br><br><br>
+
+<style>
+#myProgress {
+  width: 100%;
+  background-color: #A9A9A9;
+}
+
+#myBar {
+  width: 1%;
+  height: 80px;
+  background-color: #4CAF50;
+  text-align: center;
+  //line-height: 50px;
+  font-size:50px;
+  font-style:bold;
+  color: white;
+}
+</style>
+
+<script type="text/javascript">
+//background-color: #A9A9A9;
+function showTime(){
+    var date = new Date();
+    var h = date.getHours();
+    var m = date.getMinutes();
+    var s = date.getSeconds();
+    var hsec = h*60*60;
+    hsec = hsec + (m*60);
+    hsec = hsec + s;
+    var width = ((hsec/86400)*100).toFixed(5);
+    var elem = document.getElementById("myBar");
+    elem.innerHTML = width + '%';
+    width = width+"%";
+    elem.style.width = width;
+}
+showTime();
+setInterval(showTime,1000);
+</script>
+
+{% endblock %}

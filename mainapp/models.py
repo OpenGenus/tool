@@ -16,6 +16,9 @@ class UserProfile(models.Model):
     def __str__(self):
         return self.name
 
+    def get_absolute_url(self):
+        return '/u/' + self.user.username + '/'
+
 def create_profile(sender=User, **kwargs):
     if kwargs['created']:
         user_profile = UserProfile.objects.create(user = kwargs['instance'])
@@ -29,6 +32,9 @@ class Tag(models.Model):
 
     def __str__(self):
         return self.tag
+
+    def get_absolute_url(self):
+        return '/tags/' + self.tag + '/'
 
 
 
@@ -49,6 +55,8 @@ class Tool(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
-
     def __str__(self):
         return self.name
+
+    def get_absolute_url(self):
+        return '/t/' + self.url_endpoint + '/'
