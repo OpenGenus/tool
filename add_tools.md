@@ -41,3 +41,17 @@
      ...
       ]
     ```
+
+
+# Conventions to be follow
+- Templates: A template for tool should be added to `tools/<category>/` under  `templates` folder. The template name should be in lowercase , use '_' instead of space.
+For a tool name `Code Editor` the template name should be `code_editor.html`
+- views.py:
+  ## function based view
+  def jpg_to_png_converter():
+    //code
+  ## class based view
+  class UserProfileView():
+      //code
+- urls.py:
+   # Its not required to append any url to the `urls.py`.The generic url for a tool is `/t/<url_endpoint>`, where `url_endpoint` value is defined by user while adding tool to database.

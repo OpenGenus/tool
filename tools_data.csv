@@ -1,0 +1,10 @@
+id,name,url_endpoint,category,template_name,author
+1,Captialize,capitalize,Text ,capitalize.html,suraj
+2,Lowercase,lower_case,Text ,lower_case.html,suraj
+3,Title Case,title_case,Text ,title_case.html,suraj
+4,Sentence Case,sentence_case,Text ,sentence_case.html,suraj
+5,Doc to Pdf,doc_to_pdf,Document Conversion,doc_to_pdf.html,suraj
+6,Prettify js,prettify_js,Code,prettify_js.html,suraj
+7,Prettify css,prettify_css,Code,prettify_css.html,suraj
+8,Editor,editor,Code,editor.html,suraj
+9,,,,,
