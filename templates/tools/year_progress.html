@@ -1,0 +1,69 @@
+{% extends "tools/tool_base.html" %}
+{% load staticfiles %}
+{% block tool %}
+
+<br><br><br><br><br>
+<h1 align=center> Percentage Of Year Passed</h1>
+<div id="myProgress">
+<div id="myBar"></div>
+</div>
+<br><br><br><br><br><br>
+
+<style>
+#myProgress {
+  width: 100%;
+  background-color: #A9A9A9;
+}
+
+#myBar {
+  width: 1%;
+  height: 80px;
+  background-color: #4CAF50;
+  text-align: center;
+  //line-height: 50px;
+  font-size:50px;
+  font-style:bold;
+  color: white;
+}
+</style>
+
+<script type="text/javascript">
+//background-color: #A9A9A9;
+function showTime(){
+    var date = new Date();
+    var h = date.getHours();
+    var m = date.getMinutes();
+    var s = date.getSeconds();
+    var year = date.getYear();
+    var total =  0;
+    if ( ( year%400 == 0 ) || ( year%4 == 0 && year%100 != 0 ) )
+    {
+	total = 366;
+    }
+    else
+    {
+	total = 365;
+    }
+    total = total*86400;
+    
+    var hsec = (days_passed(new Date(year,date.getMonth(),date.getDate()))-1)*86400;
+    //console.log(hsec+" DAYS PASSED ");
+    hsec = hsec + h*60*60;
+    hsec = hsec + (m*60);
+    hsec = hsec + s;
+    var width = ((hsec/total)*100).toFixed(5);
+    var elem = document.getElementById("myBar");
+    elem.innerHTML = width + '%';
+    width = width+"%";
+    elem.style.width = width;
+}
+function days_passed(dt) {
+  var current = new Date(dt.getTime());
+  var previous = new Date(dt.getFullYear(), 0, 1);
+  return Math.ceil((current - previous + 1) / 86400000);
+}
+showTime();
+setInterval(showTime,1000);
+</script>
+
+{% endblock %}
