@@ -20,7 +20,7 @@ from django.contrib.sitemaps.views import sitemap
 from mainapp import views
 from django.conf.urls.static import static
 from django.conf import settings
-
+from discourse import views as discourse_views
 
 sitemaps = {
    'Tools': ToolSitemap(),
@@ -30,6 +30,7 @@ sitemaps = {
 }
 
 urlpatterns = [
+    url(r'discourse/sso$', discourse_views.sso),
     url(r'^admin/', admin.site.urls, name = 'admin_URLs'),
     url(r'^sitemap\.xml$', sitemap, {'sitemaps': sitemaps}, name='django.contrib.sitemaps.views.sitemap'),
     url(r'^about_sample_file/(?P<format>[\w]+)/$', views.about_sample_file,name='about_sample_file'),
@@ -38,7 +39,7 @@ urlpatterns = [
     url(r'^u/(?P<user_name>[^/]+)/$',views.user_profile,name='user_profile'),
     url(r'^tags/(?P<tag_name>[^/]+)/$',views.tags,name='tag'),
     url(r'^category/(?P<category_name>[^/]+)/$',views.category,name='category'),
-    url(r'^',include(('mainapp.urls','mainapp'),namespace = 'mainapp_URLs')),
+    url(r'^',include(('mainapp.urls','mainapp'),namespace = 'mainapp')),
 ]
 
 if settings.DEBUG is True:

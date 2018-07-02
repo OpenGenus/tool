@@ -5,12 +5,11 @@ from . import models
 from PIL import Image
 import base64
 from css_html_js_minify import js_minify,process_single_js_file
-# Create your views here.
+# Create your views here.''
 def home(request):
     tools = models.Tool.objects.all()
     categories = models.Tool.objects.order_by().values_list('category',flat=True).distinct()
     context={'tools':tools,'categories':categories}
-    print(settings.MEDIA_URL)
     return render(request,'general/home.html',context)
 
 def tool(request,tool_name):
@@ -29,7 +28,6 @@ def user_profile(request,user_name):
 def tags(request,tag_name):
     tag = get_object_or_404(models.Tag,tag=tag_name)
     tools = tag.tool_set.all()
-    print(tools)
     return render(request,'general/tags.html',{'tools':tools})
 
 
@@ -59,7 +57,6 @@ def convert_file(request):
         output = pypandoc.convert_file(input_file_path,convert_to,outputfile=output_file_path)
 
         if os.path.exists(output_file_path):
-            print('exists')
             with open(output_file_path, 'rb+') as fh:
                 response = HttpResponse(fh.read(), content_type="application/force-download")
                 response['Content-Disposition'] = 'inline; filename=' + os.path.basename(output_file_path)
@@ -80,11 +77,9 @@ def JpgToPng(request):
         path = default_storage.save(input_file_path,ContentFile(file_to_convert.read()))
         im = Image.open(input_file_path)
         im.save(output_file_path)
-        png_img = Image.open(output_file_path)
-        print("saved file: ", png_img) 
+        png_img = Image.open(output_file_path) 
 
         if os.path.exists(output_file_path):
-            print('exists')
             with open(output_file_path, 'rb+') as fh:
                 response = HttpResponse(fh.read(), content_type="application/force-download")
                 response['Content-Disposition'] = 'inline; filename=' + os.path.basename(output_file_path)
@@ -114,7 +109,6 @@ def download_minified_file(request):
         input_file_path = os.path.join(settings.MEDIA_ROOT,'files',request.FILES.get("file").name)
         path = default_storage.save(input_file_path,ContentFile(request.FILES.get("file").read()))
         z = process_single_js_file(input_file_path,overwrite=False)
-        print(z);
         with open(z, 'rb+') as fh:
             res = HttpResponse(fh.read(),content_type="application/js")
             res['Content-Disposition'] = 'attachment; filename='+ os.path.basename(z)
@@ -126,7 +120,6 @@ def download_minified_file(request):
 #sample download tool starts
 def about_sample_file(request,format):
     name = "sample."+format
-    print("i am working for ",name)
     input_file_path = os.path.join(settings.MEDIA_ROOT,'sample',name)
     with open(input_file_path, 'rb+') as fh:
         size = os.path.getsize(input_file_path)/1024
