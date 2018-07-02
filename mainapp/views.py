@@ -139,3 +139,58 @@ def download_sample_file(request,format):
         response['Content-Disposition'] = 'inline; filename=' + os.path.basename(input_file_path)
         return response
     return HttpResponse('Error while converting', status=404)
+
+
+
+# authentication with discourse sso
+import base64
+import hmac
+import hashlib
+from urllib import parse
+
+from django.contrib.auth.decorators import login_required
+from django.http import HttpResponseBadRequest, HttpResponseRedirect
+from django.conf import settings
+
+@login_required
+def sso(request):
+    payload = request.GET.get('sso')
+    signature = request.GET.get('sig')
+
+    if payload is None or signature is None:
+        return HttpResponseBadRequest('No SSO payload or signature. Please contact support if this problem persists.')
+
+    ## Validate the payload
+
+    try:
+        payload = bytes(parse.unquote(payload), encoding='utf-8')
+        decoded = base64.decodestring(payload).decode('utf-8')
+        assert 'nonce' in decoded
+        assert len(payload) > 0
+    except AssertionError:
+        return HttpResponseBadRequest('Invalid payload. Please contact support if this problem persists.')
+
+    key = bytes(settings.DISCOURSE_SSO_SECRET, encoding='utf-8') # must not be unicode
+    h = hmac.new(key, payload, digestmod=hashlib.sha256)
+    this_signature = h.hexdigest()
+
+    if not hmac.compare_digest(this_signature, signature):
+        return HttpResponseBadRequest('Invalid payload. Please contact support if this problem persists.')
+
+    ## Build the return payload
+
+    qs = parse.parse_qs(decoded)
+    params = {
+        'nonce': qs['nonce'][0],
+        'email': request.user.email,
+        'external_id': request.user.id,
+        'username': request.user.username,
+        'require_activation': 'true'
+    }
+
+    return_payload = base64.encodestring(bytes(parse.urlencode(params), 'utf-8'))
+    h = hmac.new(key, return_payload, digestmod=hashlib.sha256)
+    query_string = parse.urlencode({'sso': return_payload, 'sig': h.hexdigest()})
+
+    ## Redirect back to Discourse
+    return HttpResponseRedirect('%s?%s' % (settings.DISCOURSE_BASE_URL, query_string))
