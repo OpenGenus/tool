@@ -113,3 +113,12 @@ def download_sample_file(request,format):
         response['Content-Disposition'] = 'inline; filename=' + os.path.basename(input_file_path)
         return response
     return HttpResponse('Error while converting', status=404)
+
+
+
+    
+    
+        
+
+
+
