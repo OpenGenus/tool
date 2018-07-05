@@ -1,0 +1,68 @@
+{% extends "tools/tool_base.html" %}
+{% load staticfiles %}
+{% block tool %}
+
+
+<style>
+#button{
+margin-left: 10px;
+margin-top: 25px;
+
+}
+
+#button:hover {
+    background-color: green;
+}
+
+</style>
+
+
+<div class="row">
+
+
+ <div class="col-sm-3"  >
+        <div class="form-group">
+            <label for="binaryinput">Binary Number</label>
+            <input  class="form-control " id="binaryinput"  type="number"  min="0" placeholder="Binary Number">
+        </div>
+    </div>
+
+    <div class="col-sm-5 col-sm-offset-5">
+      <button id="button" type="button" class="btn btn-flat btn-lg " onclick="convert()">Convert To Decimal </button>
+    </div>
+    
+  
+    
+  </div>
+
+    <div class="col-sm-2">
+      <div class="form-group">
+          <label for="decimaloutput">Decimal Result</label>
+          <input class="form-control " id="decimaloutput"  disabled>
+      </div>
+    </div>
+
+ 
+{% endblock %}
+{% block scripts %}
+  <script type="text/javascript">
+  function convert() {
+	
+    var binary_value = $('#binaryinput').val();
+    
+    if(binary_value==""){
+    	
+    	  alert("Binary Number must be filled out");
+    	
+    }else{
+    	
+    	var decimal_val =parseInt((binary_value + '').replace(/[^01]/gi, ''), 2);
+    	  $('#decimaloutput').val(decimal_val);
+    }
+    
+    
+ 
+  
+  }
+  </script>
+{% endblock %}
