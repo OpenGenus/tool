@@ -26,6 +26,14 @@ margin-top: 25px;
             <input  class="form-control " id="binaryinput"  type="number"  min="0" placeholder="Binary Number">
         </div>
     </div>
+    
+    
+      <div class="col-sm-3">
+      <div class="form-group">
+          <label for="decimaloutput">Decimal Result</label>
+          <input class="form-control " id="decimaloutput"  disabled>
+      </div>
+    </div>
 
     <div class="col-sm-5 col-sm-offset-5">
       <button id="button" type="button" class="btn btn-flat btn-lg " onclick="convert()">Convert To Decimal </button>
@@ -35,12 +43,7 @@ margin-top: 25px;
     
   </div>
 
-    <div class="col-sm-2">
-      <div class="form-group">
-          <label for="decimaloutput">Decimal Result</label>
-          <input class="form-control " id="decimaloutput"  disabled>
-      </div>
-    </div>
+  
 
  
 {% endblock %}
