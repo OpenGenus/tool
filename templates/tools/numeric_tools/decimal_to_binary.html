@@ -1,0 +1,19 @@
+{% extends "tools/tool_base.html" %}
+{% load staticfiles %}
+{% block tool %}
+<script>
+    function convert(){
+        event.preventDefault();
+        var dec = document.getElementById("in").value;
+        var bin = (+dec).toString(2);
+        document.getElementById("bin").innerHTML = bin;
+    }
+</script>
+<form id="convert" style="text-align: center">
+    <h1>Convert a decimal number to binary</h1>
+    <label for="in">Enter a decimal number:</label>
+    <p><input type="text" id="in"></p>
+    <p><button type="submit" onclick="convert()">Convert</button></p>
+    <p id="bin">&nbsp;</p>
+</form>
+{% endblock %}
