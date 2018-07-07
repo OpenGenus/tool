@@ -1,0 +1,29 @@
+{% extends "tools/tool_base.html" %}
+{% load staticfiles %}
+{% block tool %}
+<form style="text-align: center">
+    <p><label for="in">Enter a website URL to check status:</label></p>
+    <p><input type="text" id="in"></p>
+    <p><button type="submit" onclick="check()">Check</button></p>
+    <p id="status">&nbsp;</p>
+</form>
+{% endblock %}
+
+{% block scripts %}
+<script>
+    function check() {
+        event.preventDefault();
+        var url = document.getElementById('in').value;
+        var img = document.createElement('img');
+        img.src = url+"/favicon.ico";
+        img.onload = function() {
+            document.getElementById("status").innerHTML = "Online";
+            document.getElementById('status').style.color = "green";
+        }
+        img.onerror = function() {
+            document.getElementById("status").innerHTML = "Offline";
+            document.getElementById('status').style.color = "red";
+        }
+    }
+</script>
+{% endblock %}
