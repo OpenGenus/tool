@@ -15,11 +15,7 @@ margin-top: 25px;
 }
 
 </style>
-
-
 <div class="row">
-
-
  <div class="col-sm-3"  >
         <div class="form-group">
             <label for="input">Input Value</label>
@@ -31,8 +27,7 @@ margin-top: 25px;
             <label for="baseinput">From Base</label>
             
              <select id="baseinput" class="form-control">
-             
-             
+                  
              <option value="2">2</option>       <option value="3">3</option>     <option value="4">4</option>                          
              <option value="5">5</option>      <option value="6">6</option>       <option value="7">7</option>     <option value="8">8</option> 
              <option value="9">9</option>     <option value="10">10</option>    <option value="11">11</option>  <option value="12">12</option>
@@ -53,8 +48,7 @@ margin-top: 25px;
             <label for="baseoutput">To Base</label>
             
              <select id="baseoutput" class="form-control">
-             
-             
+                         
               <option value="2">2</option>       <option value="3">3</option>     <option value="4">4</option>                          
              <option value="5">5</option>      <option value="6">6</option>       <option value="7">7</option>     <option value="8">8</option> 
              <option value="9">9</option>     <option value="10">10</option>    <option value="11">11</option>  <option value="12">12</option>
@@ -66,7 +60,6 @@ margin-top: 25px;
               <option value="30">30</option>   <option value="31">31</option>  <option value="32">32</option>   <option value="33">33</option>
               <option value="34">34</option>  <option value="35">35</option>  <option value="36">36</option>  <option value="37">37</option> 
                                                       <option value="38">38</option>
-             
              </select> 
         </div>
     </div>
@@ -82,14 +75,8 @@ margin-top: 25px;
       <button id="button" type="button" class="btn btn-flat btn-lg " onclick="convert()">Convert </button>
     </div>
    
-    
-  
-    
   </div>
 
-  
-
- 
 {% endblock %}
 {% block scripts %}
   <script type="text/javascript">
@@ -101,38 +88,24 @@ margin-top: 25px;
     var input_value = $('#input').val();
     var output_value = $('#output').val();
   
- 
  // verify if the input value is correct with its  input base   	
-    	if(verif_inputvalue_with_inputbase(input_value,input_base,output_base)){
-    		
-    		
+    	if(verif_inputvalue_with_inputbase(input_value,input_base,output_base)){  		
         if(input_base <=36 && output_base<=36){
-        	
         	// first methode simple convert
-        	
         	 $('#output').val(parseInt(input_value, input_base).toString(output_base));
         }else{
         	
-        	// second methode  convert  base input over 6 or baseoutput over 36
+        	// second methode  convert  baseinput over 36 or baseoutput over 36
         	
         	 $('#output').val(convertBasegraterthen36(input_value,input_base,output_base));
         }
-    	
-   
-    	}else{
-    		
+    	}else{		
     		alert("The number you've entered contains invalid digits for its base.");
-
     	}
    
  
   
       }
-  
-  
-  
-  
-  
   
   
   function convertBasegraterthen36(value, from_base, to_base) {
@@ -236,21 +209,9 @@ margin-top: 25px;
 	  return result;
   }
   
-  
   function isLetter(str) {
 	  return str.length === 1 && str.match(/[a-z]/i);
 	}
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
+ 
   </script>
 {% endblock %}
