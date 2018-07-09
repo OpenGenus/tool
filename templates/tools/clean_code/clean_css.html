@@ -16,6 +16,7 @@
         event.preventDefault();
         var css = document.getElementById('in').value;
         css = css.replace( /\/\*(?:(?!\*\/)[\s\S])*\*\/|[\r\n\t]+/g, '' );
+        css = css.replace( / {2,}/g, ' ' );
         document.getElementById('out').value = css;
     }
 </script>
