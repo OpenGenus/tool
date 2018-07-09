@@ -1,0 +1,22 @@
+{% extends "tools/tool_base.html" %}
+{% load staticfiles %}
+{% block tool %}
+
+<form style="text-align: center">
+    <p><textarea id="in" type="text" placeholder="Enter CSS.." style="width: 300px; height: 350px"></textarea>
+        <textarea id="out" type="text" style="width: 300px; height: 350px"></textarea></p>
+    <p><button type="submit" onclick="clean()">Clean</button></p>
+</form>
+
+{% endblock %}
+
+{% block scripts %}
+<script>
+    function clean() {
+        event.preventDefault();
+        var css = document.getElementById('in').value;
+        css = css.replace( /\/\*(?:(?!\*\/)[\s\S])*\*\/|[\r\n\t]+/g, '' );
+        document.getElementById('out').value = css;
+    }
+</script>
+{% endblock %}
