@@ -1,23 +1,95 @@
 {% extends "tools/tool_base.html" %}
 {% load staticfiles %}
-{% block tool %}
 
-<form style="text-align: center">
-    <p><textarea id="in" type="text" placeholder="Enter CSS.." style="width: 300px; height: 350px"></textarea>
-        <textarea id="out" type="text" style="width: 300px; height: 350px"></textarea></p>
-    <p><button type="submit" onclick="clean()">Clean</button></p>
-</form>
+{% block head %}
+<link rel='stylesheet prefetch' href='https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.38.0/codemirror.css'>
+{#  themes #}
+<link rel='stylesheet prefetch' href='https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.38.0/theme/twilight.css'>
+<link rel='stylesheet prefetch' href='https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.38.0/theme/solarized.css'>
+<link rel='stylesheet prefetch' href='https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.38.0/theme/monokai.css'>
+<link rel='stylesheet prefetch' href='https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.38.0/theme/eclipse.css'>
+<link rel='stylesheet prefetch' href='https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.38.0/theme/midnight.css'>
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.38.0/addon/hint/show-hint.css">
+{% endblock %}
+
+{% block tool %}
+<style>
+    button{
+        margin-left: 10px;
+        margin-top: 0;
+        margin-bottom: 0;
+    }
+    button:hover {
+        background-color: green;
+    }
+</style>
+<br>
+<div class="border rounded rounded-dark" style="border-width: 1px">
+    <div class="panel panel-default" style="margin: 5px;">
+        <div class="panel-heading">
+            <div class="row">
+                <div class="col-md-2 col-offsest-md-2">
+                    <select class="form-control" id="theme">
+                        <option value="twilight">twilight</option>
+                        <option value="solarized">solarized</option>
+                        <option value="monokai">monokai</option>
+                        <option value="eclipse">eclipse</option>
+                        <option value="midnight">midnight</option>
+                    </select>
+                </div>
+                <div class="col-sm-5 col-sm-offset-5">
+                    <button id="button" class="btn btn-flat btn-lg " type="submit" onclick="clean()">Clean</button>
+                </div>
+            </div>
+            <div>
+                <div class="panel-body" style="display: inline-block; width: 500px;">
+                    <textarea class="form-control rounded-0 CodeMirror" id="in" rows="10"></textarea>
+                </div>
+                <div class="panel-body" style="display: inline-block; width: 500px;">
+                    <textarea class="form-control rounded-0 CodeMirror" id="out" rows="10"></textarea>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 
 {% endblock %}
 
 {% block scripts %}
-<script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.38.0/codemirror.js"></script>
+{# languages #}
+<script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.38.0/mode/css/css.js"></script>
+
+{# Hints #}
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.38.0/addon/hint/show-hint.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.38.0/addon/hint/css-hint.js"></script>
+
+<script type="text/javascript">
+    var config = {
+        lineNumbers     : true,
+        lineWrapping    : true,
+        theme           : "twilight",
+        extraKeys : {'Ctrl-Space': 'autocomplete'},
+        tabSize         : 4,
+        indentUnit      : 4
+    };
+    var editor = CodeMirror.fromTextArea(document.getElementById("in"), config);
+    var editor2 = CodeMirror.fromTextArea(document.getElementById("out"), config);
+    $('#theme').on('change', function() {
+        theme =  $("#theme").val();
+        editor.setOption("theme",theme)
+        editor2.setOption("theme",theme)
+    })
     function clean() {
         event.preventDefault();
-        var css = document.getElementById('in').value;
+        var css = editor.getValue();
         css = css.replace( /\/\*(?:(?!\*\/)[\s\S])*\*\/|[\r\n\t]+/g, '' );
         css = css.replace( / {2,}/g, ' ' );
-        document.getElementById('out').value = css;
+        editor2.setValue(css);
     }
 </script>
+
 {% endblock %}
+{# https://cdnjs.com/libraries/codemirror/5.38.0 #}
