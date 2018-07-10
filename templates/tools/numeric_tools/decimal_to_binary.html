@@ -24,14 +24,14 @@
         </div>
     </div>
     <div class="col-sm-5 col-sm-offset-5">
-        <button id="button" type="button" class="btn btn-flat btn-lg " onclick="convert()">Convert To Decimal </button>
+        <button id="button" type="button" class="btn btn-flat btn-lg " onclick="convert(event)">Convert To Decimal </button>
     </div>
 </div>
 {% endblock %}
 
 {% block scripts %}
 <script>
-        function convert(){
+        function convert(event){
             event.preventDefault();
             var dec = document.getElementById("in").value;
             var bin = (+dec).toString(2);
