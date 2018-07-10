@@ -15,11 +15,6 @@
 
 {% block tool %}
 <style>
-    button{
-        margin-left: 10px;
-        margin-top: 0;
-        margin-bottom: 0;
-    }
     button:hover {
         background-color: green;
     }
@@ -39,7 +34,7 @@
                     </select>
                 </div>
                 <div class="col-sm-5 col-sm-offset-5">
-                    <button id="button" class="btn btn-flat btn-lg " type="submit" onclick="clean()">Clean</button>
+                    <button id="button" class="btn btn-flat btn-lg " type="submit" onclick="clean(event)">Clean</button>
                 </div>
             </div>
             <div>
@@ -47,7 +42,7 @@
                     <textarea class="form-control rounded-0 CodeMirror" id="in" rows="10"></textarea>
                 </div>
                 <div class="panel-body" style="display: inline-block; width: 500px;">
-                    <textarea class="form-control rounded-0 CodeMirror" id="out" rows="10"></textarea>
+                    <textarea disabled class="form-control rounded-0 CodeMirror" id="out" rows="10"></textarea>
                 </div>
             </div>
         </div>
@@ -82,7 +77,7 @@
         editor.setOption("theme",theme)
         editor2.setOption("theme",theme)
     })
-    function clean() {
+    function clean(event) {
         event.preventDefault();
         var css = editor.getValue();
         css = css.replace( /\/\*(?:(?!\*\/)[\s\S])*\*\/|[\r\n\t]+/g, '' );
