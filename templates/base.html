@@ -11,11 +11,11 @@
 
 
 
-    <link rel="stylesheet" type="text/css"  href="{% static 'css/style.css' %}">
-
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.css" integrity="sha256-uXf0U0UCIqBp2J3S53b28h+fpC9uFcA8f+b/NNmiwVk="
       crossorigin="anonymous" />
+
+          <link rel="stylesheet" type="text/css"  href="{% static 'css/style.css' %}">
 
     {% block head %}
 
@@ -23,41 +23,48 @@
 
     </head>
 
-<body>
+<body class="bodylight">
 
-  <nav class="navbar navbar-expand-lg navbar-dark bg-dark ">
-          <a class="navbar-brand" href='{% url "home" %}'>Home</a>
-          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExample09" aria-controls="navbarsExample09" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-          </button>
+  <nav class="navbar navbar-expand-md fixed-top navbar-light navbarlight">
+    <a class="navbar-brand" href="{% url "home" %}">
+      <img src="{%static 'opengenus.png'%}" height="35px" alt="">
+    </a>
+    <ul class="navbar-nav ml-auto">
+      <li class="nav-item">
+          <a class="nav-link" href="">
+            <i class="fa fa-lg fa-twitter"></i>
+          </a>
+      </li>
+      <li class="nav-item">
+           <a class="nav-link" href="">
+             <i class="fa fa-lg fa-linkedin"></i>
+           </a>
+       </li>
+       <li class="nav-item">
+           <a class="nav-link" href="">
+             <i class="fa fa-lg fa-github"></i>
+           </a>
+       </li>
+       <li class="nav-item">
+           <a class="nav-link" href="">
+             <i class="fab fa-discourse"></i>
+           </a>
+       </li>
+       </ul>
 
-          <div class="collapse navbar-collapse" id="navbarsExample09">
-            <form class="form-inline my-2 my-md-0 ml-auto">
-
-              <div class="row no-gutters">
-    <div class="col">
-        <input class="form-control border-secondary border-right-0 rounded-left" type="search" value="search" id="example-search-input4">
-    </div>
-    <div class="col-auto">
-        <button class="btn btn-outline-secondary border-left-0 rounded-0 rounded-right" type="button">
-            <i class="fa fa-search"></i>
-        </button>
-    </div>
-</div>
-            </form>
-          </div>
-        </nav>
-
-
-
-<div class="vertical-space">
-
-</div>
-
-   {% block content %}
-   {% endblock content %}
+  </nav>
 
 
+  <div class="container-fluid">
+
+     {% block content %}
+     {% endblock content %}
+
+     </div>
+
+
+
+</main>
 
  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"></script>
