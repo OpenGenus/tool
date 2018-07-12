@@ -12,3 +12,5 @@ __ pycache __
 !**/migrations/__init__.py
 */migrations/
 db.sqlite3
+.project
+.pydevproject
