@@ -1,4 +1,9 @@
-
-.vertical-space{
-  padding-bottom: 12px;
+body {
+padding-top: 6em;
 }
+.navbarlight{
+background: white;
+ }
+ .bodylight{
+ background: #ebebe0;
+  }

@@ -1,0 +1,41 @@
+{% extends "tools/tool_base.html" %}
+{% load staticfiles %}
+{% block tool %}
+<style>
+    button{
+        margin-left: 10px;
+        margin-top: 25px;
+    }
+    button:hover {
+        background-color: green;
+    }
+</style>
+<div class="row">
+    <div class="col-sm-3"  >
+        <div class="form-group">
+            <label for="in">Decimal Number</label>
+            <input  class="form-control " id="in"  type="number"  min="0" placeholder="Decimal Number">
+        </div>
+    </div>
+    <div class="col-sm-3">
+        <div class="form-group">
+            <label for="bin">Binary Result</label>
+            <input class="form-control " id="bin"  disabled>
+        </div>
+    </div>
+    <div class="col-sm-5 col-sm-offset-5">
+        <button id="button" type="button" class="btn btn-flat btn-lg " onclick="convert(event)">Convert To Decimal </button>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+        function convert(event){
+            event.preventDefault();
+            var dec = document.getElementById("in").value;
+            var bin = (+dec).toString(2);
+            document.getElementById("bin").value = bin;
+        }
+    </script>
+{% endblock %}
