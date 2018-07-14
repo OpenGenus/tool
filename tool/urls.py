@@ -34,6 +34,7 @@ urlpatterns = [
     url(r'^sitemap\.xml$', sitemap, {'sitemaps': sitemaps}, name='django.contrib.sitemaps.views.sitemap'),
     url(r'^t/(?P<tool_name>[^/]+)/$',views.tool,name='tool'),
     url(r'^u/(?P<user_name>[^/]+)/$',views.user_profile,name='user_profile'),
+    url(r'^timeline/$',views.timeline,name='timeline'),
     url(r'^tags/(?P<tag_name>[^/]+)/$',views.tags,name='tag'),
     url(r'^category/(?P<category_name>[^/]+)/$',views.category,name='category'),
     url(r'^',include(('mainapp.urls','mainapp'),namespace = 'mainapp_URLs')),
