@@ -1,9 +1,8 @@
 from django.conf.urls import url
 from django.contrib import admin
-from . import tool_views, views
+from . import tool_views
 from django.conf.urls.static import static
 from django.conf import settings
-
 
 urlpatterns = [
 url(r'^convert_file/$',tool_views.convert_file,name='convert_file'),

@@ -1,4 +1,3 @@
-
 from django.shortcuts import render, reverse, get_object_or_404
 from django.conf import settings
 from django.http import HttpResponse, HttpResponseRedirect, Http404, JsonResponse
@@ -11,8 +10,6 @@ import pypandoc
 from django.core.files.storage import default_storage
 from django.conf import settings
 from django.core.files.base import ContentFile
-
-
 
 def convert_file(request):
     if request.method=="POST":
@@ -60,8 +57,6 @@ def jpg_to_png(request):
                 return response
 
         return HttpResponse('Error while converting', status=404)
-
-
 
 
 def show_minified_js(request):

@@ -1,0 +1,71 @@
+{% extends "tools/tool_base.html" %}
+{% load staticfiles %}
+
+{% block tool %}
+<form method="post" action="/t/text_summary/">
+	{%csrf_token%}
+
+<div class="row">
+   <!-- <div class="col-sm-5 col-sm-offset-5"> -->
+    <div class="col-sm-6 col-md-4">
+    <button type="submit" class="btn btn-flat btn-lg" name="submit">Text Summary</button>
+    </div>
+
+  <div class="col-sm-3 col-md-4">
+   <select name="Languages">
+        <option value="chinese">chinese</option>
+        <option value="czech">czech</option>
+	<option value="english" selected="selected">english</option>
+        <option value="french">french</option>
+        <option value="german">german</option>
+        <option value="japanese">japanese</option>
+        <option value="portuguese">portuguese</option>
+        <option value="slovak">slovak</option>
+	<option value="spanish">spanish</option>
+    </select>  
+  </div>
+
+  <div class="col-sm-3 col-md-4">
+    <select name="Algorithm">
+        <option value="Edmundson" >Edmundson Summarizer</option>
+        <option value="Latent Semantic Analysis" selected="selected">Latent Semantic Analysis Summarizer</option>
+	<option value="LexRank">LexRank Summarizer</option>
+        <option value="TextRank">TextRank Summarizer</option>
+        <option value="Luhn">Luhn Summarizer</option>
+        <option value="SumBasic">SumBasic Summarizer</option>
+        <option value="KL-Sum">KL-Sum Summarizer</option>
+        <option value="Reduction">Reduction Summarizer</option>
+    </select> 
+  </div>
+</div>
+<br>
+
+<div class="row">
+
+    <div class="col-sm-6">
+        <div class="form-group">
+            <label for="inputtextarea">Input</label>
+    <textarea class="form-control rounded-0" id="inputtextarea" rows="10" name="input" value="{{ asliinp }}">{{ asliinp }}</textarea>
+        </div>
+    </div>
+
+    <div class="col-sm-6">
+      <div class="form-group">
+          <label for="outputtextarea">Output</label>
+          <textarea class="form-control rounded-0" id="outputtextarea" rows="10" name="output" value="{{ summary }}" disabled>{{ summary }}</textarea>
+      </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-sm-6 col-md-4">
+   	 <label for="percentage">Percentage Of Input As Output</label>
+   	 <input id="percentage" name="percentage" value="10%">
+    </div>
+</div>
+<br>
+
+</form>
+{% endblock %}
+{% block scripts %}
+{% endblock %}
