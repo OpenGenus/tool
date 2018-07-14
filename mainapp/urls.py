@@ -1,6 +1,6 @@
 from django.conf.urls import url
 from django.contrib import admin
-from . import tool_views
+from . import tool_views, views
 from django.conf.urls.static import static
 from django.conf import settings
 
