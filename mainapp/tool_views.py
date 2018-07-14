@@ -12,7 +12,20 @@ from django.core.files.storage import default_storage
 from django.conf import settings
 from django.core.files.base import ContentFile
 
+import urllib.request as ureq
 
+def website_status(request):
+    if request.method == "POST":
+        url = request.POST.get('in')
+        try:
+            page = ureq.urlopen(url)
+            status = page.getcode()
+            if status != 200:
+                return HttpResponse(url+" is offline")
+            else:
+                return HttpResponse(url+" is online")
+        except:
+            return HttpResponse(url+" does not exist")
 
 def convert_file(request):
     if request.method=="POST":
