@@ -18,7 +18,6 @@ from sumy.summarizers.text_rank import TextRankSummarizer as Summarizer3
 from sumy.summarizers.luhn import LuhnSummarizer as Summarizer4
 from sumy.summarizers.sum_basic import SumBasicSummarizer as Summarizer5
 from sumy.summarizers.kl import KLSummarizer as Summarizer6
-#from sumy.summarizers.reduction import ReductionSummarizer as Summarizer7
 from sumy.nlp.stemmers import Stemmer
 from sumy.utils import get_stop_words
 # Create your views here.
@@ -36,7 +35,7 @@ def tool(request,tool_name):
 	category = tool.category.replace(" ", "_").lower()
 	print('tools/{0}/{1}'.format(category,tool.template_name))
 	if ( request.method == "POST" and tool_name == "text_summary" ):
-		print("   POST DEKHO BCC   ",tool_name,sep="  ")
+		print("   POST DEKHO ",tool_name,sep="  ")
 		inp = request.POST.get('input')
 		aslinp = inp
 		lang = request.POST.get('Languages')
@@ -44,7 +43,6 @@ def tool(request,tool_name):
 		percen = request.POST.get('percentage')
 		parser = PlaintextParser.from_string(inp, Tokenizer(lang))
 		stemmer = Stemmer(lang)
-		algo = "LexRank"
 		if ( algo == "Edmundson" ):
 			summarizer = Summarizer0(stemmer)
 			summarizer.stop_words = get_stop_words(lang)
@@ -66,10 +64,6 @@ def tool(request,tool_name):
 		elif ( algo == "KL-Sum" ):
 			summarizer = Summarizer6(stemmer)
 			summarizer.stop_words = get_stop_words(lang)
-		elif ( algo == "Reduction" ):
-			summarizer = Summarizer7(stemmer)
-			summarizer.stop_words = get_stop_words(lang)
-		print(percen," PERCENNNN ",sep="  ")
 		summary = []
 		for sentence in summarizer(parser.document, percen):
 			summary.append(sentence)
