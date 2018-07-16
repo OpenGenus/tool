@@ -1,0 +1,40 @@
+{% extends "tools/tool_base.html" %}
+{% load staticfiles %}
+{% block tool %}
+<form action="/website_status/" id="form" method="post" enctype="multipart/form-data" style="text-align: center">
+    {%csrf_token%}
+<label for="in">Enter a website URL to check status:</label>
+<input type="text" id="in" name="in">
+    <button type="submit">Check</button>
+    <p id="status" name="status"></p>
+    </form>
+{% endblock %}
+
+{% block scripts %}
+<script>
+  $(document).ready(function() {
+  $("#form").submit(function(event){
+  event.preventDefault();
+    var inp_ = $("#form #in")[0];
+      if (inp_.value === '' || inp_.value === null) {
+        alert("Invalid input");
+  } else {
+    $.ajax({
+      data: $(this).serialize(),
+      url: $(this).attr("action"),
+      type: $(this).attr("method"),
+      success: function (response) {
+        var status = document.getElementById("status");
+        status.innerHTML = response
+        if (response.includes("online")) {
+          $(status).css("color", "green");
+        } else {
+          $(status).css("color", "red");
+        }
+      }
+    });
+  }
+})
+});
+</script>
+        {% endblock %}
