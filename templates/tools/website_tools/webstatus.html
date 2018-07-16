@@ -12,15 +12,29 @@
 
 {% block scripts %}
 <script>
-window.onload = function() {
-    $("#form").submit(function(event){
-var inp_ = $("#form #in")[0];
-        if (inp_.value === '' || inp_.value === null) {
-            event.preventDefault();
-            alert("Invalid input");
+  $(document).ready(function() {
+  $("#form").submit(function(event){
+  event.preventDefault();
+    var inp_ = $("#form #in")[0];
+      if (inp_.value === '' || inp_.value === null) {
+        alert("Invalid input");
+  } else {
+    $.ajax({
+      data: $(this).serialize(),
+      url: $(this).attr("action"),
+      type: $(this).attr("method"),
+      success: function (response) {
+        var status = document.getElementById("status");
+        status.innerHTML = response
+        if (response.includes("online")) {
+          $(status).css("color", "green");
+        } else {
+          $(status).css("color", "red");
         }
+      }
+    });
+  }
 })
-}
-
-    </script>
+});
+</script>
         {% endblock %}
