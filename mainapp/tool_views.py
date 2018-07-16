@@ -21,11 +21,11 @@ def website_status(request):
             page = ureq.urlopen(url)
             status = page.getcode()
             if status != 200:
-                return HttpResponse(url+" is offline")
+                return HttpResponse('<p>Website is offline</p>')
             else:
-                return HttpResponse(url+" is online")
+                return HttpResponse('<p>Website is online</p>')
         except:
-            return HttpResponse(url+" does not exist")
+            return HttpResponse('<p>Website does not exist</p>')
 
 def convert_file(request):
     if request.method=="POST":
