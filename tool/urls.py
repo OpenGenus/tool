@@ -20,6 +20,7 @@ from django.contrib.sitemaps.views import sitemap
 from mainapp import views
 from django.conf.urls.static import static
 from django.conf import settings
+from django.views.generic import TemplateView
 
 
 sitemaps = {
@@ -37,6 +38,7 @@ urlpatterns = [
     url(r'^timeline/$',views.timeline,name='timeline'),
     url(r'^tags/(?P<tag_name>[^/]+)/$',views.tags,name='tag'),
     url(r'^category/(?P<category_name>[^/]+)/$',views.category,name='category'),
+    url(r'^contribute/$',TemplateView.as_view(template_name="general/contribution.html"),name='home'),
     url(r'^',include(('mainapp.urls','mainapp'),namespace = 'mainapp_URLs')),
     url(r'^$',views.home,name='home'),
 ]
