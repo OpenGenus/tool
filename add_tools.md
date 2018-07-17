@@ -28,7 +28,7 @@
 
 - For server side tool, create a new view and register url for the same. The logic for the tool will be in the views.py file.
     ```
-    # views.py
+    # tool_views.py
     def convert_file(request):
         #logic here
 
