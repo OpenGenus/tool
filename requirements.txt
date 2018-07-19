@@ -3,3 +3,4 @@ Django==1.11
 Pillow==5.1.0
 pypandoc==1.4
 pytz==2018.4
+guesslang
