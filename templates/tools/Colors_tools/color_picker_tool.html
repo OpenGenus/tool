@@ -1,0 +1,227 @@
+{% extends "tools/tool_base.html" %}
+{% load staticfiles %}
+{% block tool %}
+
+<style>
+input{
+
+    float: left;
+}
+
+#canvas{
+
+float:left;
+}
+
+#color{
+margin-left:315px;
+
+}
+
+</style>
+  
+<canvas id="canvas" width="300" height="320" ></canvas>
+
+<p style="margin-left:315px;">Selected Color : </p>
+
+<div id="color" style="width:100px;height:30px;"></div>
+<br>
+
+<div class="row">
+ <div class="col-sm-4"  >
+        <div class="form-group">
+           
+           <label for="hex" >HEX</label>
+            <input   class="form-control " id="hex"  type="text"  min="0" placeholder="Value" readonly>
+           
+        </div>
+    </div>
+    
+     
+   
+  </div>
+
+<div class="row">
+ <div class="col-sm-4"  >
+        <div class="form-group">
+           
+           <label for="rgb" >RGB</label>
+            <input   class="form-control " id="rgb"  type="text"  min="0" placeholder="Value" readonly>
+           
+        </div>
+    </div>
+    
+     
+   
+  </div>
+
+<div class="row">
+ <div class="col-sm-4"  >
+        <div class="form-group">
+           
+           <label for="hsl" >HSL</label>
+            <input   class="form-control " id="hsl"  type="text"  min="0" placeholder="Value" readonly>
+           
+        </div>
+    </div>
+    
+     
+   
+  </div>
+
+
+
+
+
+
+
+{% endblock %}
+{% block scripts %}
+  <script type="text/javascript">
+  
+  
+  // WE will put the color image inside this canvas
+var canvas = document.getElementById("canvas");
+
+function getElementPosition(obj) {
+    var curleft = 0, curtop = 0;
+    if (obj.offsetParent) {
+        do {
+            curleft += obj.offsetLeft;
+            curtop += obj.offsetTop;
+        } while (obj = obj.offsetParent);
+        return { x: curleft, y: curtop };
+    }
+    return undefined;
+}
+// return the position of an element x  y
+function getEventLocation(element,event){
+	var pos = getElementPosition(element);
+
+return {
+		x: (event.pageX - pos.x),
+  	y: (event.pageY - pos.y)
+};
+}
+
+// convert  rgbToHex
+function rgbToHex(r, g, b) {
+    if (r > 255 || g > 255 || b > 255)
+        throw "Invalid color component";
+    return ((r << 16) | (g << 8) | b).toString(16);
+}
+
+
+//convert  rgbToHsl
+function rgbToHsl(r, g, b){
+    r /= 255, g /= 255, b /= 255;
+    var max = Math.max(r, g, b), min = Math.min(r, g, b);
+    var h, s, l = (max + min) / 2;
+
+    if(max == min){
+        h = s = 0; 
+    }else{
+        var d = max - min;
+        s = l > 0.5 ? d / (2 - max - min) : d / (max + min);
+        switch(max){
+            case r: h = (g - b) / d + (g < b ? 6 : 0); break;
+            case g: h = (b - r) / d + 2; break;
+            case b: h = (r - g) / d + 4; break;
+        }
+        h /= 6;
+    }
+
+    return [h, s, l];
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//draw an image from url in  canvas
+function drawImageFromWebUrl(sourceurl){
+    var img = new Image();
+
+    img.addEventListener("load", function () {
+        // The image can be drawn from any source
+        canvas.getContext("2d").drawImage(img, 0, 0, img.width,    img.height, 0, 0, canvas.width, canvas.height);
+        
+    });
+
+    img.setAttribute("src", sourceurl);
+}
+
+
+
+
+
+drawImageFromWebUrl("{% static "color_tool_images/map_saturation.png " %}")
+
+
+canvas.addEventListener("mousemove",function(e){
+	  var eventLocation = getEventLocation(this,e);
+   
+    
+    // Get the data of the pixel according to the location generate by the getEventLocation function
+    var context = this.getContext('2d');
+    var pixelData = context.getImageData(eventLocation.x, eventLocation.y, 1, 1).data; 
+
+    // If transparency on the image
+    if((pixelData[0] == 0) && (pixelData[1] == 0) && (pixelData[2] == 0) && (pixelData[3] == 0)){
+ 				coord += " (Transparent color detected, cannot be converted to HEX)";
+    }
+    
+    var hex = "#" + ("000000" + rgbToHex(pixelData[0], pixelData[1], pixelData[2])).slice(-6);
+    
+    // set the informations 
+     document.getElementById("color").style.backgroundColor = hex;
+     $('#hex').val(hex);
+     $('#rgb').val("rgb("+pixelData[0]+","+pixelData[1]+","+pixelData[2]+")");
+     
+     var hsl=rgbToHsl(pixelData[0],pixelData[1],pixelData[2]);
+     
+     $('#hsl').val("hsl("+Number(hsl[0].toFixed(2))+","+Number(hsl[1].toFixed(2))+","+Number(hsl[2].toFixed(2))+")");
+    
+},false);
+
+
+
+
+
+
+canvas.addEventListener("click",function(e){
+	  var eventLocation = getEventLocation(this,e);
+ 
+  
+  // Get the data of the pixel according to the location generate by the getEventLocation function
+  var context = this.getContext('2d');
+  var pixelData = context.getImageData(eventLocation.x, eventLocation.y, 1, 1).data; 
+
+  // If transparency on the image
+  if((pixelData[0] == 0) && (pixelData[1] == 0) && (pixelData[2] == 0) && (pixelData[3] == 0)){
+				coord += " (Transparent color detected, cannot be converted to HEX)";
+  }
+  
+  var hex = "#" + ("000000" + rgbToHex(pixelData[0], pixelData[1], pixelData[2])).slice(-6);
+  
+alert("HEX  = "+hex+"    |    RGB = ("+pixelData[0]+","+pixelData[1]+","+pixelData[2]+")"  );
+  
+},false);
+
+
+
+
+
+
+</script>
+  
+{% endblock %}

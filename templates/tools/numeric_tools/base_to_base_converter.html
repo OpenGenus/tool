@@ -1,0 +1,217 @@
+{% extends "tools/tool_base.html" %}
+{% load staticfiles %}
+{% block tool %}
+
+
+<style>
+#button{
+margin-left: 10px;
+margin-top: 25px;
+
+}
+
+#button:hover {
+    background-color: green;
+}
+
+</style>
+<div class="row">
+ <div class="col-sm-3"  >
+        <div class="form-group">
+            <label for="input">Input Value</label>
+            <input  class="form-control " id="input"  type="text"  min="0" placeholder="Value">
+        </div>
+    </div>
+    <div class="col-sm-2"  >
+        <div class="form-group">
+            <label for="baseinput">From Base</label>
+            
+             <select id="baseinput" class="form-control">
+                  
+             <option value="2">2</option>       <option value="3">3</option>     <option value="4">4</option>                          
+             <option value="5">5</option>      <option value="6">6</option>       <option value="7">7</option>     <option value="8">8</option> 
+             <option value="9">9</option>     <option value="10">10</option>    <option value="11">11</option>  <option value="12">12</option>
+                                                     <option value="13">13</option>
+              <option value="14">14</option>   <option value="15">15</option>      <option value="16">16</option>   <option value="17">17</option>
+              <option value="18">18</option>   <option value="19">19</option>     <option value="20">20</option>      <option value="21">21</option> 
+              <option value="22">22</option> <option value="23">23</option>   <option value="24">24</option>   <option value="25">25</option>
+              <option value="26">26</option>  <option value="27">27</option>   <option value="28">28</option>    <option value="29">29</option>
+              <option value="30">30</option>   <option value="31">31</option>  <option value="32">32</option>   <option value="33">33</option>
+              <option value="34">34</option>  <option value="35">35</option>  <option value="36">36</option>  <option value="37">37</option> 
+                                                      <option value="38">38</option>
+             
+             </select> 
+        </div>
+    </div>
+      <div class="col-sm-2"  >
+        <div class="form-group">
+            <label for="baseoutput">To Base</label>
+            
+             <select id="baseoutput" class="form-control">
+                         
+              <option value="2">2</option>       <option value="3">3</option>     <option value="4">4</option>                          
+             <option value="5">5</option>      <option value="6">6</option>       <option value="7">7</option>     <option value="8">8</option> 
+             <option value="9">9</option>     <option value="10">10</option>    <option value="11">11</option>  <option value="12">12</option>
+                                                     <option value="13">13</option>
+              <option value="14">14</option>   <option value="15">15</option>      <option value="16">16</option>   <option value="17">17</option>
+              <option value="18">18</option>   <option value="19">19</option>     <option value="20">20</option>      <option value="21">21</option> 
+              <option value="22">22</option> <option value="23">23</option>   <option value="24">24</option>   <option value="25">25</option>
+              <option value="26">26</option>  <option value="27">27</option>   <option value="28">28</option>    <option value="29">29</option>
+              <option value="30">30</option>   <option value="31">31</option>  <option value="32">32</option>   <option value="33">33</option>
+              <option value="34">34</option>  <option value="35">35</option>  <option value="36">36</option>  <option value="37">37</option> 
+                                                      <option value="38">38</option>
+             </select> 
+        </div>
+    </div>
+    
+      <div class="col-sm-4">
+      <div class="form-group">
+          <label for="doutput"> Result</label>
+          <input class="form-control " id="output"  disabled>
+      </div>
+    </div>
+ 
+     <div class="col-sm-3">
+      <button id="button" type="button" class="btn btn-flat btn-lg " onclick="convert()">Convert </button>
+    </div>
+   
+  </div>
+
+{% endblock %}
+{% block scripts %}
+  <script type="text/javascript">
+  function convert() {
+	
+    var input_base = $('#baseinput').val();
+    var output_base = $('#baseoutput').val();
+    
+    var input_value = $('#input').val();
+    var output_value = $('#output').val();
+  
+ // verify if the input value is correct with its  input base   	
+    	if(verif_inputvalue_with_inputbase(input_value,input_base,output_base)){  		
+        if(input_base <=36 && output_base<=36){
+        	// first methode simple convert
+        	 $('#output').val(parseInt(input_value, input_base).toString(output_base));
+        }else{
+        	
+        	// second methode  convert  baseinput over 36 or baseoutput over 36
+        	
+        	 $('#output').val(convertBasegraterthen36(input_value,input_base,output_base));
+        }
+    	}else{		
+    		alert("The number you've entered contains invalid digits for its base.");
+    	}
+   
+ 
+  
+      }
+  
+  
+  function convertBasegraterthen36(value, from_base, to_base) {
+	  var range = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz+/'.split('');
+	  var from_range = range.slice(0, from_base);
+	  var to_range = range.slice(0, to_base);
+	  
+	  var dec_value = value.split('').reverse().reduce(function (carry, digit, index) {
+	    if (from_range.indexOf(digit) === -1) throw new Error('Invalid digit `'+digit+'` for base '+from_base+'.');
+	    return carry += from_range.indexOf(digit) * (Math.pow(from_base, index));
+	  }, 0);
+	  
+	  var new_value = '';
+	  while (dec_value > 0) {
+	    new_value = to_range[dec_value % to_base] + new_value;
+	    dec_value = (dec_value - (dec_value % to_base)) / to_base;
+	  }
+	  return new_value || '0';
+	}
+  
+  
+  
+  
+  function verif_inputvalue_with_inputbase(value, input_base){
+	  var result=true;
+	  var number_under_base = new Set(); 
+		
+	   if(input_base<10){
+		 
+	     for (i = 0; i < input_base; i++) {
+			 number_under_base.add(i);
+			 
+		} 
+		   
+	   }else{
+		   
+		   for (i = 0; i < 10; i++) {
+			   number_under_base.add(i);
+				 
+			}  
+
+		   switch (parseInt(input_base, 10)){ // add extra char to base table 
+		  
+			   case 11:number_under_base.add('A') ;  break ;
+			   case 12:number_under_base.add('A').add('B');break ;
+			   case 13:number_under_base.add('A').add('B').add('C');break ;
+			   case 14:number_under_base.add('A').add('B').add('C').add('D'); break ;
+			   case 15:number_under_base.add('A').add('B').add('C').add('D').add('E'); break ;
+			   case 16:number_under_base.add('A').add('B').add('C').add('D').add('E').add('F'); break ;
+			   case 17:number_under_base.add('A').add('B').add('C').add('D').add('E').add('F').add('G'); break ;
+			   case 18:number_under_base.add('A').add('B').add('C').add('D').add('E').add('F').add('G').add('H');break ;
+			   case 19:number_under_base.add('A').add('B').add('C').add('D').add('E').add('F').add('G').add('H').add('I');break ;	  
+			   case 20:number_under_base.add('A').add('B').add('C').add('D').add('E').add('F').add('G').add('H').add('I').add('J');break ;
+			   case 21:number_under_base.add('A').add('B').add('C').add('D').add('E').add('F').add('G').add('H').add('I').add('J').add('K');break ;  
+			   case 22:number_under_base.add('A').add('B').add('C').add('D').add('E').add('F').add('G').add('H').add('I').add('J').add('K').add('L');break ;
+			   case 23:number_under_base.add('A').add('B').add('C').add('D').add('E').add('F').add('G').add('H').add('I').add('J').add('K').add('L').add('M');break ;
+			   case 24:number_under_base.add('A').add('B').add('C').add('D').add('E').add('F').add('G').add('H').add('I').add('J').add('K').add('L').add('M').add('N');break ;
+			   case 25:number_under_base.add('A').add('B').add('C').add('D').add('E').add('F').add('G').add('H').add('I').add('J').add('K').add('L').add('M').add('N').add('O');break ;
+			   case 26:number_under_base.add('A').add('B').add('C').add('D').add('E').add('F').add('G').add('H').add('I').add('J').add('K').add('L').add('M').add('N').add('O').add('P');break ;
+			   case 27:number_under_base.add('A').add('B').add('C').add('D').add('E').add('F').add('G').add('H').add('I').add('J').add('K').add('L').add('M').add('N').add('O').add('P').add('Q');break ;
+			   case 28:number_under_base.add('A').add('B').add('C').add('D').add('E').add('F').add('G').add('H').add('I').add('J').add('K').add('L').add('M').add('N').add('O').add('P').add('Q').add('R');break ;
+			   case 29:number_under_base.add('A').add('B').add('C').add('D').add('E').add('F').add('G').add('H').add('I').add('J').add('K').add('L').add('M').add('N').add('O').add('P').add('Q').add('R').add('S');break ;
+			   case 30:number_under_base.add('A').add('B').add('C').add('D').add('E').add('F').add('G').add('H').add('I').add('J').add('K').add('L').add('M').add('N').add('O').add('P').add('Q').add('R').add('S').add('T');break ;
+			   case 31:number_under_base.add('A').add('B').add('C').add('D').add('E').add('F').add('G').add('H').add('I').add('J').add('K').add('L').add('M').add('N').add('O').add('P').add('Q').add('R').add('S').add('T').add('U');break ;
+			   case 32:number_under_base.add('A').add('B').add('C').add('D').add('E').add('F').add('G').add('H').add('I').add('J').add('K').add('L').add('M').add('N').add('O').add('P').add('Q').add('R').add('S').add('T').add('U').add('V');break ;
+			   case 33:number_under_base.add('A').add('B').add('C').add('D').add('E').add('F').add('G').add('H').add('I').add('J').add('K').add('L').add('M').add('N').add('O').add('P').add('Q').add('R').add('S').add('T').add('U').add('V').add('W');break ;
+			   case 34:number_under_base.add('A').add('B').add('C').add('D').add('E').add('F').add('G').add('H').add('I').add('J').add('K').add('L').add('M').add('N').add('O').add('P').add('Q').add('R').add('S').add('T').add('U').add('V').add('W').add('X');break ;
+			   case 35:number_under_base.add('A').add('B').add('C').add('D').add('E').add('F').add('G').add('H').add('I').add('J').add('K').add('L').add('M').add('N').add('O').add('P').add('Q').add('R').add('S').add('T').add('U').add('V').add('W').add('X').add('Y');break ;
+			   case 36:number_under_base.add('A').add('B').add('C').add('D').add('E').add('F').add('G').add('H').add('I').add('J').add('K').add('L').add('M').add('N').add('O').add('P').add('Q').add('R').add('S').add('T').add('U').add('V').add('W').add('X').add('Y').add('Z');break ;
+			   case 37:number_under_base.add('A').add('B').add('C').add('D').add('E').add('F').add('G').add('H').add('I').add('J').add('K').add('L').add('M').add('N').add('O').add('P').add('Q').add('R').add('S').add('T').add('U').add('V').add('W').add('X').add('Y').add('Z').add('a');break ;
+			   case 38:number_under_base.add('A').add('B').add('C').add('D').add('E').add('F').add('G').add('H').add('I').add('J').add('K').add('L').add('M').add('N').add('O').add('P').add('Q').add('R').add('S').add('T').add('U').add('V').add('W').add('X').add('Y').add('Z').add('a').add('b');break ;
+			   default:  break;
+		   }
+		   
+	   }
+	   
+	   
+		  
+	  var input_as_string=value.toString();
+	
+		  for (i = 0; i < input_as_string.length; i++) {
+			  
+			  if(isLetter(input_as_string.charAt(i))){
+				  
+				  if(number_under_base.has(input_as_string.charAt(i))==false){
+					 
+				         result=false;
+				     
+				      }
+			  }else{
+				  
+				  if(number_under_base.has(parseInt(input_as_string.charAt(i), 10))==false){
+	 
+				         result=false;
+				           }
+				  
+			  }
+  
+		  } 
+
+	  return result;
+  }
+  
+  function isLetter(str) {
+	  return str.length === 1 && str.match(/[a-z]/i);
+	}
+ 
+  </script>
+{% endblock %}
