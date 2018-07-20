@@ -1,0 +1,80 @@
+
+{% extends 'base.html' %}
+{% load staticfiles %}
+{% block content %}
+{% verbatim %}
+<h1 id="addingtools">Adding Tools</h1>
+
+<ul>
+<li>Create a template for tool under <code>templates/tools/</code> with following format</li>
+</ul>
+
+<pre><code>{% extends "tools/tool_base.html" %}
+{% load staticfiles %}
+
+
+{% block scripts %}
+{% endblock %}
+
+
+</code></pre>
+
+<ul>
+<li><p>Login to Admin Panel and add tool, fill in author, template name, url_endpoint and other info regarding the tool.</p></li>
+
+<li><p>For client side tool, the logic for the tool has to be written in javascript in the template itself. Below is an example:</p>
+
+<pre><code>function capitalize() {
+  var text = $('#inputtextarea').val().toUpperCase();
+  $('#outputtextarea').val(text);
+}
+</code></pre></li>
+
+<li><p>For server side tool, create a new view and register url for the same. The logic for the tool will be in the views.py file.</p>
+
+<pre><code># views.py
+def convert_file(request):
+    #logic here
+
+  return response
+
+# urls.py
+urlpatterns = [
+ ...
+ url(r'^convert_file/$',
+        views.convert_file,
+        name='convert_file'),
+ ...
+  ]
+</code></pre></li>
+</ul>
+
+<h1 id="conventionstobefollowed">Conventions to be followed</h1>
+
+<p>Follow the  conventions as stated in <a href="https://www.python.org/dev/peps/pep-0008/">PEP8</a>, apart the following conventions should be followed.</p>
+
+<ul>
+<li><p><strong>Templates</strong>: A template for tool should be added to <code>tools/&lt;category&gt;/</code> under  <code>templates</code> folder. The template name should be  meaningful, in lowercase and use '_' instead of space. Examples: <code>prettify_css.html</code>, <code>lowercase.html</code>. <br />
+For a tool name <code>Code Editor</code> the template name should be <code>code_editor.html</code></p></li>
+
+<li><p><strong>Views</strong>:</p>
+
+<ul>
+<li><p><strong><em>function based view</em></strong></p>
+
+<pre><code> def jpg_to_png_converter():
+//code
+</code></pre></li>
+
+<li><p><strong><em>class based view</em></strong>
+<code>
+  class UserProfileView():
+      //code
+</code></p></li></ul></li>
+
+<li><p><strong>URLs</strong>:
+The generic url for tools is <code>/t/&lt;url_endpoint&gt;</code>, where <code>url_endpoint</code> is defined by user while adding tool to database.</p></li>
+</ul>
+{% endverbatim %}
+
+{% endblock %}

@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+
+{% block head %}
+<link rel="stylesheet" type="text/css"  href="{% static 'css/user_timeline.css' %}">
+<link rel="stylesheet" type="text/css"  href="{% static 'css/timeline.css' %}">
+
+{% endblock %}
+
+{% block content %}
+
+<div class="container">
+    <div class="page-header">
+        <h1 class="text-center">Project Timeline</h1>
+    </div>
+    <hr>
+    <ul class="timeline">
+      {% for tool in tools %}
+
+          {% if forloop.counter|divisibleby:2 %}
+            <li class="timeline-inverted">
+          {%else%}
+            <li>
+          {%endif%}
+
+          <div class="timeline-badge primary"><i class="glyphicon glyphicon-check"></i></div>
+          <div class="timeline-panel">
+            <div class="timeline-heading">
+            <a href="{%url 'tool' tool.url_endpoint%}"> <h4 class="timeline-title">{{tool.name}}</h4></a>
+              <p><small class="text-muted"><i class="glyphicon glyphicon-time"></i>{{tool.created_at}}</small></p>
+              <p>Author: <a href="{%url 'user_profile' tool.author.user.username %}">{{tool.author}}</a> </p>
+            </div>
+            <div class="timeline-body">
+              <p>{{tool.long_description|truncatechars:255}}</p>
+            </div>
+          </div>
+        </li>
+
+
+
+  {% endfor %}
+    </ul>
+</div>
+
+
+
+
+{% endblock %}

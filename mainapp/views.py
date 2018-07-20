@@ -76,10 +76,14 @@ def tool(request,tool_name):
 
 def user_profile(request,user_name):
     user_profile = get_object_or_404(models.UserProfile,user__username=user_name)
-    user_profile = models.UserProfile.objects.get(user__username=user_name)
     tools = user_profile.author_tool_set.all()
     return render(request,'user/profile.html',
                                         {'user_profile':user_profile,'tools':tools})
+
+def timeline(request):
+    tools = models.Tool.objects.all().order_by('-created_at')
+    return render(request,'general/timeline.html',{'tools':tools})
+
 
 def tags(request,tag_name):
     tag = get_object_or_404(models.Tag,tag=tag_name)
