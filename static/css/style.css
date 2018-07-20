@@ -1,9 +1,10 @@
 body {
 padding-top: 6em;
+
 }
 .navbarlight{
 background: white;
  }
- .bodylight{
- background: #ebebe0;
+ .bodydark{
+ background: rgba(50,50,50,0.3);
   }
