@@ -91,6 +91,11 @@
                 type: $(this).attr("method"),
                 success: function (response) {
                     document.getElementById("lang").innerHTML = response;
+                    document.getElementById("lang").style.background = "blue";
+                    document.getElementById("lang").style.color = "white";
+                    document.getElementById("lang").style.fontSize = "1.5em";
+                    document.getElementById("lang").style.width = "6em";
+                    document.getElementById("lang").style.textAlign = "center";
                 }
             });
         });
