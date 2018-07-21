@@ -12,6 +12,7 @@ numpy==1.14.5
 Pillow==5.1.0
 pypandoc==1.4
 pytz==2018.4
+guesslang
 requests==2.19.1
 six==1.11.0
 sumy==0.7.0

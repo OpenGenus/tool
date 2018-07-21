@@ -12,6 +12,12 @@ from django.conf import settings
 from django.core.files.base import ContentFile
 
 import urllib.request as ureq
+from guesslang import Guess
+
+def detect_lang(request):
+    code = request.POST['code']
+    lang = Guess().language_name(code)
+    return HttpResponse(lang)
 
 def website_status(request):
     if request.method == "POST":

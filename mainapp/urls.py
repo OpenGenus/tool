@@ -13,6 +13,7 @@ url(r'^jpg_to_png/$',tool_views.jpg_to_png,name='jpg_to_png'),
 url(r'^about_sample_file/(?P<format>[\w]+)/$', tool_views.about_sample_file,name='about_sample_file'),
 url(r'^download_sample_file/(?P<format>[^/]+)/$', tool_views.download_sample_file, name = 'download_sample_file'),
 url(r'^website_status/$',tool_views.website_status,name='website_status'),
+url(r'^detect_lang/$',tool_views.detect_lang,name='detect_lang'),
 ]
 
 if settings.DEBUG is True:
