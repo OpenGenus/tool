@@ -1,0 +1,60 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+
+
+{% block content %}
+
+
+
+{% if ip is None %}
+
+<h1> there is no data </h1>
+
+{% else %}
+
+<div class="container"  >
+ 
+  <div style="margin-left:45%;" class="panel panel-default">
+   <div   class="panel-heading">IP : {{ip}}</div>
+    <div  class="panel-body">latitude : {{lat}}</div>
+     <div  class="panel-body">longitude : {{lng}}</div>
+      <div  class="panel-body">Country : {{country}}</div>
+  </div>
+  <br>
+  <div  id="googleMap" style="width:50%;height:400px;margin-left:25%;"></div>
+</div>
+
+{% endif %}
+
+
+{% endblock %}
+
+
+
+
+{% block scripts %}
+ <script>
+
+function initMap() {
+        var myLatLng = {lat: {{lat}}, lng: {{lng}}};
+
+        // Create a map object and specify the DOM element
+        // for display.
+        var map = new google.maps.Map(document.getElementById('googleMap'), {
+          center: myLatLng,
+          zoom: 4
+        });
+
+        // Create a marker and set its position.
+        var marker = new google.maps.Marker({
+          map: map,
+          position: myLatLng,     
+        });
+      }
+
+    </script>
+  <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBuj9JBaShnsP9AVMsk1KxbLmYPaGoiO4k&callback=initMap"
+  type="text/javascript"></script>
+
+
+{% endblock %}

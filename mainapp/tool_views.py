@@ -7,6 +7,11 @@ import base64
 from css_html_js_minify import js_minify,process_single_js_file
 import os
 import pypandoc
+
+import re
+import json
+from urllib.request import urlopen
+
 from django.core.files.storage import default_storage
 from django.conf import settings
 from django.core.files.base import ContentFile
@@ -18,6 +23,43 @@ def detect_lang(request):
     code = request.POST['code']
     lang = Guess().language_name(code)
     return HttpResponse(lang)
+
+
+
+def detect_location(request):
+
+    return render(request, 'tools/location_tool/detect_location.html', {'hello':"now i am coming from fist app index.html"} )
+    
+def display_location(request):
+    url = 'http://ipinfo.io/json'
+    response = urlopen(url)
+    data = json.load(response)
+
+    IP=data['ip']
+    
+    country=data['country']
+    
+    city=data['city']
+    
+    latitude_longitude=data['loc']
+    latitude=""
+    longitude=""
+    i=0
+    while i < len(latitude_longitude)  and latitude_longitude[i] != ',' :
+        latitude=latitude+latitude_longitude[i]
+        i=i+1
+    
+    i=i+1
+    
+    while i < len(latitude_longitude)    :
+        longitude=longitude+latitude_longitude[i]
+        i=i+1
+       
+    return render(request, 'tools/location_tool/display_location_map_and_info.html', {'ip':IP,'country':country ,'lat':latitude,'lng':longitude  } )
+
+
+
+
 
 def website_status(request):
     if request.method == "POST":
