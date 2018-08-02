@@ -25,42 +25,6 @@ def detect_lang(request):
     return HttpResponse(lang)
 
 
-
-def detect_location(request):
-
-    return render(request, 'tools/location_tool/detect_location.html', {'hello':"now i am coming from fist app index.html"} )
-    
-def display_location(request):
-    url = 'http://ipinfo.io/json'
-    response = urlopen(url)
-    data = json.load(response)
-
-    IP=data['ip']
-    
-    country=data['country']
-    
-    city=data['city']
-    
-    latitude_longitude=data['loc']
-    latitude=""
-    longitude=""
-    i=0
-    while i < len(latitude_longitude)  and latitude_longitude[i] != ',' :
-        latitude=latitude+latitude_longitude[i]
-        i=i+1
-    
-    i=i+1
-    
-    while i < len(latitude_longitude)    :
-        longitude=longitude+latitude_longitude[i]
-        i=i+1
-       
-    return render(request, 'tools/location_tool/display_location_map_and_info.html', {'ip':IP,'country':country ,'lat':latitude,'lng':longitude  } )
-
-
-
-
-
 def website_status(request):
     if request.method == "POST":
         url = request.POST.get('in')

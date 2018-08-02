@@ -15,8 +15,6 @@ url(r'^about_sample_file/(?P<format>[\w]+)/$', tool_views.about_sample_file,name
 url(r'^download_sample_file/(?P<format>[^/]+)/$', tool_views.download_sample_file, name = 'download_sample_file'),
 url(r'^website_status/$',tool_views.website_status,name='website_status'),
 url(r'^detect_lang/$',tool_views.detect_lang,name='detect_lang'),
-url(r'^detect_location/$',tool_views.detect_location,name='detect_location'),
-url(r'^display_location/$',tool_views.display_location,name='display_location'),
 ]
 
 if settings.DEBUG is True:

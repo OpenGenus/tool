@@ -5,21 +5,75 @@
 
 {% block tool %}
 
-<div class="row">
-
-    <div class="col-sm-5 col-sm-offset-5">
-    
-    
-      <a  href= "http://127.0.0.1:8000/display_location/" class="btn btn-flat btn-lg "  > Detect My Location  </a>
-      
-    </div>
-    
-
+<div class="container"  >
+ 
+  <div style="margin-left:45%;" class="panel panel-default">
+   <div  id="ip" class="panel-heading"></div>
+    <div id="latitude" class="panel-body"></div>
+     <div id="longitude" class="panel-body"> </div>
+      <div id="country"class="panel-body"></div>
+  </div>
+  <br>
+  <div  id="googleMap" style="width:60%;height:400px;margin-left:25%;"></div>
+</div>
 
 
 {% endblock %}
 
+
+
 {% block scripts %}
+ <script>
+var requestURL = 'https://ipapi.co/json/';
+var request = new XMLHttpRequest();
+request.open('GET', requestURL);
+request.responseType = 'json';
+request.send();
+ 
+request.onload = function() {
+  var data = request.response;
+ showdata(data);
+}
+
+
+function showdata(jsonObj) {
+ var ip = jsonObj['ip'];
+ var latitude = jsonObj['latitude'];
+ var longitude = jsonObj['longitude'];
+ var country=  jsonObj['country_name']; 
+ 
+ document.getElementById("ip").innerHTML = "Ip : "+ip;
+ document.getElementById("latitude").innerHTML ="Latitude : "+latitude;
+ document.getElementById("longitude").innerHTML ="Longitude : "+longitude;
+ document.getElementById("country").innerHTML ="Country : "+country;
+ 
+ displayMap(latitude,longitude);
+}
+
+
+
+function displayMap(latitude,longitude) {
+        var myLatLng = {lat:latitude , lng:longitude };
+
+        
+        var map = new google.maps.Map(document.getElementById('googleMap'), {
+          center: myLatLng,
+          zoom: 4
+        });
+
+    
+        var marker = new google.maps.Marker({
+          map: map,
+          position: myLatLng,     
+        });
+      }
+
+</script>
+  <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBuj9JBaShnsP9AVMsk1KxbLmYPaGoiO4k&callback=initMap"
+  type="text/javascript"></script>
+
+
+
 
 
 
