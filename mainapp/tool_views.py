@@ -7,6 +7,11 @@ import base64
 from css_html_js_minify import js_minify,process_single_js_file
 import os
 import pypandoc
+
+import re
+import json
+from urllib.request import urlopen
+
 from django.core.files.storage import default_storage
 from django.conf import settings
 from django.core.files.base import ContentFile
@@ -18,6 +23,7 @@ def detect_lang(request):
     code = request.POST['code']
     lang = Guess().language_name(code)
     return HttpResponse(lang)
+
 
 def website_status(request):
     if request.method == "POST":
