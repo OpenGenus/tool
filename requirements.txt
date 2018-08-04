@@ -4,6 +4,7 @@ chardet==3.0.4
 css-html-js-minify==2.5.5
 Django==1.11
 docopt==0.6.2
+fpdf==1.7.2
 guesslang
 idna==2.7
 jieba==0.39
