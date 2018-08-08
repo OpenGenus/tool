@@ -7,17 +7,32 @@ import base64
 from css_html_js_minify import js_minify,process_single_js_file
 import os
 import pypandoc
+
+import re
+import json
+from urllib.request import urlopen
+
 from django.core.files.storage import default_storage
 from django.conf import settings
-from django.core.files.base import ContentFile
+from django.core.files.base import ContentFile, File
 
 import urllib.request as ureq
 from guesslang import Guess
+
+
+import pdfcrowd
+import sys
+from django.core.files.storage import FileSystemStorage
+import time
+
+
+
 
 def detect_lang(request):
     code = request.POST['code']
     lang = Guess().language_name(code)
     return HttpResponse(lang)
+
 
 def website_status(request):
     if request.method == "POST":
@@ -129,3 +144,64 @@ def download_sample_file(request,format):
         response['Content-Disposition'] = 'inline; filename=' + os.path.basename(input_file_path)
         return response
     return HttpResponse('Error while converting', status=404)
+
+
+
+
+def generate_pdf(request):
+    
+    
+    try:
+            weburl=request.POST["webpageurl"]
+            client = pdfcrowd.HtmlToPdfClient('minou2530', '575b021cbb5caf99ae5e0d13127deb42    ')
+            output_stream = open(settings.MEDIA_ROOT+'\generatedpdf\generatedpdf.pdf', 'wb')
+            client.convertUrlToStream(weburl, output_stream)
+            output_stream.close()
+            return render(request,'tools/pdf_generator/result_page.html',{'file_path':settings.MEDIA_ROOT+'\generatedpdf\generatedpdf.pdf'})
+            
+   
+    except pdfcrowd.Error as why:
+        return HttpResponse('Error while converting', status=404)
+        raise
+
+
+
+
+def  delete_generated_pdf(request,path):
+    
+    if os.path.isfile(path):
+        os.remove(path)
+    
+    return HttpResponse('file deleted')
+    
+    
+    
+def download_generated_pdf(request,path):
+    file_path = path
+    if os.path.exists(file_path):
+        with open(file_path, 'rb') as fh:
+            response = HttpResponse(fh.read(), content_type="application/pdf")
+            response['Content-Disposition'] = 'attachment; filename='+ file_path
+            return response
+    raise HttpResponse('file Not Found')
+    
+    
+    
+def view_generated_pdf(request,path):
+    file_path = path
+    if os.path.exists(file_path):
+        with open(file_path, 'rb') as fh:
+            response = HttpResponse(fh.read(), content_type="application/pdf")
+            response['Content-Disposition'] = 'inline; filename='+ file_path
+            return response
+    raise HttpResponse('file Not Found')        
+    
+
+
+    
+    
+    
+    
+    
+    
+    

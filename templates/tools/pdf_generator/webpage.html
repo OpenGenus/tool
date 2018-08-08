@@ -1,0 +1,41 @@
+{% extends "tools/tool_base.html" %}
+{% load staticfiles %}
+
+{% block tool %}
+
+
+
+
+<form action= "{% url 'mainapp:generate_pdf'  %}" method="post">
+{% csrf_token %}
+<div class="row">
+
+
+ <div class="col-sm-6"  >
+        <div class="form-group">
+            <label for="input">Web page Url</label>
+            <input  class="form-control " id="webpageurl"  type="text" name="webpageurl"   placeholder="http://.....">
+            
+        </div>
+        <input type="submit" class="form-control col-sm-5" value="Generate Pdf ">
+        
+       
+    </div>
+
+
+  
+
+</div>
+
+</form>
+
+
+
+
+
+
+
+{% endblock %}
+
+{% block scripts %}
+{% endblock %}
