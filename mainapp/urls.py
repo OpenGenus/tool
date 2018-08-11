@@ -4,7 +4,7 @@ from . import tool_views, views
 from django.conf.urls.static import static
 from django.conf import settings
 
-from django_pdfkit import PDFView
+
 
 urlpatterns = [
 url(r'^convert_file/$',tool_views.convert_file,name='convert_file'),

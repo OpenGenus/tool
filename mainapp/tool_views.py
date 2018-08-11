@@ -20,7 +20,7 @@ import urllib.request as ureq
 from guesslang import Guess
 
 
-import pdfcrowd
+import pdfkit
 import sys
 from django.core.files.storage import FileSystemStorage
 import time
@@ -150,22 +150,13 @@ def download_sample_file(request,format):
 
 def generate_pdf(request):
     
-    
-    try:
-            weburl=request.POST["webpageurl"]
-            client = pdfcrowd.HtmlToPdfClient('minou2530', '575b021cbb5caf99ae5e0d13127deb42    ')
-            output_stream = open(settings.MEDIA_ROOT+'\generatedpdf\generatedpdf.pdf', 'wb')
-            client.convertUrlToStream(weburl, output_stream)
-            output_stream.close()
-            return render(request,'tools/pdf_generator/result_page.html',{'file_path':settings.MEDIA_ROOT+'\generatedpdf\generatedpdf.pdf'})
+    weburl=request.POST["webpageurl"]
+    config = pdfkit.configuration(wkhtmltopdf=settings.BASE_DIR+'/wkhtmltopdf/bin/wkhtmltopdf.exe')
+    pdfkit.from_url(weburl, settings.MEDIA_ROOT+'\generatedpdf\generatedpdf.pdf',configuration=config)
+    return render(request,'tools/pdf_generator/result_page.html',{'file_path':settings.MEDIA_ROOT+'\generatedpdf\generatedpdf.pdf'})
             
    
-    except pdfcrowd.Error as why:
-        return HttpResponse('Error while converting', status=404)
-        raise
-
-
-
+    
 
 def  delete_generated_pdf(request,path):
     
