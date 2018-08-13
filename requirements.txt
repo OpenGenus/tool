@@ -20,4 +20,3 @@ tinysegmenter==0.3
 urllib3==1.23
 pdfkit
 django-pdfkit
-
