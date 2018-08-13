@@ -26,21 +26,28 @@ margin-left: 35%;
 
 }
 </style>
-
+<div class="alert alert-warning alert-dismissible fade show" role="alert">
+  <strong>Note : </strong> You have 30 min to view Or Download This  Pdf File .
+  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
 
 <h1 class="alt-1">0h 30m 0s</h1>
 <div class="row">
 
  <div class="col-sm-3"  >
-  <a     href="{% url 'mainapp:view_generated_pdf' path=file_path  %}"> View The Pdf File</a>
+  <a   class="btn btn-primary"  role="button"  href="{% url 'mainapp:view_generated_pdf' path=file_path  %}"> View The Pdf File</a>
     </div>
       <div class="col-sm-3">
-      <a   href="{% url 'mainapp:download_generated_pdf' path=file_path  %}"> Download Pdf  File</a>
+      <a   class="btn btn-primary"  role="button" href="{% url 'mainapp:download_generated_pdf' path=file_path  %}"> Download Pdf  File</a>
     </div>
 
    
     
   </div>
+
+
 
 
 {% endblock %}
@@ -70,6 +77,6 @@ window.jQuery(function ($) {
 
 });
 
-
+$('.alert').alert()
 </script>
 {% endblock %}
