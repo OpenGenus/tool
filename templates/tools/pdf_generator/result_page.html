@@ -1,0 +1,82 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+
+
+
+{% block head %}
+<link href="https://fonts.googleapis.com/css?family=Open+Sans:600,700" rel="stylesheet" type="text/css">
+ <link href="https://fonts.googleapis.com/css?family=Righteous" rel="stylesheet" type="text/css">
+ <link rel="stylesheet"     href="{% static 'css/countdown.demo.css' %}"  type="text/css">
+{% endblock %}
+
+
+
+{% block content %}
+
+<style>
+
+.row{
+
+margin-left: 35%;
+
+}
+.alt-1{
+
+margin-left: 35%;
+
+}
+</style>
+<div class="alert alert-warning alert-dismissible fade show" role="alert">
+  <strong>Note : </strong> You have 30 min to view Or Download This  Pdf File .
+  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+
+<h1 class="alt-1">0h 30m 0s</h1>
+<div class="row">
+
+ <div class="col-sm-3"  >
+  <a   class="btn btn-primary"  role="button"  href="{% url 'mainapp:view_generated_pdf' path=file_path  %}"> View The Pdf File</a>
+    </div>
+      <div class="col-sm-3">
+      <a   class="btn btn-primary"  role="button" href="{% url 'mainapp:download_generated_pdf' path=file_path  %}"> Download Pdf  File</a>
+    </div>
+
+   
+    
+  </div>
+
+
+
+
+{% endblock %}
+
+
+{% block scripts %}
+
+
+<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+<script   src="{% static 'js/jquery.countdown.js' %}"></script>
+<script>
+
+setTimeout(function(){
+	  var servercall = "{% url 'mainapp:delete_generated_pdf' path=file_path %} ";
+    window.location.href = servercall;
+},  1800000);
+
+
+window.jQuery(function ($) {
+    "use strict";
+
+   
+    $('.alt-1').countDown({
+        css_class: 'countdown-alt-1'
+    });
+    
+
+});
+
+$('.alert').alert()
+</script>
+{% endblock %}
