@@ -46,6 +46,9 @@ class Tool(models.Model):
     long_description = models.TextField(blank=True)
     short_description = models.TextField(blank=True)
     category = models.CharField(max_length=50,blank=True,default='Uncategorized')
+    
+    discourse_post_url=models.URLField(blank=True,null=True)
+   
     image = models.FileField(blank=True,null=True,upload_to='tools')
     author = models.ForeignKey(UserProfile, on_delete=models.CASCADE,related_name='author_tool_set')
     editors = models.ManyToManyField(UserProfile, related_name='editors_tool_set',blank=True)
@@ -54,7 +57,7 @@ class Tool(models.Model):
     related_tools = models.ManyToManyField("self", blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
-
+    
     def __str__(self):
         return self.name
 

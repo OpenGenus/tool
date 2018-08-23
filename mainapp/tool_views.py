@@ -1,4 +1,4 @@
-from django.shortcuts import render, reverse, get_object_or_404
+from django.shortcuts import render, reverse, get_object_or_404,redirect
 from django.conf import settings
 from django.http import HttpResponse, HttpResponseRedirect, Http404, JsonResponse
 from . import models
@@ -188,6 +188,8 @@ def view_generated_pdf(request,path):
     raise HttpResponse('file Not Found')        
     
 
+def discourse_post(request,discourse_url):
+    return redirect(discourse_url)
 
     
     

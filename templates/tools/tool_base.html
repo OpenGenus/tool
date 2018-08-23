@@ -55,6 +55,15 @@
             {% block tool %}
 
             {% endblock %}
+            
+           {% if tool.discourse_post_url %}
+         
+           <hr>
+       <a  class="btn btn-primary"  role="button"  href="{% url  'mainapp:discourse_post' discourse_url=tool.discourse_post_url  %}"> Start Discussion  </a>  
+       
+       
+           {% endif %} 
+            
     </div>
 
   </div>
