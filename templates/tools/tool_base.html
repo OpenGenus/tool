@@ -59,10 +59,26 @@
            {% if tool.discourse_post_url %}
          
            <hr>
-       <a  class="btn btn-primary"  role="button"  href="{% url  'mainapp:discourse_post' discourse_url=tool.discourse_post_url  %}"> Start Discussion  </a>  
        
-       
+     <div id='discourse-comments'></div>
+     
+      <script type="text/javascript">
+     
+      var url="{{tool.discourse_post_url}}";
+     
+    		 
+      DiscourseEmbed = { discourseUrl: 'https://discourse.opengenus.org/',
+                         discourseEmbedUrl: url  };
+(function() {
+  var d = document.createElement('script'); d.type = 'text/javascript';
+  d.async = true;
+  d.src = DiscourseEmbed.discourseUrl + 'javascripts/embed.js';
+  (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(d);
+})();
+        </script>
+
            {% endif %} 
+           
             
     </div>
 
@@ -74,5 +90,16 @@
 
 </div>
 
+<br>
+
+
+
+
 
 {% endblock %}
+
+
+
+
+
+
