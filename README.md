@@ -55,7 +55,7 @@ now run using *python manage.py runserver*
 - #### Installing wkhtmltopdf on windows
 	- by default the project contained a folder named wkhtmltopdf it will work without installations
 	
-- #### Installing wkhtmltopdf on lunix
+- #### Installing wkhtmltopdf on linux
 	- you could download a version  from  here `https://wkhtmltopdf.org/downloads.html`
 	 after that replace the folder wkhtmltopdf with your wkhtmltopdf folder you need to have an executable file inside the bin folder 
 	 so take care 
