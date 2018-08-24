@@ -41,6 +41,7 @@ In `settings.py` change DEBUG to True.
 Before running the app make sure to migrate and run collectstatic
 ```
 python manage.py makemigrations
+python manage.py makemigrations mainapp
 python manage.py migrate
 
 python manage.py collectstatic
