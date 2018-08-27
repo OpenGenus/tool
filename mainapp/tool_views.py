@@ -186,15 +186,5 @@ def view_generated_pdf(request,path):
             response['Content-Disposition'] = 'inline; filename='+ file_path
             return response
     raise HttpResponse('file Not Found')        
-    
-
-def discourse_post(request,discourse_url):
-    return redirect(discourse_url)
-
-    
-    
-    
-    
-    
-    
+ 
     

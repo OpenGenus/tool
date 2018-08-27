@@ -19,7 +19,6 @@ url(r'^delete_generated_pdf/(?P<path>[^/]+)/$',tool_views.delete_generated_pdf,n
 url(r'^download_generated_pdf/(?P<path>[^/]+)/$',tool_views.download_generated_pdf,name='download_generated_pdf'),
 url(r'^view_generated_pdf/(?P<path>[^/]+)/$',tool_views.view_generated_pdf,name='view_generated_pdf'),
 
- url(r'^discourse_post/(?P<discourse_url>.+)/$',tool_views.discourse_post,name='discourse_post'),
 ]
 
 if settings.DEBUG is True:
