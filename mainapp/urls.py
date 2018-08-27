@@ -14,11 +14,11 @@ url(r'^about_sample_file/(?P<format>[\w]+)/$', tool_views.about_sample_file,name
 url(r'^download_sample_file/(?P<format>[^/]+)/$', tool_views.download_sample_file, name = 'download_sample_file'),
 url(r'^website_status/$',tool_views.website_status,name='website_status'),
 url(r'^detect_lang/$',tool_views.detect_lang,name='detect_lang'),
-
 url(r'^generatepdf/$',tool_views.generate_pdf,name='generate_pdf'),
 url(r'^delete_generated_pdf/(?P<path>[^/]+)/$',tool_views.delete_generated_pdf,name='delete_generated_pdf'),
 url(r'^download_generated_pdf/(?P<path>[^/]+)/$',tool_views.download_generated_pdf,name='download_generated_pdf'),
 url(r'^view_generated_pdf/(?P<path>[^/]+)/$',tool_views.view_generated_pdf,name='view_generated_pdf'),
+
 ]
 
 if settings.DEBUG is True:
