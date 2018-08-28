@@ -8,4 +8,5 @@ id,name,url_endpoint,category,template_name,author
 7,Prettify css,prettify_css,Code,prettify_css.html,suraj
 8,Editor,editor,Code,editor.html,suraj
 9,Text Summary,text_summary,Text,text_summary.html,Ashwat
-10,,,,,
+10,SHA1,sha1,uncategorised,sha1_tool.html,Ajmal
+11,,,,,

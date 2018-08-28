@@ -47,9 +47,8 @@ python manage.py migrate
 python manage.py collectstatic
 
 ```
-now run using *python manage.py runserver*
+now run using `python manage.py runserver`
 
-```
 ## Extra Requirements For some Tools
 
 - #### Installing wkhtmltopdf on windows
