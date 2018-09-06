@@ -20,9 +20,12 @@
                 <th>B</th>
                 </tr>
                 <tr>
-                <td><input type="text" name="Rinp" size = "3" placeholder="R"></input></td>
-                <td><input type="text" name="Ginp" size = "3" placeholder="G"></input></td>
-                <td><input type="text" name="Binp" size = "3" placeholder="B"></input></td>
+                <td><input type="text" name="Rinp" size = "3" placeholder="R" onkeyup="showColor()"></input></td>
+                <td><input type="text" name="Ginp" size = "3" placeholder="G" onkeyup="showColor()"></input></td>
+                <td><input type="text" name="Binp" size = "3" placeholder="B" onkeyup="showColor()"></input></td>
+                </tr>
+                <tr>
+                  <td colspan="3" height="60" id="rgbBox"></td>
                 </tr>
             </table>
         </div>
@@ -58,6 +61,15 @@
 
     var b = document.getElementById("RGB").rows[1].cells[2].firstChild.value;
 
+    if ( r == null || g == null || b == null || isNaN(r) || isNaN(g)|| isNaN(b) ) {
+      alert ('Please enter numeric RGB values!');
+      return;
+    }
+    if (r < 0 || g < 0 || b < 0 || r > 255 || g > 255 || b > 255) {
+      alert ('RGB values must be in the range 0 to 255.');
+      return;
+    }
+
     r = r / 255;
     g = g / 255;
     b = b / 255;
@@ -68,14 +80,14 @@
     v = rgbMax;
 
     var delta = rgbMax - rgbMin;
-  
+    
     if(rgbMax != 0)
       s = delta / rgbMax;
     else
     {
       s = 0;
       h = 0;
-      //alert("Input values are not correct");
+      return;
     }
 
     if(r == rgbMax)
@@ -92,9 +104,16 @@
     document.getElementById("HSV").rows[1].cells[0].firstChild.value = h;
     document.getElementById("HSV").rows[1].cells[1].firstChild.value = (s * 100).toFixed(2);
     document.getElementById("HSV").rows[1].cells[2].firstChild.value = (v * 100).toFixed(2);
+ }
 
+  function showColor(){
 
+    var r = document.getElementById("RGB").rows[1].cells[0].firstChild.value;
 
-  }
+    var g = document.getElementById("RGB").rows[1].cells[1].firstChild.value;
+
+    var b = document.getElementById("RGB").rows[1].cells[2].firstChild.value;
+
+    document.getElementById("RGB").rows[2].cells[0].style.backgroundColor =  'rgb('+r+' , '+g+' , '+b+')';  
   </script>
 {% endblock %}
