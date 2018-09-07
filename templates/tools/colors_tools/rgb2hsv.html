@@ -1,0 +1,110 @@
+{% extends "tools/tool_base.html" %}
+{% load staticfiles %}
+
+{% block tool %}
+  <div class="row">
+    <div class="col-sm-5 col-sm-offset-5">
+<!--       <button type="button" class="btn btn-flat btn-lg " onclick="convert()">Convert</button> -->
+    </div>
+  </div>
+  <br>
+
+  <div class="row">
+    <div class="col-sm-6">
+        <div class="form-group">
+            <label for="inputtextarea">Input</label>
+            <table style="width: 20%" id="RGB">
+                <tr>
+                <th>R</th>
+                <th>G</th>
+                <th>B</th>
+                </tr>
+                <tr>
+                <td><input type="text" name="Rinp" size = "3" placeholder="R" value="0" onkeyup="showColor(), convert()"></input></td>
+                <td><input type="text" name="Ginp" size = "3" placeholder="G" value="0" onkeyup="showColor(), convert()"></input></td>
+                <td><input type="text" name="Binp" size = "3" placeholder="B" value="0" onkeyup="showColor(), convert()"></input></td>
+                </tr>
+                <tr>
+                  <td colspan="3" height="60" id="rgbBox"></td>
+                </tr>
+            </table>
+        </div>
+    </div>
+    <div class="col-sm-6">
+      <div class="form-group">
+          <label for="outputtextarea">Output</label>
+          <table style="width: 20%" id="HSV">
+              <tr>
+              <th>H</th>
+              <th>S</th>
+              <th>V</th>
+              </tr>
+              <tr>
+              <td><input type="text" name="Hinp" size = "3" placeholder="H"></input></td>
+              <td><input type="text" name="Sinp" size = "3" placeholder="S"></input></td>
+              <td><input type="text" name="Vinp" size = "3" placeholder="V"></input></td>
+              </tr>
+              <tr>
+                 <td colspan="3" height="60" id="hsvBox"></td>
+              </tr>
+          </table>
+      </div>
+    </div>
+
+  </div>
+{% endblock %}
+
+{% block scripts %}
+  <script type="text/javascript">
+  function convert() {
+    // body...
+    var r = document.getElementById("RGB").rows[1].cells[0].firstChild.value;
+    var g = document.getElementById("RGB").rows[1].cells[1].firstChild.value;
+    var b = document.getElementById("RGB").rows[1].cells[2].firstChild.value;
+    if ( r == null || g == null || b == null || isNaN(r) || isNaN(g)|| isNaN(b)) {
+      alert ('Please enter numeric RGB values!');
+      return;
+    }
+    if (r < 0 || g < 0 || b < 0 || r > 255 || g > 255 || b > 255) {
+      alert ('RGB values must be in the range 0 to 255.');
+      return;
+    }
+    r = r / 255;
+    g = g / 255;
+    b = b / 255;
+    var h, s, v;
+    var rgbMin = Math.min(r,g,b);
+    var rgbMax = Math.max(r,g,b);
+    v = rgbMax;
+    var delta = rgbMax - rgbMin;
+    
+    if(rgbMax != 0)
+      s = delta / rgbMax;
+    else
+    {
+      s = 0;
+      h = 0;
+      return;
+    }
+    if(r == rgbMax)
+      h = ((g - b) / delta) % 6;
+    else if(g == rgbMax)
+      h = 2 + ((b - r) / delta);
+    else
+      h = 4 + ((r - g) / delta);
+    h = h * 60;
+    if(h < 0)
+      h = h + 360;
+    document.getElementById("HSV").rows[1].cells[0].firstChild.value = h;
+    document.getElementById("HSV").rows[1].cells[1].firstChild.value = (s * 100).toFixed(2);
+    document.getElementById("HSV").rows[1].cells[2].firstChild.value = (v * 100).toFixed(2);
+ }
+  function showColor(){
+    var r = document.getElementById("RGB").rows[1].cells[0].firstChild.value;
+    var g = document.getElementById("RGB").rows[1].cells[1].firstChild.value;
+    var b = document.getElementById("RGB").rows[1].cells[2].firstChild.value;
+    document.getElementById("RGB").rows[2].cells[0].style.backgroundColor =  'rgb('+r+' , '+g+' , '+b+')';
+    document.getElementById("HSV").rows[2].cells[0].style.backgroundColor =  'rgb('+r+' , '+g+' , '+b+')';
+  }
+  </script>
+{% endblock %}
