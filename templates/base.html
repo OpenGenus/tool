@@ -12,6 +12,8 @@
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.css" integrity="sha256-uXf0U0UCIqBp2J3S53b28h+fpC9uFcA8f+b/NNmiwVk="crossorigin="anonymous" />
   <link rel="stylesheet" type="text/css"  href="{% static 'css/style.css' %}">
+  
+
 
     {%block head%}
     {% endblock head %}
@@ -25,9 +27,31 @@
       <img src="{%static 'opengenus.png'%}" height="35px" alt="">
     </a>
     <ul class="navbar-nav ml-auto">
+    {% if  request.session.user_login %}
+      <li class="nav-item">
+          
+                <a class="nav-link "  href="/profile">Profile</a>
+           
+       </li>
+         <li class="nav-item">
+          
+                <a class="nav-link "  href="/logout">Logout</a>
+           
+       </li>
+       {% else %}
+     
+       
+         <li class="nav-item">
+          
+                <a class="nav-link "  href="{% url 'discourse_login'   %}">Discourse Login/Sign-up</a>
+           
+       </li>
+       
+       {% endif %}
+      
       <li class="nav-item">
           <a class="nav-link" href="">
-            <i class="fa fa-lg fa-twitter"></i>
+            <i class="fa fa-lg fa-twitter" ></i>
           </a>
       </li>
       <li class="nav-item">
@@ -40,11 +64,10 @@
              <i class="fa fa-lg fa-github"></i>
            </a>
        </li>
-       <li class="nav-item">
-           <a class="nav-link" href="">
-             <i class="fab fa-discourse"></i>
-           </a>
-       </li>
+       
+     
+       
+       
        </ul>
 
   </nav>
@@ -66,6 +89,9 @@
  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"></script>
 
 {% block scripts %}
+
+
+
 
 {% endblock %}
 

@@ -129,3 +129,22 @@ STATICFILES_DIRS = [
 
 MEDIA_ROOT  = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
+
+
+
+
+
+DISCOURSE_SSO_SECRET = "sample_sso_discourse"
+DISCOURSE_ROOT_URL = 'https://discourse.opengenus.org/session/sso_provider'
+
+
+LOGIN_URL = '/admin/login/'
+
+BASE_URL='http://127.0.0.1:8000'
+DISCOURSE_LOGIN_REDIRECT_URL=BASE_URL+'/discourse_login_success/'
+
+
+
+
+
+
