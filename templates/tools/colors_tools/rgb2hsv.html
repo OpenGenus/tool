@@ -20,9 +20,9 @@
                 <th>B</th>
                 </tr>
                 <tr>
-                <td><input type="text" name="Rinp" size = "3" placeholder="R" onkeyup="showColor(), convert()"></input></td>
-                <td><input type="text" name="Ginp" size = "3" placeholder="G" onkeyup="showColor(), convert()"></input></td>
-                <td><input type="text" name="Binp" size = "3" placeholder="B" onkeyup="showColor(), convert()"></input></td>
+                <td><input type="text" name="Rinp" size = "3" placeholder="R" value="0" onkeyup="showColor(), convert()"></input></td>
+                <td><input type="text" name="Ginp" size = "3" placeholder="G" value="0" onkeyup="showColor(), convert()"></input></td>
+                <td><input type="text" name="Binp" size = "3" placeholder="B" value="0" onkeyup="showColor(), convert()"></input></td>
                 </tr>
                 <tr>
                   <td colspan="3" height="60" id="rgbBox"></td>
@@ -61,8 +61,7 @@
     var r = document.getElementById("RGB").rows[1].cells[0].firstChild.value;
     var g = document.getElementById("RGB").rows[1].cells[1].firstChild.value;
     var b = document.getElementById("RGB").rows[1].cells[2].firstChild.value;
-    if ( r == null || g == null || b == null || isNaN(r) || isNaN(g)|| isNaN(b) ||
-       r == "" || g == "" || b == "") {
+    if ( r == null || g == null || b == null || isNaN(r) || isNaN(g)|| isNaN(b)) {
       alert ('Please enter numeric RGB values!');
       return;
     }
