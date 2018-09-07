@@ -4,7 +4,7 @@
 {% block tool %}
   <div class="row">
     <div class="col-sm-5 col-sm-offset-5">
-      <button type="button" class="btn btn-flat btn-lg " onclick="convert()">Convert</button>
+<!--       <button type="button" class="btn btn-flat btn-lg " onclick="convert()">Convert</button> -->
     </div>
   </div>
   <br>
@@ -20,9 +20,9 @@
                 <th>B</th>
                 </tr>
                 <tr>
-                <td><input type="text" name="Rinp" size = "3" placeholder="R" onkeyup="showColor()"></input></td>
-                <td><input type="text" name="Ginp" size = "3" placeholder="G" onkeyup="showColor()"></input></td>
-                <td><input type="text" name="Binp" size = "3" placeholder="B" onkeyup="showColor()"></input></td>
+                <td><input type="text" name="Rinp" size = "3" placeholder="R" onkeyup="showColor(), convert()"></input></td>
+                <td><input type="text" name="Ginp" size = "3" placeholder="G" onkeyup="showColor(), convert()"></input></td>
+                <td><input type="text" name="Binp" size = "3" placeholder="B" onkeyup="showColor(), convert()"></input></td>
                 </tr>
                 <tr>
                   <td colspan="3" height="60" id="rgbBox"></td>
@@ -43,6 +43,9 @@
               <td><input type="text" name="Hinp" size = "3" placeholder="H"></input></td>
               <td><input type="text" name="Sinp" size = "3" placeholder="S"></input></td>
               <td><input type="text" name="Vinp" size = "3" placeholder="V"></input></td>
+              </tr>
+              <tr>
+                 <td colspan="3" height="60" id="hsvBox"></td>
               </tr>
           </table>
       </div>
@@ -101,6 +104,8 @@
     var r = document.getElementById("RGB").rows[1].cells[0].firstChild.value;
     var g = document.getElementById("RGB").rows[1].cells[1].firstChild.value;
     var b = document.getElementById("RGB").rows[1].cells[2].firstChild.value;
-    document.getElementById("RGB").rows[2].cells[0].style.backgroundColor =  'rgb('+r+' , '+g+' , '+b+')';  
+    document.getElementById("RGB").rows[2].cells[0].style.backgroundColor =  'rgb('+r+' , '+g+' , '+b+')';
+    document.getElementById("HSV").rows[2].cells[0].style.backgroundColor =  'rgb('+r+' , '+g+' , '+b+')';
+  }
   </script>
 {% endblock %}
