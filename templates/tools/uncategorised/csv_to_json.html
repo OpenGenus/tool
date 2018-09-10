@@ -1,0 +1,82 @@
+{% extends "tools/tool_base.html" %}
+{% load staticfiles %}
+<!-- add file upload button -->
+{% block tool %}
+<div class="row">
+	<div class="col-sm-5 col-sm-offset-5">
+		<button type="button" class="btn btn-flat btn-lg " onclick="csv_to_json()" id="convert_button">Convert</button>
+	</div>
+</div>
+<br>
+
+<div class="row">
+	<div class="col-sm-5 col-sm-offset-5">
+		<label for="delimiter">Delimiter:</label>
+		<input type="text" class="form-control rounded-0 " id="delimiter" name="delimiter" onkeyup="check()" placeholder=","/>
+	</div>
+</div>
+<br>
+
+<div class="row">
+	<div class="col-sm-6">
+		<div class="form-group">
+			<label for="inputtextarea">Input</label>
+			<textarea class="form-control rounded-0" id="inputtextarea" rows="10" placeholder="CSV data here" onkeyup="check()"></textarea>
+		</div>
+	</div>
+	<div class="col-sm-6">
+		<div class="form-group">
+			<label for="outputtextarea">Output</label>
+			<textarea class="form-control rounded-0" id="outputtextarea" rows="10" placeholder="Output..." disabled></textarea>
+		</div>
+	</div>
+
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script type="text/javascript">
+	// node style callback; err, result
+	function validate_csv(csv) {
+		const delimiter = $("#delimiter").val() === "" ? "," : $("#delimiter").val();
+		const rows = csv.split("\n");
+		// the filter function ensures that none of the columns are empty strings
+		const num_cols = rows[0].split(delimiter).filter(x => x).length;
+		const data = rows.slice(1);
+		let c = 0;
+		for(let i=0; i<data.length; i++) {
+			let elem = data[i];
+			if (elem.split(delimiter).length !== num_cols) return false;
+			c++;
+			if (c === data.length) return true;
+		}
+	}
+
+	function csv_to_json() {
+		const delimiter = $("#delimiter").val() === "" ? "," : $("#delimiter").val()
+		const csv = $('#inputtextarea').val();
+		const rows = csv.split("\n");
+		const data = rows.slice(1);
+		// the filter function ensures that none of the columns are empty strings
+		const cols = rows[0].split(delimiter).filter(x => x);
+		const numCols = cols.length;
+
+		let elems = [];
+		let c = 0;
+		data.forEach((elem) => {
+			let obj = {};
+			elem.split(delimiter)
+				.forEach((val, idx) => {
+					obj[cols[idx]] = val;
+				});
+			elems.push(obj);
+		});
+		$('#outputtextarea').val(JSON.stringify(elems));
+	}
+
+	function check() {
+		const csv = $('#inputtextarea').val();
+		document.getElementById("convert_button").disabled = !validate_csv(csv);
+	}
+</script>
+{% endblock %}
