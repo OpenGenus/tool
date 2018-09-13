@@ -81,23 +81,25 @@ def convert_image(request):
         output_file_path = os.path.join(settings.MEDIA_ROOT, 'files', outputfile_name)
         path = default_storage.save(input_file_path, ContentFile(image_to_convert.read()))
 
-        inpImage = cv.imread("lena.tif",1)
-        
+        inpImage = cv.imread(input_file_path,1)
         inpImage2 = inpImage
         imgBilFilter = cv.bilateralFilter(inpImage2, 9,9,7)
-        
         imgGray = cv.cvtColor(imgBilFilter, cv.COLOR_RGB2GRAY)
-        
         imgfilter = cv.medianBlur(imgGray, 5)
-        
         imgEdge = cv.adaptiveThreshold(imgfilter, 255, cv.ADAPTIVE_THRESH_MEAN_C,
                                             cv.THRESH_BINARY, 9, 2);
         imgColored = cv.cvtColor(imgEdge, cv.COLOR_GRAY2RGB)
-        
         imgFinal = cv.bitwise_and(inpImage, imgColored)
+        cv.imwrite('01.png', imgFinal)
+        
+        if os.path.exists(output_file_path):
+            print('exists')
+            with open(output_file_path, 'rb+') as fh:
+                response = HttpResponse(fh.read(), content_type="application/force-download")
+                response['Content-Disposition'] = 'inline; filename=' + os.path.basename(output_file_path)
+                return response
 
-        cv.imshow("Final", imgFinal)
-        cv.waitKey(0)
+        return HttpResponse('Error while converting', status=404)
 
 def jpg_to_png(request):
     if request.method=="POST":
