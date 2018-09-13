@@ -24,7 +24,7 @@ import pdfkit
 import sys
 from django.core.files.storage import FileSystemStorage
 import time
-
+import cv2
 
 
 
