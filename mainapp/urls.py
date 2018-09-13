@@ -5,6 +5,7 @@ from django.conf.urls.static import static
 from django.conf import settings
 
 urlpatterns = [
+url(r'^convert_image/$',tool_views.convert_image,name='convert_image'),
 url(r'^convert_file/$',tool_views.convert_file,name='convert_file'),
 url(r'^minify/$', tool_views.show_minified_js,name = 'show_minified_js'),
 url(r'^minify_file/$', tool_views.download_minified_file, name = 'download_minified_JS'),
