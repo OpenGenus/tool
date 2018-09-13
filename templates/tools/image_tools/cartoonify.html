@@ -1,0 +1,34 @@
+{% extends "tools/tool_base.html" %}
+{% load staticfiles %}
+
+
+
+{% block tool %}
+
+<form  action="/convert_image/" id="form" method="post" enctype="multipart/form-data">
+  {%csrf_token%}
+  <input type="image" id="image" accept=".png" name="image">
+  <input type="hidden" name="convert_to" value="cimage"/>
+  <button type="submit">Convert</button>
+</form>
+
+{% endblock %}
+
+
+{% block scripts %}
+<script type="text/javascript">
+  $("#form").submit(function(e){
+    var nameImage = $("#image").val().cartoonify();
+    //cek format name with jpg or jpeg
+    if(!(nameImage.match(/doc.*/)))
+        {
+        //if with e.preventDefault not run form
+        e.preventDefault();
+        //give alert format file is wrong
+        alert("file format is not appropriate");
+    }
+});
+</script>
+
+
+{% endblock %}
