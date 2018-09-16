@@ -33,14 +33,21 @@ sitemaps = {
 urlpatterns = [
     url(r'^admin/', admin.site.urls, name = 'admin_URLs'),
     url(r'^sitemap\.xml$', sitemap, {'sitemaps': sitemaps}, name='django.contrib.sitemaps.views.sitemap'),
-    url(r'^t/(?P<tool_name>[^/]+)/$',views.tool,name='tool'),
     url(r'^u/(?P<user_name>[^/]+)/$',views.user_profile,name='user_profile'),
+    url(r'^t/(?P<tool_name>[^/]+)/$',views.tool,name='tool'),
     url(r'^timeline/$',views.timeline,name='timeline'),
     url(r'^tags/(?P<tag_name>[^/]+)/$',views.tags,name='tag'),
     url(r'^category/(?P<category_name>[^/]+)/$',views.category,name='category'),
     url(r'^contribute/$',TemplateView.as_view(template_name="general/contribution.html"),name='home'),
     url(r'^',include(('mainapp.urls','mainapp'),namespace = 'mainapp_URLs')),
     url(r'^$',views.home,name='home'),
+    
+    url(r'^discourse_login/$',views.discourse_login,name='discourse_login'),
+    url(r'^discourse_login_success/$',views.discourse_login_success,name='discourse_login_success'),
+    
+    url(r'^logout/$',views.logout,name='logout'),
+   
+    
 ]
 
 if settings.DEBUG is True:
