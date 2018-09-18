@@ -77,8 +77,8 @@ def convert_image(request):
 
         filename, ext = os.path.splitext(image_to_convert.name)
         outputfile_name = '{0}.{1}'.format(filename, convert_to)
-        input_file_path = os.path.join(settings.MEDIA_ROOT, 'files', image_to_convert.name)
-        output_file_path = os.path.join(settings.MEDIA_ROOT, 'files', outputfile_name)
+        input_file_path = os.path.join(settings.MEDIA_ROOT, 'cartoonify/input', image_to_convert.name)
+        output_file_path = os.path.join(settings.MEDIA_ROOT, 'cartoonify/output', outputfile_name)
         path = default_storage.save(input_file_path, ContentFile(image_to_convert.read()))
 
         inpImage = cv.imread(input_file_path,1)
@@ -90,16 +90,10 @@ def convert_image(request):
                                             cv.THRESH_BINARY, 9, 2);
         imgColored = cv.cvtColor(imgEdge, cv.COLOR_GRAY2RGB)
         imgFinal = cv.bitwise_and(inpImage, imgColored)
-        cv.imwrite('01.png', imgFinal)
+        cv.imwrite("media/cartoonify/output/convertedImg.png", imgFinal)
+        return render(request,'tools/image_tools/cartoonify.html',{'output_file_path': "media/cartoonify/output/convertedImg.png" })
         
-        if os.path.exists(output_file_path):
-            print('exists')
-            with open(output_file_path, 'rb+') as fh:
-                response = HttpResponse(fh.read(), content_type="application/force-download")
-                response['Content-Disposition'] = 'inline; filename=' + os.path.basename(output_file_path)
-                return response
-
-        return HttpResponse('Error while converting', status=404)
+    return HttpResponse('Error while converting', status=404)
 
 def jpg_to_png(request):
     if request.method=="POST":
