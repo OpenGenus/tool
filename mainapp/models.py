@@ -45,7 +45,7 @@ class Tool(models.Model):
     meta_title = models.CharField(max_length=30,blank=True  )
     long_description = models.TextField(blank=True)
     short_description = models.TextField(blank=True)
-    category = models.CharField(max_length=50,blank=True,default='Uncategorized')
+    category = models.CharField(max_length=50,blank=True,default='uncategorized')
     
     discourse_post_url=models.URLField(blank=True,null=True)
    
