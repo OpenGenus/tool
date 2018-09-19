@@ -1,34 +1,49 @@
 {% extends 'base.html' %}
-
-
+{% load staticfiles %}
+<link rel="stylesheet" href="{% static 'css/home.css' %}">
 {% block content %}
 <h1>{{category}}</h1>
 
 <div class="container">
-
-
-  <div class="row">
-  {% for tool in tools %}
-<div class="col-md-3 offset-md-1">
-    <a href="{% url 'tool' tool_name=tool.url_endpoint %}" style=" text-decoration : none; color : #000;">
-        <div class="card bg-light mb-4" style="max-width: 50rem;">
-              <div class="card-header">{{tool.name}}</div>
-              <div class="card-body">
-              {# <h5 class="card-title">Light card title</h5> #}
-              <p class="card-text">{{tool.short_description|truncatewords:30 }}</p>
-              </div>
+    <div class="row">
+        {% for tool in tools %}
+        <div class="col-md-3 offset-md-1">
+            <a href="{% url 'tool' tool_name=tool.url_endpoint %}" style=" text-decoration : none; color : #000;">
+                <div class="card bg-light mb-4" style="max-width: 50rem;">
+                    <div class="card-header">{{tool.name}}</div>
+                    <div class="card-body">
+                        {# <h5 class="card-title">Light card title</h5> #}
+                        <p class="card-text">{{tool.short_description|truncatewords:30 }}</p>
+                    </div>
+                </div>
+            </a>
         </div>
-    </a>
-</div>
-      {% if forloop.counter|divisibleby:3 %}
-  </div>
-  <div class="row">
-      {% endif %}
-  {% endfor %}
-  </div>
+        {% if forloop.counter|divisibleby:3 %}
+    </div>
+    <div class="row">
+        {% endif %}
+        {% endfor %}
+    </div>
 
-<br>
-
+    <br>
+    <!-- Help Button -->
+    <button class="forum_button">
+        <i class="fa fa-comments fa-3x"></i>
+    </button>
+    <!--Forum Popup -->
+    <div class="forum_popup_container">
+        <div class="forum_popup">
+            <span class="forum_popup_close">&times;</span>
+            <div class="forum_popup_icon">
+                <img src="{% static 'assets/Join_community.png' %}" class="popup_icon">
+            </div>
+            <div class="forum_popup_content">
+                <p>Visit our discussion forum to ask any question and join our community</p>
+                <a target="_blank" class="discourse_link" href="https://discourse.opengenus.org/">View Forum</a>
+            </div>
+        </div>
+    </div>
 </div>
 
 {% endblock %}
+
