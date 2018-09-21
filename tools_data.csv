@@ -10,4 +10,4 @@ id,name,url_endpoint,category,template_name,author
 9,Text Summary,text_summary,Text,text_summary.html,Ashwat
 10,SHA1,sha1,uncategorised,sha1_tool.html,Ajmal
 11,CSV to JSON,csv_to_json,uncategorised,csv_to_json.html,Ajmal
-12,MD5,md5,uncategorized,md5_tool.html,Vinit
+12,SHA256,sha256,uncategorised,sha256_tool.html,Vasu
