@@ -2,7 +2,7 @@
 {% load staticfiles %}
 
 {% block head %}
-<link rel="stylesheet" type="text/css"  href="{% static 'css/style.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
 {% endblock %}
 
 
@@ -13,25 +13,26 @@
 
   <div class="row">
 
-      <div class="sidenav col-sm-3">
-          <div class="card bg-light mb-4" style="max-width: 60rem;">
-                <div class="card-header">Tags</div>
-                <div class="card-body">
-                <p class="card-text">
-                  {% for tag in tool.tags.all %}
+    <div class="sidenav col-sm-3">
+      <div class="card bg-light mb-4" style="max-width: 60rem;">
+        <div class="card-header">Tags</div>
+        <div class="card-body">
+          <p class="card-text">
+            {% for tag in tool.tags.all %}
 
-                      <a href="{% url 'tag' tag_name=tag.tag %}"> {{tag}}</a>
-                          {% if not forloop.last %},{% endif %}
-                        {% endfor %}
-                </p>
-                </div>
-          </div>
-          <div class="card bg-light mb-4" style="max-width: 60rem;">
-                <div class="card-header">Related Tools</div>
-                <div class="card-body">
-                <p class="card-text">
-                  {% for related_tool in tool.related_tools.all %}
-                  <a href='  {%url 'tool' tool_name=related_tool.url_endpoint %} '>{{related_tool.name}}</a>
+            <a href="{% url 'tag' tag_name=tag.tag %}"> {{tag}}</a>
+            {% if not forloop.last %},{% endif %}
+            {% endfor %}
+          </p>
+        </div>
+      </div>
+      <div class="card bg-light mb-4" style="max-width: 60rem;">
+        <div class="card-header">Related Tools</div>
+        <div class="card-body">
+          <p class="card-text">
+            {% for related_tool in tool.related_tools.all %}
+            <a href='  {%url ' tool' tool_name=related_tool.url_endpoint %}
+              '>{{related_tool.name}}</a>
                   {% if not forloop.last %},{% endif %}
                   {% endfor %}
                 </p>
@@ -41,7 +42,9 @@
 
     <div class="col-sm-9">
         <h1 class="text-left">{{tool.name}}</h1>
-        <p>Author: <a href="{% url 'user_profile' user_name=tool.author.user.username  %} ">{{tool.author.name}}</a></p>
+        <p>Author: <a href="{% url '
+              user_profile' user_name=tool.author.user.username %}
+              ">{{tool.author.name}}</a></p>
         {% if tool.editor %}
         <p>Editors:
             {% for editor in tool.editors.all %}
@@ -50,56 +53,70 @@
             {% endfor %}
         </p>
         {% endif %}
-        <p class="left">{{tool.short_description}}</p>
+        <p class="
+              left">{{tool.short_description}}</p>
 
-            {% block tool %}
+          {% block tool %}
 
-            {% endblock %}
-            
-           {% if tool.discourse_post_url %}
-         
-           <hr>
-       
-     <div id='discourse-comments'></div>
-     
-      <script type="text/javascript">
-     
-      var url="{{tool.discourse_post_url}}";
-     
-    		 
-      DiscourseEmbed = { discourseUrl: 'https://discourse.opengenus.org/',
-                         discourseEmbedUrl: url  };
-(function() {
-  var d = document.createElement('script'); d.type = 'text/javascript';
-  d.async = true;
-  d.src = DiscourseEmbed.discourseUrl + 'javascripts/embed.js';
-  (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(d);
-})();
-        </script>
+          {% endblock %}
 
-           {% endif %} 
-           
-            
+          {% if tool.discourse_post_url %}
+
+          <hr>
+
+          <div id='discourse-comments'></div>
+
+
+          <script type="text/javascript">
+
+            var url = "{{tool.discourse_post_url}}";
+
+
+            DiscourseEmbed = {
+              discourseUrl: 'https://discourse.opengenus.org/',
+              discourseEmbedUrl: url
+            };
+            (function () {
+              var d = document.createElement('script'); d.type = 'text/javascript';
+              d.async = true;
+              d.src = DiscourseEmbed.discourseUrl + 'javascripts/embed.js';
+              (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(d);
+            })();
+          </script>
+
+          {% endif %}
+
+
+        </div>
+
+      </div>
+
+      <br>
+
+<!-- Help Button -->
+<button class="forum_button">
+    <i class="fa fa-comments fa-3x"></i>
+</button>
+<!--Forum Popup -->
+<div class="forum_popup_container">
+    <div class="forum_popup">
+        <span class="forum_popup_close">&times;</span>
+        <div class="forum_popup_icon">
+            <img src="{% static 'assets/Join_community.png' %}" class="popup_icon">
+        </div>
+        <div class="forum_popup_content">
+            <p>Visit our discussion forum to ask any question and join our community</p>
+            <a target="_blank" class="discourse_link" href="https://discourse.opengenus.org/">View Forum</a>
+        </div>
     </div>
-
-  </div>
-
-<br>
-
-
-
 </div>
 
-<br>
+    </div>
+
+    <br>
 
 
 
 
 
-{% endblock %}
-
-
-
-
-
-
+    {% endblock %}
