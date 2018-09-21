@@ -18,5 +18,5 @@ six==1.11.0
 sumy==0.7.0
 tinysegmenter==0.3
 urllib3==1.23
-pdfkit==0.6.0
-django-pdfkit==0.3.1
+pdfkit
+django-pdfkit
