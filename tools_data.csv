@@ -11,4 +11,4 @@ id,name,url_endpoint,category,template_name,author
 10,SHA1,sha1,uncategorised,sha1_tool.html,Ajmal
 11,CSV to JSON,csv_to_json,uncategorised,csv_to_json.html,Ajmal
 12,SHA256,sha256,uncategorised,sha256_tool.html,Vasu
-13,UnixTimeStampConverter,unix_timestamp_converter,uncategorised,unix_timestamp_converter.html,Vasu
+13,UnixTimeStampConverter,unix_timestamp_converter,time,unix_timestamp_converter.html,Vasu
