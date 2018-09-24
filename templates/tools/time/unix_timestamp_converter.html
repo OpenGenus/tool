@@ -1,0 +1,52 @@
+{% extends "tools/tool_base.html" %}
+{% load staticfiles %}
+
+{% block tool %}
+  <div class="row">
+    <div class="col-sm-5 col-sm-offset-5">
+      <button type="button" class="btn btn-flat btn-lg " onclick="timeconvert()">Convert</button>
+    </div>
+  </div>
+  <br>
+
+  <div class="row">
+    <div class="col-sm-6">
+        <div class="form-group">
+            <label for="inputtextarea">Input</label>
+            <textarea class="form-control rounded-0" id="inputtextarea" rows="10"></textarea>
+        </div>
+    </div>
+    <div class="col-sm-6">
+      <div class="form-group">
+          <label for="outputtextarea">Output</label>
+          <textarea class="form-control rounded-0" id="outputtextarea" rows="10" placeholder="Output..." disabled></textarea>
+      </div>
+    </div>
+
+  </div>
+{% endblock %}
+
+{% block scripts %}
+  <script type='text/javascript'>
+    var ts = new Date().getTime();
+    var input = document.getElementById('inputtextarea');
+    input.value = ts;
+  </script>
+  
+  <script type='text/javascript'>
+    function timeconvert(){
+        var unixtimestamp = document.getElementById('inputtextarea').value;
+        var months_arr = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+        var date = new Date(unixtimestamp*1000);
+        var year = date.getFullYear();
+        var month = months_arr[date.getMonth()];
+        var day = date.getDate();
+        var hours = date.getHours();
+        var minutes = "0" + date.getMinutes();
+        var seconds = "0" + date.getSeconds();
+        var convdataTime = month+'-'+day+'-'+year+' '+hours + ':' + minutes.substr(-2) + ':' + seconds.substr(-2);
+        
+        document.getElementById('outputtextarea').innerHTML = convdataTime;
+    }
+  </script>
+{% endblock %}
