@@ -1,0 +1,53 @@
+{% extends "tools/tool_base.html" %}
+{% load staticfiles %}
+
+{% block tool %}
+  <!--div class="row">
+    <div class="col-sm-5 col-sm-offset-5">
+      <button type="button" class="btn btn-flat btn-lg " onclick="find_sha1()">Compute SHA1</button>
+    </div>
+  </div>
+  <br-->
+
+  <div class="row">
+    <div class="col-sm-6">
+        <div class="form-group">
+            <label for="inputtextarea">Input</label>
+            <textarea 
+              class="form-control rounded-0" 
+              id="inputtextarea" 
+              rows="10" 
+              placeholder="Start Typing..." 
+              onkeyup="find_md5()"
+            >    
+            </textarea>
+        </div>
+    </div>
+    <div class="col-sm-6">
+      <div class="form-group">
+          <label for="outputtextarea">Output</label>
+          <textarea class="form-control rounded-0" id="outputtextarea" rows="10" placeholder="Output..." disabled></textarea>
+      </div>
+    </div>
+
+  </div>
+{% endblock %}
+
+{% block scripts %}
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/3.1.9-1/crypto-js.min.js"></script>
+  <script type="text/javascript">
+
+  function find_md5() {
+    var text = $('#inputtextarea').val();
+    if(text==''){
+      console.log("empty")
+      // No output for no input
+      $('#outputtextarea').val('');
+    }else{
+      // passing input to crypto library
+      var hash = CryptoJS.MD5(text);
+      $('#outputtextarea').val(hash);
+    }
+  }
+  </script>
+{% endblock %}
