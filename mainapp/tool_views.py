@@ -25,6 +25,8 @@ import sys
 from django.core.files.storage import FileSystemStorage
 import time
 
+import qrcode
+import uuid
 
 
 
@@ -187,4 +189,13 @@ def view_generated_pdf(request,path):
             return response
     raise HttpResponse('file Not Found')        
  
-    
+def generate_qr_code(request):
+    if request.method == 'POST':
+        value = request.POST['value']
+        qr_code = qrcode.make(value)
+        # generating random string from image file
+        filename = uuid.uuid4().hex[:8].upper() +'.png'
+        filepath = 'media/tools/{0}'.format(filename)
+        print(filepath)
+        qr_code.save(filepath,"PNG")
+        return JsonResponse({"filepath":'/'+filepath})

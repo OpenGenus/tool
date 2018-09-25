@@ -1,0 +1,60 @@
+{% extends "tools/tool_base.html" %}
+{% load staticfiles %}
+
+{% block tool %}
+  <div class="row">
+    <div class="col-sm-6">
+        <div class="form-group">
+            {% csrf_token %}
+            <label for="inputtextarea">Input</label>
+            <textarea 
+              class="form-control rounded-0" 
+              id="inputtextarea" 
+              rows="10" 
+              placeholder="Start Typing..." 
+            >    
+            </textarea>
+        </div>
+        <div class="form-group">
+          <button 
+            onclick="generateQR();" 
+            class="btn btn-success"
+          >
+            Generate QR
+          </button>
+        </div>
+    </div>
+    <div class="col-sm-6" id="qr-code">
+      <!--Generate QR-->
+    </div>
+
+  </div>
+{% endblock %}
+
+{% block scripts %}
+<script type="text/javascript">
+
+  function generateQR() {
+    var value = $("#inputtextarea").val();
+    console.log(value);
+    var csrf_token = $('input[name="csrfmiddlewaretoken"]').val();
+    console.log(csrf_token);
+     $.ajax({
+        url: "http://localhost:8000/qr_code_generator/",
+        type: "POST",
+        headers : {
+          'X-CSRFToken':csrf_token
+          },
+        data: {
+          "value":value,
+        },
+        success: function(data) {
+          $('#qr-code').empty();
+          $("#qr-code").append('<img src="'+data.filepath+'"'+ 'class="img-responsive"/>');
+        }
+      });
+    }
+  
+  </script>
+  
+{% endblock %}
