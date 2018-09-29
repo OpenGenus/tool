@@ -7,7 +7,7 @@
 
 <form  action="/convert_image/" id="form" method="post" enctype="multipart/form-data">
   {%csrf_token%}
-  <input type="image" id="image" accept=".png" name="image">
+  <input type="file" id="image" accept=".png" name="image">
   <input type="hidden" name="convert_to" value="cimage"/>
   <button type="submit">Convert</button>
 </form>
