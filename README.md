@@ -6,13 +6,13 @@
 
 ## Requirements
 
-Python 3 and django 1.11
+Python 3.6 and django 1.11 (make sure to use Python3.6)
 
 ## Installation
 
 ### Setup the virtual environment
 ```
- virtualenv venv
+ virtualenv venv -p PATH/to/Python3.6
  cd venv
  source bin/activate
 ```
@@ -53,12 +53,12 @@ now run using `python manage.py runserver`
 
 - #### Installing wkhtmltopdf on windows
 	- by default the project contained a folder named wkhtmltopdf it will work without installations
-	
+
 - #### Installing wkhtmltopdf on linux
 	- you could download a version  from  here `https://wkhtmltopdf.org/downloads.html`
-	 after that replace the folder wkhtmltopdf with your wkhtmltopdf folder you need to have an executable file inside the bin folder 
-	 so take care 
-   
+	 after that replace the folder wkhtmltopdf with your wkhtmltopdf folder you need to have an executable file inside the bin folder
+	 so take care
+
 ## Getting A Tool Running
 This is a general overview of getting a tool running
 1. If there is no admin user, create one using `python manage.py createsuperuser`
