@@ -91,7 +91,8 @@ def convert_image(request):
         imgColored = cv.cvtColor(imgEdge, cv.COLOR_GRAY2RGB)
         imgFinal = cv.bitwise_and(inpImage, imgColored)
         cv.imwrite(settings.MEDIA_ROOT+"/cartoonify/output/convertedImg.png", imgFinal)
-        return render(request,'tools/image_tools/cartoonify.html')
+        return render(request,'tools/image_tools/cartoonify_output.html', {'input_file': input_file_path, 
+           'output_file': settings.MEDIA_ROOT+"/cartoonify/output/convertedImg.png"})
         
     return HttpResponse('Error while converting', status=404)
 
