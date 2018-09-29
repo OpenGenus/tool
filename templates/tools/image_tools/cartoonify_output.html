@@ -14,7 +14,18 @@
                 <td style = "border: 2px solid black"><img src="{{MEDIA_URL}}cartoonify/input/inp.png" /></td>
                 <td style = "border: 2px solid black"><img src="{{MEDIA_URL}}cartoonify/output/convertedImg.png" alt="output image" /></td>
                 </tr>
+                <tr>
+                	<td colspan="2" height="60" id="rgbBox"><button type="button" class="btn btn-flat btn-lg " onclick= "a()">Try another</button></td>
+                </tr>
             </table>
 {% endblock %}
 
 
+{% block scripts %}
+    <script type="text/javascript">
+        function a()
+            {
+            	window.location.href="cartoonify.html";
+        	}
+    </script>
+{% endblock %}
