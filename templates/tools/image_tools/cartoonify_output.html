@@ -1,0 +1,20 @@
+{% extends "tools/tool_base.html" %}
+{% load staticfiles %}
+
+
+
+{% block tool %}
+
+			<table style="width: 20%" id="imgDisplay" align="center">
+                <tr>
+                <th>Input</th>
+                <th>Output</th>
+                </tr>
+                <tr>
+                <td style = "border: 2px solid black"><img src="{{MEDIA_URL}}cartoonify/input/inp.png" /></td>
+                <td style = "border: 2px solid black"><img src="{{MEDIA_URL}}cartoonify/output/convertedImg.png" alt="output image" /></td>
+                </tr>
+            </table>
+{% endblock %}
+
+
