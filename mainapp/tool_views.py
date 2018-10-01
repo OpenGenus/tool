@@ -25,7 +25,8 @@ import sys
 from django.core.files.storage import FileSystemStorage
 import time
 
-
+from urllib.parse import urlparse
+from urllib.request import urlopen
 
 
 def detect_lang(request):
@@ -149,24 +150,24 @@ def download_sample_file(request,format):
 
 
 def generate_pdf(request):
-    
+
     weburl=request.POST["webpageurl"]
     config = pdfkit.configuration(wkhtmltopdf=settings.BASE_DIR+'/wkhtmltopdf/bin/wkhtmltopdf.exe')
     pdfkit.from_url(weburl, settings.MEDIA_ROOT+'\generatedpdf\generatedpdf.pdf',configuration=config)
     return render(request,'tools/pdf_generator/result_page.html',{'file_path':settings.MEDIA_ROOT+'\generatedpdf\generatedpdf.pdf'})
-            
-   
-    
+
+
+
 
 def  delete_generated_pdf(request,path):
-    
+
     if os.path.isfile(path):
         os.remove(path)
-    
+
     return HttpResponse('file deleted')
-    
-    
-    
+
+
+
 def download_generated_pdf(request,path):
     file_path = path
     if os.path.exists(file_path):
@@ -175,9 +176,9 @@ def download_generated_pdf(request,path):
             response['Content-Disposition'] = 'attachment; filename='+ file_path
             return response
     raise HttpResponse('file Not Found')
-    
-    
-    
+
+
+
 def view_generated_pdf(request,path):
     file_path = path
     if os.path.exists(file_path):
@@ -185,6 +186,37 @@ def view_generated_pdf(request,path):
             response = HttpResponse(fh.read(), content_type="application/pdf")
             response['Content-Disposition'] = 'inline; filename='+ file_path
             return response
-    raise HttpResponse('file Not Found')        
- 
-    
+    raise HttpResponse('file Not Found')
+
+
+def webpage_size(request):
+    if request.method == "POST":
+        url = request.POST.get("in")
+        validated_url = url_checker(url)
+        try:
+            site = urlopen(validated_url)
+            meta_data = site.info()
+            if 'Content-Length' in meta_data.keys():
+                return HttpResponse('Web page size in bytes: ' + meta_data['Content-Length'])
+            else:
+                return HttpResponse('Web page size in bytes: ' + len(site.read()))
+        except:
+            return HttpResponse("<p>Web page can't be reached</p>")
+
+
+
+def url_checker(url):
+    """
+    :param url: String containing url of the site
+    :return: Validated url
+    """
+    try:
+        parse_result = urlparse(url)
+        if all([parse_result.scheme, parse_result.netloc]):
+            return url
+        elif parse_result.scheme == '':
+            url = 'http://' + url
+            return url
+    except:
+        return False
+

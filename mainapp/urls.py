@@ -18,7 +18,7 @@ url(r'^generatepdf/$',tool_views.generate_pdf,name='generate_pdf'),
 url(r'^delete_generated_pdf/(?P<path>[^/]+)/$',tool_views.delete_generated_pdf,name='delete_generated_pdf'),
 url(r'^download_generated_pdf/(?P<path>[^/]+)/$',tool_views.download_generated_pdf,name='download_generated_pdf'),
 url(r'^view_generated_pdf/(?P<path>[^/]+)/$',tool_views.view_generated_pdf,name='view_generated_pdf'),
-
+url(r'^webpage_size/$', tool_views.webpage_size, name='webpage_size')
 ]
 
 if settings.DEBUG is True:
