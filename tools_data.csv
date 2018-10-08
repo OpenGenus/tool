@@ -14,3 +14,5 @@ id,name,url_endpoint,category,template_name,author
 13,UnixTimeStampConverter,unix_timestamp_converter,time,unix_timestamp_converter.html,Vasu
 14,MD5,md5,hash,md5_tool.html,Vinit
 15,Base64 Encoder,base64_encoder,uncategorised,base64_encoder.html,Vasu
+16,sha384,SHA384,hash,sha384_tool.html,DEBCK
+
