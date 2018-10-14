@@ -1,0 +1,63 @@
+{% extends "tools/tool_base.html" %}
+{% load staticfiles %}
+
+{% block tool %}
+
+<div class="row">
+    <div class="col-sm-6">
+        <div class="form-group">
+            <label for="inputtextarea">Input</label>
+            <textarea class="form-control rounded-0" id="inputtextarea" rows="10" placeholder="Start Typing..." onkeyup="decoder()"></textarea>
+        </div>
+    </div>
+    <div class="col-sm-6">
+      <div class="form-group">
+          <label for="outputtextarea">Output</label>
+          <textarea class="form-control rounded-0" id="outputtextarea" rows="10" placeholder="Output..." disabled></textarea>
+      </div>
+    </div>
+
+
+</div>
+{% endblock %} 
+
+{% block scripts %}
+<script type='text/javascript'>
+    var Base64 = {
+        characters: "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/=" ,
+    
+        decode: function( string )
+        {
+            var characters = Base64.characters;
+            var result     = '';
+    
+            var i = 0;
+            do {
+                var b1 = Base64.characters.indexOf( string.charAt(i++) );
+                var b2 = Base64.characters.indexOf( string.charAt(i++) );
+                var b3 = Base64.characters.indexOf( string.charAt(i++) );
+                var b4 = Base64.characters.indexOf( string.charAt(i++) );
+    
+                var a = ( ( b1 & 0x3F ) << 2 ) | ( ( b2 >> 4 ) & 0x3 );
+                var b = ( ( b2 & 0xF  ) << 4 ) | ( ( b3 >> 2 ) & 0xF );
+                var c = ( ( b3 & 0x3  ) << 6 ) | ( b4 & 0x3F );
+    
+                result += String.fromCharCode(a) + (b?String.fromCharCode(b):'') + (c?String.fromCharCode(c):'');
+    
+            } while( i < string.length );
+    
+            return result;
+        }
+    };
+</script>
+    
+<script type='text/javascript'>
+function decoder()
+{
+    var val = document.getElementById('inputtextarea');
+    var ansarea = document.getElementById('outputtextarea');
+    var fin = val.value;
+    ansarea.value = Base64.decode (fin);
+}
+</script>
+{% endblock %}
