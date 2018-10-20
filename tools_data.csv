@@ -16,3 +16,4 @@ id,name,url_endpoint,category,template_name,author
 15,Base64 Encoder,base64_encoder,uncategorised,base64_encoder.html,Vasu
 16,sha384,SHA384,hash,sha384_tool.html,DEBCK
 17,MD2,md2,hash,md2_tool.html,DEBCK
+18,Base64 Decoder,base64_decoder,uncategorised,base64_decoder.html,Vasu
