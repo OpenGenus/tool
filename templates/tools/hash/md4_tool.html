@@ -4,13 +4,13 @@
 {% block tool %}
 
 <div class="row">
-  <div class="col-sm-6">
-    <div class="form-group">
-      <label for="input">Input</label>
-      <textarea class="form-control rounded-0" id="input" rows="10" placeholder="Type here" onkeyup="md2_hash(this)"></textarea>
-    </div>
+<div class="col-sm-6">
+  <div class="form-group">
+    <label for="input">Input</label>
+    <textarea class="form-control rounded-0" id="input" rows="10" placeholder="Type here" onkeyup="md4_hash(this)"></textarea>
   </div>
-  <div class="col-sm-6">
+</div>
+<div class="col-sm-6">
     <div class="form-group">
       <label for="output">Output</label>
       <textarea class="form-control rounded-0" id="output" rows="10" placeholder="Output here" disabled></textarea>
@@ -19,14 +19,13 @@
 </div>
 {% endblock %}
 
-
 {% block scripts %}
-<script type="text/javascript" src="https://rawgit.com/emn178/js-md2/master/build/md2.min.js"></script>
+<script type='text/javascript' src="\static\js\md4.js"></script>
 <script type="text/javascript">
-  function md2_hash(tag) {
+  function md4_hash(tag) {
     var output_area = document.getElementById('output');
     var input_value = tag.value;
-    var answer = md2(input_value);
+    var answer = md4(input_value);
     output_area.value = answer;
   }
 </script>
