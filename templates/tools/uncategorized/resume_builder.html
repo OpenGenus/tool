@@ -1,0 +1,392 @@
+
+{% extends "tools/tool_base.html" %}
+{% load staticfiles %}
+{% block tool %}
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css" integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ" crossorigin="anonymous">
+
+<form method="post" action="/t/resume_builder/">
+	{%csrf_token%}
+
+<div class="header">
+	<div class="contact-header form-group">
+	    <label for="asliname"><h2 style="font-weight:bold;" ><i class="fas fa-user-check"></i>   Name</h2></label>
+	    <textarea class="form-control rounded-0" rows="1" name="asliname">
+	    </textarea>
+	<br>
+            <label for="address"><h2 style="font-weight:bold;" ><i class="fas fa-address-card"></i>   Address</h2></label>
+	    <textarea class="form-control rounded-0" rows="3" name="address">
+	    </textarea>
+	<br>
+	<div class="form-group row">
+          <label for="email" class="col-sm-3 col-form-label"><h2 style="font-weight:bold;" ><i class="fas fa-envelope"></i>   Email</h2></label>
+	    <textarea class="col-sm-9 form-control rounded-0" rows="1" name="email">
+	    </textarea>
+	</div>
+	<br>
+	<div class="form-group row">
+            <label for="phone" class="col-sm-3 col-form-label"><h2 style="font-weight:bold;" ><i class="fas fa-phone"></i>   Phone</h2></label>
+	    <textarea class="col-sm-9 form-control rounded-0" rows="1" name="phone">
+	    </textarea>
+	</div>
+	<br><hr>
+<label for="profile"><h2 style="font-weight:bold;" ><i class="fas fa-universal-access"></i>   Profile( Personal Website, Github, Twitter etc. ) </h2></label>
+	   <div id="place">
+		<div id="temp">
+			<textarea id="id1" class="form-control rounded-0" rows="1" name="temp">
+			</textarea>
+			<br>
+		</div>
+	    </div>
+		<button type="button" class="btn btn-primary btn-lg" onclick="Add();">Add More</button>
+	<br>
+		<input style="visibility: hidden;" name="totalprofile" id="profiletotal" value="" ></input>
+	<hr>
+	</div>
+</div>
+<br>
+
+<div id="about">
+	    <h2 style="font-weight:bold;" ><i class="fas fa-user"></i>   ABOUT</h2>
+	    <textarea class="form-control rounded-0" rows="3" name="about">
+	    </textarea>
+</div>
+<br><hr><br>
+
+<div id="workexp">
+	   <div id="holder2">
+		<h2 style="font-weight:bold;" ><i class="fas fa-briefcase"></i>   WORK EXPERIENCE</h2>
+		<div id="plate2">	
+			<div class="form-group row totalwork">
+	 			<label for="company" class="col-sm-3 col-form-label">Company Name</label>
+				<div class="col-sm-9">
+					<textarea id="id21" class="form-control rounded-0" rows="1" name="companyplate2">
+					</textarea>
+				</div>
+				<br><br>
+				<label for="position" class="col-sm-3 col-form-label">Position</label>
+				<div class="col-sm-9">
+					<textarea id="id22" class="form-control rounded-0" rows="1" name="positionplate2">
+					</textarea>
+				</div>
+				<br><br>
+				<label for="duration" class="col-sm-3 col-form-label">Duration</label>
+				<div class="col-sm-9">
+					<textarea id="id23" class="form-control rounded-0" rows="1" name="durationplate2">
+					</textarea>
+				</div>
+			</div>
+			<label for="workdone">Explain Briefly About It</label>
+			<textarea id="id24" class="form-control rounded-0" rows="4" name="workdoneplate2">
+			</textarea>
+			<br><br>
+		</div>
+	    </div>
+<button style="margin-left:40%; " type="button" class="btn btn-primary btn-lg" onclick="Add2();">Add More</button>
+</div>
+<input style="visibility: hidden;" name="totalwork" id="worktotal" value="" ></input>
+<br><hr><br>
+
+<div id="education">
+	   <div id="placeholder3">
+		<h2 style="font-weight:bold;" ><i class="fas fa-graduation-cap"></i>   EDUCATION</h2>
+		<div id="template3">	
+			<div class="form-group row">
+	 			<label for="institution" class="col-sm-3 col-form-label">Institution Name</label>
+				<div class="col-sm-9">
+					<textarea id="id31" class="form-control rounded-0" rows="1" name="institutiontemplate3">
+					</textarea>
+				</div>
+				<br><br>
+				<label for="score" class="col-sm-3 col-form-label">Score</label>
+				<div class="col-sm-9">
+					<textarea id="id32" class="form-control rounded-0" rows="1" name="scoretemplate3">
+					</textarea>
+				</div>
+				<br><br>
+				<label for="duration2" class="col-sm-3 col-form-label">Duration</label>
+				<div class="col-sm-9">
+					<textarea id="id33" class="form-control rounded-0" rows="1" name="duration2template3">
+					</textarea>
+				</div>
+			</div>
+			<br>
+		</div>
+	    </div>
+<button style="margin-left:40%; " type="button" class="btn btn-primary btn-lg" onclick="Add3();">Add More</button>
+</div>
+<input style="visibility: hidden;" name="totaledu" id="edutotal" value="" ></input>
+<br><hr><br>
+
+<div id="projects">
+	   <div id="project">
+		<h2 style="font-weight:bold;" ><i class="fas fa-project-diagram"></i>   PROJECTS</h2>
+		<div id="late2">	
+			<div class="form-group row">
+	 			<label for="project" class="col-sm-3 col-form-label">Project Name</label>
+				<div class="col-sm-9">
+					<textarea id="id41" class="form-control rounded-0" rows="1" name="projectlate2">
+					</textarea>
+				</div>
+				<br><br>
+				<label for="tech" class="col-sm-3 col-form-label">Technologies Used</label>
+				<div class="col-sm-9">
+					<textarea id="id42" class="form-control rounded-0" rows="1" name="techlate2">
+					</textarea>
+				</div>
+				<br><br>
+				<label for="projectduration" class="col-sm-3 col-form-label">Duration</label>
+				<div class="col-sm-9">
+					<textarea id="id43" class="form-control rounded-0" rows="1" name="projectdurationlate2">
+					</textarea>
+				</div>
+			</div>
+			<label for="projectdone">Explain Briefly About It</label>
+			<textarea id="id44" class="form-control rounded-0" rows="4" name="projectdonelate2">
+			</textarea>
+			<br><br>
+		</div>
+	    </div>
+<button style="margin-left:40%; " type="button" class="btn btn-primary btn-lg" onclick="Add4();">Add More</button>
+</div>
+<input style="visibility: hidden;" name="totalproj" id="projtotal" value="" ></input>
+<br><hr><br>
+
+<div id="skills">
+	   <div id="skill">
+		<h2 style="font-weight:bold;" ><i class="fas fa-code"></i>   SKILLS</h2>
+		<div id="kill">	
+			<div class="form-group row" >
+	 			<label for="skillname" class="col-sm-3 col-form-label">Skill Name</label>
+				<div class="col-sm-9">
+					<textarea id="id51" class="form-control rounded-0" rows="1" name="skillkill">
+					</textarea>
+				</div>
+				<br><br>
+				<div style="margin: auto;">
+					<div class="form-check form-check-inline">
+					<input id="radio1" class="form-check-input" type="radio" name="kill" value="Beginner">
+					<label class="form-check-label">Beginner</label>
+					</div>
+					<div class="form-check form-check-inline">
+					<input id="radio2" class="form-check-input" type="radio" name="kill" value="Intermediate">
+					<label class="form-check-label">Intermediate</label>
+					</div>
+					<div class="form-check form-check-inline">
+					<input id="radio3" class="form-check-input" type="radio" name="kill" value="Advance">
+					<label class="form-check-label">Advance</label>
+					</div>
+				</div>
+			</div>
+			<br>
+		</div>
+	    </div>
+<button style="margin-left:40%; " type="button" class="btn btn-primary btn-lg" onclick="Add5();">Add More</button>
+</div>
+<input style="visibility: hidden;" name="totalskill" id="skilltotal" value="" ></input>
+<br><hr><br>
+
+<div id="awards">
+	   <div id="award">
+		<h2 style="font-weight:bold;" ><i class="fas fa-trophy"></i>   AWARDS AND ACHIEVEMENTS</h2>
+		<div id="ward">	
+			<div class="form-group row">
+	 			<label for="achievement" class="col-sm-3 col-form-label">Achievement</label>
+				<div class="col-sm-9">
+					<textarea id="id61" class="form-control rounded-0" rows="1" name="achievementward">
+					</textarea>
+				</div>
+				<br><br>
+			</div>
+			<label for="awarddone">Explain Briefly About It</label>
+			<textarea id="id62" class="form-control rounded-0" rows="4" name="awarddoneward">
+			</textarea>
+			<br><br>
+		</div>
+	    </div>
+<button style="margin-left:40%;" type="button" class="btn btn-primary btn-lg" onclick="Add6();">Add More</button>
+</div>
+<input style="visibility: hidden;" name="totalaward" id="awardtotal" value="" ></input>
+<br><hr><br>
+
+<label for="interest"><h2 style="font-weight:bold;" ><i class="fas fa-star"></i>   INTERESTS</h2></label>
+	   <div id="inter">
+		<div id="rest">
+			<textarea id="id71" class="form-control rounded-0" rows="1" name="inter">
+			</textarea>
+			<br>
+		</div>
+	    </div>
+	<button style="margin-left:40%;" type="button" class="btn btn-primary btn-lg" onclick="Add7();">Add More</button>
+<!-- <button style="margin-left:37%;" type="button" class="btn btn-primary btn-lg" onclick="total();">Confirm Details</button> -->
+<input style="visibility: hidden;" name="totalinter" id="intertotal" value="" ></input>
+<br><hr><br>
+<button style="margin-left:33%;" type="submit" class="btn btn-primary btn-lg" name="submit" onclick="check();">Generate Resume PDF</button>
+</form>
+
+<script>
+var flag = 0;
+var _counter = 0;
+function Add() {
+    _counter++;
+    var oClone = document.getElementById("temp").cloneNode(true);
+    oClone.id += (_counter + "");
+    dummy = oClone.id;
+    var id1 = document.getElementById("id1");
+    id1.name = dummy;
+    document.getElementById("place").appendChild(oClone);
+    var prof = document.getElementById("place").getElementsByClassName("form-control rounded-0").length;
+    var totalpro = document.getElementById("profiletotal");
+    totalpro.value = prof;
+}
+var _counter2 = 0;
+function Add2() {
+    _counter2++;
+    var oClone2 = document.getElementById("plate2").cloneNode(true);
+    oClone2.id += (_counter2 + "");
+    dummy = oClone2.id;
+    var id1 = document.getElementById("id21");
+    id1.name = "company"+dummy;
+    var id2 = document.getElementById("id22");
+    id2.name = "position"+dummy;
+    var id3 = document.getElementById("id23");
+    id3.name = "duration"+dummy;
+    var id4 = document.getElementById("id24");
+    id4.name = "workdone"+dummy;
+    document.getElementById("holder2").appendChild(oClone2);
+    var prof = document.getElementById("holder2").getElementsByClassName("form-group row totalwork").length;
+    var totalpro = document.getElementById("worktotal");
+    totalpro.value = prof;
+}
+var _counter3 = 0;
+function Add3() {
+    _counter3++;
+    var oClone3 = document.getElementById("template3").cloneNode(true);
+    oClone3.id += (_counter3 + "");
+    dummy = oClone3.id;
+    var id1 = document.getElementById("id31");
+    id1.name = "institution"+dummy;
+    var id2 = document.getElementById("id32");
+    id2.name = "score"+dummy;
+    var id3 = document.getElementById("id33");
+    id3.name = "duration2"+dummy;
+    document.getElementById("placeholder3").appendChild(oClone3);
+    var prof = document.getElementById("placeholder3").getElementsByClassName("form-group row").length;
+    var totalpro = document.getElementById("edutotal");
+    totalpro.value = prof;
+}
+var _counter4 = 0;
+function Add4() {
+    _counter4++;
+    var oClone4 = document.getElementById("late2").cloneNode(true);
+    oClone4.id += (_counter4 + "");
+    dummy = oClone4.id;
+    var id1 = document.getElementById("id41");
+    id1.name = "project"+dummy;
+    var id2 = document.getElementById("id42");
+    id2.name = "tech"+dummy;
+    var id3 = document.getElementById("id43");
+    id3.name = "projectduration"+dummy;
+    var id4 = document.getElementById("id44");
+    id4.name = "projectdone"+dummy;
+    document.getElementById("project").appendChild(oClone4);
+    var prof = document.getElementById("project").getElementsByClassName("form-group row").length;
+    var totalpro = document.getElementById("projtotal");
+    totalpro.value = prof;
+}
+var _counter5 = 0;
+var dummy = 0;
+function Add5() {
+    _counter5++;
+    var oClone5 = document.getElementById("kill").cloneNode(true);
+    oClone5.id += (_counter5 + "");
+    dummy = oClone5.id;
+    var id1 = document.getElementById("id51");
+    id1.name = "skill"+dummy;
+    var r1 = document.getElementById("radio1");
+    var r2 = document.getElementById("radio2");
+    var r3 = document.getElementById("radio3");
+    r1.name = dummy; r2.name = dummy; r3.name = dummy;
+    document.getElementById("skill").appendChild(oClone5);
+    var prof = document.getElementById("skill").getElementsByClassName("form-group row").length;
+    var totalpro = document.getElementById("skilltotal");
+    totalpro.value = prof;
+}
+var _counter6 = 0;
+function Add6() {
+    _counter6++;
+    var oClone6 = document.getElementById("ward").cloneNode(true);
+    oClone6.id += (_counter6 + "");
+    dummy = oClone6.id;
+    var id1 = document.getElementById("id61");
+    id1.name = "achievement"+dummy;
+    var id2 = document.getElementById("id62");
+    id2.name = "awarddone"+dummy;
+    document.getElementById("award").appendChild(oClone6);
+    var prof = document.getElementById("award").getElementsByClassName("form-group row").length;
+    var totalpro = document.getElementById("awardtotal");
+    totalpro.value = prof;
+}
+var _counter7 = 0;
+function Add7() {
+    _counter7++;
+    var oClone7 = document.getElementById("rest").cloneNode(true);
+    oClone7.id += (_counter7 + "");
+    dummy = oClone7.id;
+    var id1 = document.getElementById("id71");
+    id1.name = dummy;
+    document.getElementById("inter").appendChild(oClone7);
+    var prof = document.getElementById("inter").getElementsByClassName("form-control rounded-0").length;
+    var totalpro = document.getElementById("intertotal");
+    totalpro.value = prof;
+}
+function check()
+{
+	    var prof = document.getElementById("place").getElementsByClassName("form-control rounded-0").length;
+		var totalpro = document.getElementById("profiletotal");
+    	totalpro.value = prof;
+
+		prof = document.getElementById("holder2").getElementsByClassName("form-group row totalwork").length;
+	totalpro = document.getElementById("worktotal");
+	    totalpro.value = prof;
+
+		prof = document.getElementById("placeholder3").getElementsByClassName("form-group row").length;
+	totalpro = document.getElementById("edutotal");
+	    totalpro.value = prof;
+
+		prof = document.getElementById("project").getElementsByClassName("form-group row").length;
+	totalpro = document.getElementById("projtotal");
+	    totalpro.value = prof;
+
+		prof = document.getElementById("skill").getElementsByClassName("form-group row").length;
+	totalpro = document.getElementById("skilltotal");
+	    totalpro.value = prof;
+
+		prof = document.getElementById("award").getElementsByClassName("form-group row").length;
+	totalpro = document.getElementById("awardtotal");
+	    totalpro.value = prof;
+
+		prof = document.getElementById("inter").getElementsByClassName("form-control rounded-0").length;
+	totalpro = document.getElementById("intertotal");
+	    totalpro.value = prof;	
+}
+</script>
+
+<style>
+	.fa {
+		font-size:1em;
+	}
+	.header {
+		text-align:center;
+		font-size: 2em;
+		margin-top:1em;
+		margin-left:5%;
+		margin-right:5%;
+	}
+	.contact-header {
+		font-weight:bold;
+	}	
+
+</style>
+{% endblock %}
+{% block scripts %}
+{% endblock %}
