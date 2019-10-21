@@ -8,7 +8,7 @@ guesslang
 idna==2.7
 jieba==0.39
 lxml==4.2.3
-nltk==3.3
+nltk==3.4.5
 numpy==1.14.5
 Pillow==5.1.0
 pypandoc==1.4
