@@ -17,6 +17,6 @@ requests==2.19.1
 six==1.11.0
 sumy==0.7.0
 tinysegmenter==0.3
-urllib3==1.23
+urllib3==1.26.5
 pdfkit==0.6.0
 django-pdfkit==0.3.1
