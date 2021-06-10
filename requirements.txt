@@ -2,7 +2,7 @@ breadability==0.1.20
 certifi==2018.4.16
 chardet==3.0.4
 css-html-js-minify==2.5.5
-Django==1.11
+Django==2.2.24
 docopt==0.6.2
 guesslang
 idna==2.7
