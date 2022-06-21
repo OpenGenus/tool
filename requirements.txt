@@ -9,7 +9,7 @@ idna==2.7
 jieba==0.39
 lxml==4.2.3
 nltk==3.3
-numpy==1.14.5
+numpy==1.22.0
 Pillow==5.1.0
 pypandoc==1.4
 pytz==2018.4
