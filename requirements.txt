@@ -1,5 +1,5 @@
 breadability==0.1.20
-certifi==2018.4.16
+certifi==2022.12.7
 chardet==3.0.4
 css-html-js-minify==2.5.5
 Django==1.11
